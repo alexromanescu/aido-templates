@@ -1,0 +1,8 @@
+{
+  "stacks": [
+    { "name": "node", "detectFiles": ["package.json"] },
+    { "name": "go", "detectFiles": ["go.mod"] },
+    { "name": "rust", "detectFiles": ["Cargo.toml"] },
+    { "name": "python", "detectFiles": ["pyproject.toml", "requirements.txt"] }
+  ]
+}
