@@ -7,7 +7,7 @@ init: true
 # Testing by simulation
 
 The managed block below is project-agnostic discipline drift-tracked by
-aidev (`testing-by-simulation` managed section). The project-specific
+aido (`testing-by-simulation` managed section). The project-specific
 "Canonical example" section below it lists this codebase's own
 simulation tests for reference.
 

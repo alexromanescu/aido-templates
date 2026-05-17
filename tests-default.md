@@ -1,6 +1,6 @@
 ---
 target: docs/tests.md
-description: Project test inventory + structural section managed by aidev.
+description: Project test inventory + structural section managed by aido.
 variables: [name]
 init: true
 ---
@@ -9,14 +9,14 @@ init: true
 This document is the project-specific entrypoint for testing. The
 sections inside the managed block below — Test tiers, Running tests,
 Test isolation, Fixture & mock conventions, Adding a new testing
-pattern — are project-agnostic discipline managed by aidev. Customize
+pattern — are project-agnostic discipline managed by aido. Customize
 the **content** within each section, but keep the **headings** so
 agents and contributors can find each topic without searching.
 
 The Test inventory section below the managed block is fully
 project-specific.
 
-<!-- managed:tests v=2 -->
+<!-- managed:tests v=3 -->
 ## Test tiers
 
 | Tier | Runner | When to run | Duration |
@@ -79,7 +79,7 @@ testing), promote the description to its own doc:
 4. Reference the new doc from the Test tiers table above.
 5. If the pattern is one agents must default to under specific
    conditions, surface it in CLAUDE.md Testing's "Choosing the right
-   test layer" — but that section is upstream-managed by aidev. Local
+   test layer" — but that section is upstream-managed by aido. Local
    edits drift on Sync. The right path is to propose the addition to
    the upstream `testing-default` managed-section template; once it
    lands and a Sync runs, every project gets it.

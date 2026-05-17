@@ -1,12 +1,12 @@
 ---
 section: roadmap
 stack: default
-version: 4
+version: 5
 target: CLAUDE.md
 ---
 ## Roadmap
 
-The project roadmap lives at `docs/roadmap.md` using the standardized aidev table format. The format reference lives at the top of `docs/roadmap.md` itself — follow it when editing the file by hand.
+The project roadmap lives at `docs/roadmap.md` using the standardized aido table format. The format reference lives at the top of `docs/roadmap.md` itself — follow it when editing the file by hand.
 
 ### Rule
 
@@ -14,7 +14,7 @@ The project roadmap lives at `docs/roadmap.md` using the standardized aidev tabl
 
 ### Editing
 
-Use the aidev app (`/project/:name/roadmap`) for rich editing, phase management, and task status changes — or edit `docs/roadmap.md` directly and aidev will pick up the changes from disk on its next read.
+Use the aido app (`/project/:name/roadmap`) for rich editing, phase management, and task status changes — or edit `docs/roadmap.md` directly and aido will pick up the changes from disk on its next read.
 
 ### Deferred work
 

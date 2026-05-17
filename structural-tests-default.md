@@ -7,7 +7,7 @@ init: true
 # Structural tests
 
 The managed block below is project-agnostic discipline drift-tracked by
-aidev (`structural-tests` managed section). The project-specific
+aido (`structural-tests` managed section). The project-specific
 "Canonical examples" section below it lists this codebase's own
 structural tests for reference.
 

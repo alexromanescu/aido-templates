@@ -1,7 +1,7 @@
 ---
 section: tests
 stack: default
-version: 2
+version: 3
 target: docs/tests.md
 ---
 ## Test tiers
@@ -66,7 +66,7 @@ testing), promote the description to its own doc:
 4. Reference the new doc from the Test tiers table above.
 5. If the pattern is one agents must default to under specific
    conditions, surface it in CLAUDE.md Testing's "Choosing the right
-   test layer" — but that section is upstream-managed by aidev. Local
+   test layer" — but that section is upstream-managed by aido. Local
    edits drift on Sync. The right path is to propose the addition to
    the upstream `testing-default` managed-section template; once it
    lands and a Sync runs, every project gets it.

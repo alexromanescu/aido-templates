@@ -1,7 +1,7 @@
 ---
 section: documentation-sync
 stack: default
-version: 4
+version: 5
 target: CLAUDE.md
 ---
 ## Documentation Sync
@@ -12,7 +12,7 @@ When you change code that a document describes, update the document **in the sam
 
 ### Standard documents
 
-aidev-managed projects maintain a conventional set of docs under `docs/`. Update any that exist and that your change affects:
+aido-managed projects maintain a conventional set of docs under `docs/`. Update any that exist and that your change affects:
 
 | File | Covers | Update when... |
 |------|--------|----------------|

@@ -10,7 +10,7 @@ init: true
 updated: {{today}}
 -->
 
-**File format reference** — the parser is strict about this shape; follow it exactly when editing the file by hand. The aidev `/project/:name/roadmap` page does this for you.
+**File format reference** — the parser is strict about this shape; follow it exactly when editing the file by hand. The aido `/project/:name/roadmap` page does this for you.
 
 Phases use a level-2 heading with this exact shape:
 
