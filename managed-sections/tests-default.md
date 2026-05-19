@@ -3,6 +3,7 @@ section: tests
 stack: default
 version: 5
 target: docs/tests.md
+order: 10
 ---
 ## Test tiers
 

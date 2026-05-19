@@ -3,6 +3,7 @@ section: documentation-sync
 stack: default
 version: 7
 target: CLAUDE.md
+order: 30
 ---
 ## Documentation Sync
 

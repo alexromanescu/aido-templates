@@ -3,6 +3,7 @@ section: testing-by-simulation
 stack: default
 version: 2
 target: docs/testing/testing-by-simulation.md
+order: 10
 ---
 A pattern for testing state-transition bugs, race conditions, and
 concurrent algorithms where end-to-end tests are structurally

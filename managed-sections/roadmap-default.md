@@ -3,6 +3,7 @@ section: roadmap
 stack: default
 version: 7
 target: CLAUDE.md
+order: 40
 ---
 ## Roadmap
 

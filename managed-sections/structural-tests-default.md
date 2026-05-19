@@ -3,6 +3,7 @@ section: structural-tests
 stack: default
 version: 2
 target: docs/testing/structural-tests.md
+order: 10
 ---
 Structural tests scan source code itself (regex or AST) and assert on
 shape. They enforce architectural invariants that behavioral tests

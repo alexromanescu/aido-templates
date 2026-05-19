@@ -3,6 +3,7 @@ section: conventions
 stack: default
 version: 13
 target: CLAUDE.md
+order: 10
 ---
 ## Conventions
 

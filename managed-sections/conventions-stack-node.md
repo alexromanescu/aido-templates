@@ -3,6 +3,7 @@ section: conventions-stack
 stack: node
 version: 1
 target: CLAUDE.md
+order: 20
 ---
 ## Stack-specific conventions
 

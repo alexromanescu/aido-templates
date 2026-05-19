@@ -3,6 +3,7 @@ section: help
 stack: default
 version: 3
 target: CLAUDE.md
+order: 50
 ---
 ## Help System Sync
 
