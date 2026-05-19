@@ -1,6 +1,7 @@
 # aido-templates — Template Content & Authoring Guide
 
 This repo contains the template content distributed by the aido app: managed sections, project scaffolds, prompts, room-protocol templates, and stack-detection rules. The deployed aido app at `~/Apps/aido/` reads from this folder at runtime and edits it via its `/templates` page UI.
+The scope of these templates is to keep claude.md & referenced files in sync across the development of varius applications (aidev is just used to distribute claude.md and refernced files to those applications) and to offer a structured agent-based development, with controlled and propagated learnings across multiple apps.
 
 You are most likely here because you opened this folder with Claude Code to author or revise a template. The rules below describe what each kind of file does and how to write or modify one without breaking downstream consumers.
 
@@ -40,7 +41,7 @@ target: CLAUDE.md
 
 ### Stack variants
 
-Add a `-<stack>.md` suffix (e.g., `testing-node.md`, `conventions-node.md`) to override the default for a detected stack. The `-default.md` file is the fallback when no stack-specific variant matches the project.
+Add a `-<stack>.md` suffix (e.g., `conventions-node.md`) to override the default for a detected stack. The `-default.md` file is the fallback when no stack-specific variant matches the project.
 
 A new stack value (`-deno.md`, `-elixir.md`, …) is only useful once a matching entry exists in `stacks.json` — without it, no project will ever match that variant.
 
