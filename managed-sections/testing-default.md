@@ -1,7 +1,7 @@
 ---
 section: testing
 stack: default
-version: 7
+version: 8
 target: CLAUDE.md
 order: 70
 ---
@@ -25,7 +25,7 @@ If any answer is "no," redesign before implementing. Common fixes: inject ports 
 
 **A feature whose only verification is "the human clicks around and looks" is incomplete.**
 
-### After fixing a bug
+### For fixing a bug
 
 1. Write a test that reproduces the user-visible symptom — not the code path of the patch.
 2. Run it — confirm it fails.
