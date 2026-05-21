@@ -1,7 +1,7 @@
 ---
 section: testing
 stack: default
-version: 8
+version: 9
 target: CLAUDE.md
 order: 70
 ---
@@ -48,7 +48,7 @@ Assert on observable behavior at the natural level of abstraction, not on the pa
 - **No `skip` without a roadmap entry referenced in the comment.** CI should fail on bare skips.
 - **A flaky test is a real bug.** Track and fix; never blanket-retry.
 - **Delete tests that stopped earning their keep** — removed features, untriggerable assertions, duplicate coverage. Test deletion is part of feature work.
-
+- **Non related test fails due to pre-existing conditions** still need to be investigated; tests must always be clean regardless on who's done what. When you see a problem, you pick it up and slove it.
 Fixture & mock conventions live in `docs/tests.md`.
 
 ### Verification
