@@ -8,7 +8,7 @@ You are most likely here because you opened this folder with Claude Code to auth
 ## Layout
 
 - `managed-sections/` — Sectioned Markdown blocks injected into projects' `CLAUDE.md` (or other target files via frontmatter `target:`). One file per section + per stack variant.
-- `*-default.md` (repo root) — Project scaffolds (`claudemd`, `roadmap`, `deploy`, `active-work`, `agent-card`, `tests`, `structural-tests`, `testing-by-simulation`). Written into a project at creation/init time.
+- `*-default.md` (repo root) — Project scaffolds (`claudemd`, `roadmap`, `deploy`, `active-work`, `agent-card`, `tests`, `structural-tests`, `testing-by-simulation`, `frontend-tests`). Written into a project at creation/init time.
 - `prompts/` — Prompt templates rendered with `{{var}}` substitution by the aido AI router and the team-lead launch path.
 - `rooms/` — Agent-facing prose loaded into multi-agent room JOIN payloads and message envelopes. Special escape rules — see below.
 - `stacks.json` — Stack-detection rules and metadata; gates which managed-section variants are offered to each project.
@@ -69,11 +69,15 @@ init: true
 
 Scaffold bodies and prompt templates support `{{name}}`, `{{today}}`, `{{description}}` — substituted at render time by the same engine used for prompt templates. Values are inserted verbatim. Do NOT use scaffolds for content that crosses a security boundary; the renderer does no escaping (rooms templates are different — see below).
 
-### Embedding managed sections in scaffolds
+### Referencing managed sections in scaffolds
 
-A scaffold may embed a managed-section block by including the marker pair literally in the body. At init time the section is rendered fresh from its current managed-section template; thereafter it stays in sync via drift detection like any other managed block. Look at `structural-tests-default.md` for a working example — the file is a scaffold whose body wraps a managed block of the same `section` key.
+A doc that hosts a managed section — a deep-dive doc such as `docs/tests.md` or `docs/testing/structural-tests.md` — has a scaffold whose body carries an **empty, version-less marker pair** for that section (`<!-- managed:KEY -->` immediately followed by `<!-- /managed:KEY -->`), **never a copy of the section content**. The scaffold owns the doc's structure (frontmatter, title, intro, where the block sits, the project-specific tail); the `managed-sections/` template is the single source of truth for the block's content.
 
-When you do this, keep the embedded body byte-identical to the upstream managed-section template. The aido test suite enforces this alignment (`tests/modules/templates/scaffold-alignment.test.ts`) — drift here means projects start out marked as already-out-of-date.
+At project init aido writes the scaffold, then runs sync, which fills every empty marker pair with the current managed-section content by reference. Thereafter the block is drift-tracked and kept current by sync like any managed block. This is the same path that populates `CLAUDE.md` itself — `claudemd-default.md` carries no managed blocks at all; its sections are inserted by sync at their canonical `order`.
+
+- **Version-less marker.** Write `<!-- managed:KEY -->` with no `v=N`. Sync treats a version-less block as "needs fill"; a version would let sync's skip-guard mistake the empty block for already-current and never fill it.
+- **Never embed a copy.** One source of truth — the `managed-sections/` template. `tests/modules/templates/scaffold-alignment.test.ts` enforces it: every `<!-- managed:* -->` block in a scaffold must be empty.
+- The empty pair also pins *where* the section lands (e.g. between the intro and a project-specific tail). `structural-tests-default.md` is the working example: frontmatter + title + intro + an empty `<!-- managed:structural-tests -->` pair + a "Canonical examples" tail.
 
 ## Prompts
 
