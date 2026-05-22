@@ -3,7 +3,7 @@ section: testing
 stack: default
 version: 9
 target: CLAUDE.md
-order: 70
+order: 60
 ---
 ## Testing & Verification
 
