@@ -45,6 +45,14 @@ Add a `-<stack>.md` suffix (e.g., `conventions-node.md`) to override the default
 
 A new stack value (`-deno.md`, `-elixir.md`, …) is only useful once a matching entry exists in `stacks.json` — without it, no project will ever match that variant.
 
+### Avoiding heading collisions with project content
+
+The H2 heading in a managed section's body becomes a visible H2 in every consuming project's target file. Choose a heading specific enough that no project would naturally name a free-form section the same thing — otherwise two H2s with the same name end up side by side after sync, confusing TOC, navigation, and readers.
+
+Rule of thumb: prefer a qualifier that names the *source* of the rules (e.g., `## General Conventions` for the cross-project shared standards) over a bare domain word a project would pick for its own section (`## Conventions`, `## Notes`, `## Conventions and guidelines`). Projects keep their own section as-is; the managed one carries the qualifier.
+
+Worked example: the `conventions` section was renamed from `## Conventions` to `## General Conventions` in v19 because projects like mara and q1dms already had their own `## Conventions` block (touch-target rules, UUID format, domain-specific conventions) that don't belong in the shared template. The qualifier lets both coexist cleanly in the same `CLAUDE.md`.
+
 ## Scaffolds
 
 Files at the repo root named `<key>-default.md` are project scaffolds — written into a new project at creation or init time. They are NOT managed sections: no version number, no drift propagation. Once written into a project they belong to that project's owner to edit freely.

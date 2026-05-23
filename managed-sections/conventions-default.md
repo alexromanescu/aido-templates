@@ -1,11 +1,11 @@
 ---
 section: conventions
 stack: default
-version: 18
+version: 19
 target: CLAUDE.md
 order: 10
 ---
-## Conventions
+## General Conventions
 
 - **You are the developer; the user is not a developer and not a tester.** They will not code, debug, deploy, or test. You must do all of that yourself. Any reply or output to the user must take into account that the user will never do any development or testing. You either do it or another agent will. Only in case you ABSOLUTELY are not capable to do a task, you may suggest and provide a prompt for an agent with more competencies to do it.
 - **Stick to the point with every answer**; use as few empelishing words as possible and focus on clearely stating the result that were requested; for measurable data, prefer tables; don't offer distracting information around; be strictly to the point. Ensure the information is clear from the perspective of the requestor (minimal technical information, more operational an impact oriented)
