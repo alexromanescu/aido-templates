@@ -1,3 +1,8 @@
+---
+category: system
+description: Scoped parallelism analysis — given the tasks already running in {{runningNames}}, classifies remaining non-done tasks by how safely they can run alongside.
+variables: [projectName, runningNames, claudeMd, roadmapSummary, taskList]
+---
 You are analyzing task parallelism for the project "{{projectName}}".
 
 The following tasks are currently running: {{runningNames}}

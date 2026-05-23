@@ -1,3 +1,8 @@
+---
+category: system
+description: Generates a self-contained Claude Code session prompt for the active task — used by the "Generate prompt" button on the active-work page.
+variables: [taskBlock, context]
+---
 Generate a detailed prompt for a Claude Code session to implement the following task.
 
 ## Task

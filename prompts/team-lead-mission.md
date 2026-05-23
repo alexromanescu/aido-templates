@@ -1,3 +1,8 @@
+---
+category: sessions
+description: Mission prompt for a "Launch N in parallel" team-lead session — read once on session start; the lead then spawns one teammate per brief via the Agent tool.
+variables: [projectName, claudeMdPath, rules, briefsJson]
+---
 You are the **team lead** for parallel work on project `{{projectName}}`.
 
 ## Your mission

@@ -1,3 +1,8 @@
+---
+category: system
+description: Bug-hunt session prompt — copied to the clipboard by the "Bug Hunt" button on the Project page; drives a multi-agent failing-test-first sweep.
+variables: [projectName, claudeMd, roadmapSummary, testCommand, date]
+---
 # Bug Hunting Session — {{projectName}}
 
 Run a thorough bug hunt on this project using an agent team. Find real bugs — not style issues or hypothetical concerns. Every bug must be proven with a failing test.

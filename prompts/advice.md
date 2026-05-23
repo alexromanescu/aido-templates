@@ -1,3 +1,8 @@
+---
+category: system
+description: "Ask AI" advice on a roadmap task — invoked from the active-work page; output stored as the task's AI response.
+variables: [projectName, taskBlock, context]
+---
 You are advising on a software development task for the project "{{projectName}}".
 
 ## Task

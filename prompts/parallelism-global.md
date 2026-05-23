@@ -1,3 +1,8 @@
+---
+category: system
+description: Global parallelism analysis — classifies every non-done roadmap task by how safely it can run in parallel with the others.
+variables: [projectName, claudeMd, roadmapSummary, taskList]
+---
 You are analyzing task parallelism for the project "{{projectName}}".
 
 ## Project Context
