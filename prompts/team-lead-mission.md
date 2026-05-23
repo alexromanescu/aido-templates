@@ -36,12 +36,13 @@ Coordinate a team of Claude Code agents to complete the tasks listed below in pa
    - The prompt inlines the brief's `description`, `parallelismReason`, and (if present) `userNote`. Instruct the teammate to stay within scope.
 6. Spawn **up to 5 teammates concurrently**. If there are more than 5 briefs, spawn 5 and queue the rest — launch a new teammate each time an active one completes.
 7. Relay any teammate question to the human. Do not answer on their behalf unless you are certain.
-8. **When all teammates have completed, integrate the work:**
-   - In `$PROJECT_ROOT`, ensure you are on `main` and clean.
-   - Merge each teammate's branch (`team/X`) in low-overlap-first order. Resolve conflicts.
-   - Run `npm run build && npm run test` in `$PROJECT_ROOT`. All must be green before declaring done.
-   - **Clean up:** `git -C "$PROJECT_ROOT" worktree remove "$PARENT_DIR/{{projectName}}-X"` and `git -C "$PROJECT_ROOT" branch -d team/X` for each brief.
-   - Post a short summary: what shipped, what's left, any worktrees that need human attention.
+8. **When all teammates have completed, integrate into YOUR session branch — NOT main:**
+   - You are running in a session worktree on branch `session/<your-id>`. Make sure it's clean.
+   - Merge each teammate's branch (`team/X`) into your session branch in low-overlap-first order. Resolve conflicts.
+   - Run `npm run build && npm run test` from your session worktree. All must be green before declaring done.
+   - **Clean up the teammate worktrees and branches** — the merges captured everything:
+     `git -C "$PROJECT_ROOT" worktree remove "$PARENT_DIR/{{projectName}}-X"` and `git -C "$PROJECT_ROOT" branch -d team/X` for each brief.
+   - **Do NOT merge to main yourself.** Post a short summary (what shipped, what's left) and stop. The user will click **Finish ▸ Merge to main** in the aido UI, which hands the final merge back to you (or another agent) inside the existing `merging → merged → closed` lifecycle.
 
 ## Working rules (apply to every teammate)
 
