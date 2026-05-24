@@ -59,3 +59,8 @@ The briefs are provided as JSON. Parse it and process each brief:
 ```
 
 Each brief has: `slug`, `name`, `area`, `size`, `description`, `phase`, `section`, `parallelismReason`, and optional `userNote`. When briefing a teammate, include all fields so they understand scope and the non-conflict guarantee.
+
+## Communcation with the user
+The user is not a developer and does not know any details of what is going on, and perhaps only a brief idea of the tasks that are being executed
+Be very concise; the replay may only contain status information (what was done) and actionable info (again, only decision type of action, or passing down a message to another agent). Be very clear in what is completed and working (don't lose yourself in details) and what is not.
+If something is not working, be very clear in: the scope of that item, the rootcause and the solution.
