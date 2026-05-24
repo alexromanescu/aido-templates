@@ -48,6 +48,8 @@ Sections inside a phase use a level-3 heading and contain one task table:
 - `## Distant Roadmap` — same task-table shape as a phase section; holds long-horizon items not yet scheduled into a phase.
 - `## Completed Work` — a two-column summary table with headers `Phase / Feature | Summary`, one row per shipped feature (not per task).
 
+**Continuous Improvements phase** — `## Phase 99: Continuous Improvements — COMPLETE` is a permanent always-`COMPLETE` phase that sits at the end of the phase block, just above `## Distant Roadmap`. When a task in `## Quick Updates` or `## Distant Roadmap` reaches `done`, move the row (with its `Done` date) into this phase so the active off-phase sections stay focused on pending work. It parses as a regular phase — the high number keeps it pinned to the bottom of the phase list.
+
 The `roadmap-meta` block above is optional; use it for free-form `key: value` lines (e.g. `updated:`). Values must stay on a single line.
 
 ## Quick Updates
@@ -57,6 +59,12 @@ The `roadmap-meta` block above is optional; use it for free-form `key: value` li
 ## Bugs
 | Task | Area | Size | Status | Description |
 |------|------|------|--------|-------------|
+
+## Phase 99: Continuous Improvements — COMPLETE
+
+### Features
+| Task | Area | Size | Status | Description | Done |
+|------|------|------|--------|-------------|------|
 
 ## Distant Roadmap
 | Task | Area | Size | Status | Description |
