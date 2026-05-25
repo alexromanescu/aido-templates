@@ -1,7 +1,7 @@
 ---
 section: documentation-sync
 stack: default
-version: 8
+version: 9
 target: CLAUDE.md
 order: 30
 ---
@@ -29,4 +29,4 @@ Missing files are skipped. Projects may add their own docs (e.g. `security.md`, 
 
 ### Subdirectories
 
-When a topic has multiple standalone deep-dive docs (topic-specific docs separate from the topic's entry-point doc), group them under `docs/<topic>/`; the entry-point stays at top level (`docs/tests.md` stays; `docs/testing/structural-tests.md` lives below).
+When a topic has multiple standalone deep-dive docs (topic-specific docs separate from the topic's entry-point doc), group them under `docs/<topic>/`; the entry-point stays at top level. (E.g., a hypothetical `docs/operations.md` entry-point with multiple `docs/operations/<runbook>.md` deep-dives below it.)

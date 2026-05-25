@@ -77,7 +77,7 @@ Scaffold and prompt bodies support `{{name}}`, `{{today}}`, `{{description}}` �
 
 ### Referencing managed sections in scaffolds
 
-A doc that hosts a managed section — a deep-dive doc such as `docs/tests.md` or `docs/testing/structural-tests.md` — has a scaffold whose body carries an empty, version-less marker pair for that section (`<!-- managed:KEY -->` immediately followed by `<!-- /managed:KEY -->`), never a copy of the section content. The scaffold owns the doc's structure (frontmatter, title, intro, where the block sits, the project-specific tail); the `managed-sections/` template is the single source of truth for the block's content.
+A doc that hosts a managed section — a doc other than `CLAUDE.md`, such as `docs/tests.md` — has a scaffold whose body carries an empty, version-less marker pair for that section (`<!-- managed:KEY -->` immediately followed by `<!-- /managed:KEY -->`), never a copy of the section content. The scaffold owns the doc's structure (frontmatter, title, intro, where the block sits, the project-specific tail); the `managed-sections/` template is the single source of truth for the block's content.
 
 At project init aido writes the scaffold, then runs sync, which fills every empty marker pair with the current managed-section content by reference. Thereafter the block is drift-tracked and kept current by sync like any managed block. This is the same path that populates `CLAUDE.md` itself — `claudemd-default.md` carries no managed blocks at all; its sections are inserted by sync at their canonical `order`.
 
