@@ -44,7 +44,8 @@ Coordinate a team of Claude Code agents to complete the tasks listed below in pa
    - Run `npm run build && npm run test` from your session worktree. All must be green before declaring done.
    - **Clean up the teammate worktrees and branches** — the merges captured everything:
      `git -C "$PROJECT_ROOT" worktree remove "$PARENT_DIR/{{projectName}}-X"` and `git -C "$PROJECT_ROOT" branch -d team/X` for each brief.
-   - **Do NOT merge to main yourself.** Post a short summary (what shipped, what's left) and stop. The user will click **Finish ▸ Merge to main** in the aido UI, which hands the final merge back to you (or another agent) inside the existing `merging → merged → closed` lifecycle.
+   - Run a fresh eyes review using the residuals-review skill to assess the final quality of the work; report how many bugs were found and closed at every cycle
+    - **Do NOT merge to main yourself.** Post a short summary (what shipped, what's left) and stop. The user will click **Finish ▸ Merge to main** in the aido UI, which hands the final merge back to you (or another agent) inside the existing `merging → merged → closed` lifecycle.
 
 ## Working rules (apply to every teammate)
 
