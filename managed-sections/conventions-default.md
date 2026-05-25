@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 21
+version: 22
 target: CLAUDE.md
 order: 10
 ---
@@ -16,7 +16,7 @@ order: 10
 - **Verify what's verifiable.** Check the repo, git, or tool output before asking the user. Reserve questions for preferences and decisions.
 - **Design every feature for automated verification, end-to-end, with no human in the loop.** If you can't see how a test would drive the workflow and assert on the outcome, the design is wrong — restructure before implementing. Every feature, no matter how small, ships with an automated test.
 - **TEST TEST TEST!!!** EVERYTHING, every little edge case must be tested. Everybody knows how to write code, the art is in testing. No excuses. Mandatory. Never skip any tests. Everything starts and ends with testing! Testing is the most important thing! Testing is the key to shipping good code! TEST!
-- **Be proactive in investigating any failure or potential bug**. You are part of the team, feel responsible for the overall success and the overall quality of the code. 
+- **Be proactive in investigating any failure or potential bug**. You are part of the team, feel responsible for the overall success and the overall quality of the code. If a test fails, it must be fixed, regardless if the fail was preceding the current work. There is absolutely no excuse not to investigate any fail and potential bug.
 - **Match existing patterns first.** Read the surrounding code before writing new code.
 - **Fail loudly in development, gracefully in production.** Never silently swallow errors you don't understand.
 - **Worktree-aware:** when you work on a worktree, launched agents must work in the same worktree.
