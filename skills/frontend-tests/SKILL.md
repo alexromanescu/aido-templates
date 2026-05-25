@@ -1,10 +1,10 @@
 ---
-section: frontend-tests
-stack: default
-version: 1
-target: docs/testing/frontend-tests.md
-order: 10
+name: frontend-tests
+description: Use when adding or modifying a UI component (a render test must ship in the same change), backfilling render tests for an existing frontend, standing up a render-test harness where there is none, or deciding between a render test, a pure unit test, and an end-to-end test. Covers when to reach for each layer, harness requirements (in-process DOM such as jsdom/happy-dom plus a render/interaction library like Testing Library — framework-agnostic), the two-tier run convention (fast vs full), and the risk-prioritised backfill strategy.
 ---
+
+# Frontend render tests
+
 **If this project has an interactive frontend, every UI component
 ships a render test.** A render test mounts the real component in an
 in-process DOM, drives it the way a user would, and asserts what the
@@ -17,7 +17,7 @@ unit test (a framework-free function, no DOM) and an end-to-end test
 (a whole user journey in a real browser). An in-process DOM test runs
 in milliseconds, so it belongs in the fast tier and comprehensive
 coverage stays cheap. If this project has no interactive frontend,
-this doc stays present but inert — there is nothing to render-test.
+this skill is inert — there is nothing to render-test.
 
 ## When to reach for one
 
@@ -36,8 +36,8 @@ Reach for something else when:
   that is an **end-to-end** test. Keep E2E to one smoke test per
   major journey; don't spend slow E2E on what a render test covers
   in-process.
-- **The concern is a state machine or interleaving** — see
-  `docs/testing/testing-by-simulation.md` (when present).
+- **The concern is a state machine or interleaving** — use the
+  `testing-by-simulation` skill.
 
 ## Harness requirements
 
@@ -60,8 +60,7 @@ Scope it instead:
 
 Either way, pure unit tests keep running in a plain environment at
 their current speed. Which of the two to use is a per-project call
-against the test runner — record the choice in the canonical example
-below.
+against the test runner.
 
 ## The two-tier run convention
 

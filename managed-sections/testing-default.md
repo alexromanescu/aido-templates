@@ -1,7 +1,7 @@
 ---
 section: testing
 stack: default
-version: 13
+version: 14
 target: CLAUDE.md
 order: 70
 ---
@@ -43,10 +43,10 @@ Assert on observable behavior at the natural level of abstraction, not on the pa
 ### Choosing the right test layer
 
 - **Unit / integration:** behavior of a function or service in isolation. Default for pure logic.
-- **Simulation:** drives the real subject with deterministic event ordering. Use for concurrency bugs, races, merge algorithms, dual-authority lifecycle hooks. See `docs/testing/testing-by-simulation.md` (when present).
-- **Component render test** (in-process DOM — e.g. Testing Library + jsdom): one UI component mounted in isolation — its rendering, effects, lifecycle, interaction, and error/empty/loading states. Fast; runs in the fast tier. Mandatory for any project with an interactive frontend. See `docs/testing/frontend-tests.md` (when present).
+- **Simulation:** drives the real subject with deterministic event ordering. Use for concurrency bugs, races, merge algorithms, dual-authority lifecycle hooks. When writing one, use the `testing-by-simulation` skill.
+- **Component render test** (in-process DOM — e.g. Testing Library + jsdom): one UI component mounted in isolation — its rendering, effects, lifecycle, interaction, and error/empty/loading states. Fast; runs in the fast tier. Mandatory for any project with an interactive frontend. When writing one, use the `frontend-tests` skill.
 - **End-to-end** (browser / device / CLI): the actual user surface. Reserve for DOM/focus/visual/routing concerns and one smoke test per major journey — don't spend slow E2E on what a render test covers in-process.
-- **Structural** (regex / AST over source): enforce architectural invariants no behavioral test can prove. See `docs/testing/structural-tests.md` (when present).
+- **Structural** (regex / AST over source): enforce architectural invariants no behavioral test can prove. When writing one, use the `structural-tests` skill.
 
 ### Test discipline
 

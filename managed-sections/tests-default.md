@@ -1,7 +1,7 @@
 ---
 section: tests
 stack: default
-version: 6
+version: 7
 target: docs/tests.md
 order: 10
 ---
@@ -43,17 +43,10 @@ Prerequisites: `<test DB created/migrated, docker compose up, etc.>`
 
 ## Adding a new testing pattern
 
-When a new testing pattern appears repeatedly (property-based, snapshot-replay, contract), promote it to its own doc:
+When a new testing pattern appears repeatedly (property-based, snapshot-replay, contract), promote it to a skill (`~/.claude/skills/<topic>/SKILL.md`, or via aido's skill management when available). The skill description should follow the "Use when ..." form so it activates on the right trigger. Reference the new skill from the Test tiers table above.
 
-1. Create `docs/testing/<topic>.md`.
-2. Lead with: when to use, when not to use, the canonical pattern.
-3. Reference at least one canonical example test file in this codebase.
-4. Reference the new doc from the Test tiers table above.
+Canonical pattern skills (project-independent, auto-activated by description):
 
-If the pattern should be an agent default, propose the addition to the `testing-default` managed-section template in the `aido-templates` repository — local edits to the upstream-managed Testing section in CLAUDE.md drift on sync.
-
-Canonical pattern docs (when scaffolded into this project):
-
-- `docs/testing/testing-by-simulation.md` — when to choose simulation over E2E.
-- `docs/testing/structural-tests.md` — when to add a regex/AST-over-source test.
-- `docs/testing/frontend-tests.md` — when and how to render-test UI components.
+- `testing-by-simulation` — when to choose simulation over E2E.
+- `structural-tests` — when to add a regex/AST-over-source test.
+- `frontend-tests` — when and how to render-test UI components.

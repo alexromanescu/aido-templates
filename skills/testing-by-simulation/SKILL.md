@@ -1,10 +1,10 @@
 ---
-section: testing-by-simulation
-stack: default
-version: 2
-target: docs/testing/testing-by-simulation.md
-order: 10
+name: testing-by-simulation
+description: Use when writing or extending an automated test for state-transition bugs, race conditions, concurrent algorithms (CRDTs, OT, three-way merges, block-level diffs, LCS), cache invalidation lifecycles, dual-authority lifecycle hooks, or any code where event ordering matters and end-to-end tests can't reliably control sub-second timing. Also use when graduating a bug fix to a permanent regression test and the underlying defect depends on event ordering or concurrent mutation. Drives the real subject in-process with a controlled clock; asserts at every transition rather than only at the end.
 ---
+
+# Testing by simulation
+
 A pattern for testing state-transition bugs, race conditions, and
 concurrent algorithms where end-to-end tests are structurally
 inadequate.

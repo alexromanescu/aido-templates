@@ -5,9 +5,10 @@ This repo contains the template content distributed by the aido app: managed sec
 ## Layout
 
 - `managed-sections/` — Sectioned Markdown blocks injected into projects' `CLAUDE.md` (or other target files via frontmatter `target:`). One file per section + per stack variant.
-- `*-default.md` (repo root) — Project scaffolds (`claudemd`, `roadmap`, `deploy`, `active-work`, `agent-card`, `tests`, `structural-tests`, `testing-by-simulation`, `frontend-tests`). Written into a project at creation/init time.
+- `*-default.md` (repo root) — Project scaffolds (`claudemd`, `roadmap`, `deploy`, `active-work`, `agent-card`, `tests`). Written into a project at creation/init time.
 - `prompts/` — Prompt templates rendered with `{{var}}` substitution by the aido AI router and the team-lead launch path.
 - `rooms/` — Agent-facing prose loaded into multi-agent room JOIN payloads and message envelopes. Special escape rules — see below.
+- `skills/` — Skill definitions installed to `~/.claude/skills/<name>/` on user machines. Project-agnostic procedural knowledge auto-activated by description-matching; preferred over managed-section + referenced doc when there's a clear "when to use" trigger.
 - `stacks.json` — Stack-detection rules and metadata; gates which managed-section variants are offered to each project.
 
 ## Managed sections
@@ -107,6 +108,21 @@ The current set:
 The room-template renderer passes every interpolated value through `escapeForInject`, rewriting any `<<<` inside a substituted value to a visually-identical zero-width-space variant that no parser matches. So protocol markers like `<<<ROOM-REPLY>>>` written directly in the body survive verbatim (documenting the protocol), but the same characters arriving via `{{var}}` (handle names, message bodies, user-card fields) are neutralized — user-controlled content cannot inject protocol markers.
 
 When you add a new room template file, name it under `rooms/` and load it via the safe loader/renderer pair. A structural test in the aido repo (`tests/structural/rooms-templates-loader.test.ts`) blocks raw `fs.readFile` of `templates/rooms/*` and blocks routing a rooms template through the prompt-template renderer — both fail loudly in CI.
+
+## Skills
+
+Folders under `skills/` are skill definitions installed to `~/.claude/skills/<name>/` on user machines. Each is a directory containing `SKILL.md` with YAML frontmatter (`name`, `description`) and a Markdown body. Claude Code auto-discovers them at session start and activates them by matching the `description` against user intent — preferred over a managed section + referenced doc when the content is **project-agnostic procedural knowledge with a clear "when to use" trigger**, because activation is reliable (every turn, every session) and there's no per-project sync overhead.
+
+Distribution is currently manual (the user copies folders to `~/.claude/skills/`); aido will manage per-project skill installation as a separate effort. There is no versioning or drift-tracking machinery — a skill folder is either installed or it isn't.
+
+Authoring guidance: lead the `description` with "Use when …" and enumerate the trigger shapes (user phrases, code shapes, file types) so the matcher fires reliably. The body is a regular Markdown procedure; keep it tight and project-agnostic. If a procedure has project-specific tails (canonical examples, runner choice), record those in the project's own docs rather than in the skill.
+
+The current set:
+
+- `frontend-tests/` — when and how to render-test UI components.
+- `residuals-review/` — adversarial fresh-eyes-review cycle for proxy decay and shape-mirror bugs.
+- `structural-tests/` — when to add a regex/AST-over-source test and how to keep its scaffolding honest.
+- `testing-by-simulation/` — when to choose simulation over E2E for state machines, races, and merges.
 
 ## stacks.json
 

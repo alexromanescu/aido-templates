@@ -1,10 +1,10 @@
 ---
-section: structural-tests
-stack: default
-version: 2
-target: docs/testing/structural-tests.md
-order: 10
+name: structural-tests
+description: Use when adding a new structural test (regex or AST scan over source), extending an existing allow-list, auditing structural-test scaffolding for decay, or deciding whether an invariant of the form "every X must also Y" deserves a structural test versus code review alone. Covers when to add (and when not to), the four-piece anatomy (mutation patterns, allow-list, verification pointers, canaries), discipline around stale reasons and universal-language claims, and the adversarial-review cycle that catches alias/wildcard import evasions.
 ---
+
+# Structural tests
+
 Structural tests scan source code itself (regex or AST) and assert on
 shape. They enforce architectural invariants that behavioral tests
 can't: "every X must also Y" rules where adding a new X without the Y
@@ -74,9 +74,8 @@ imports, alternative APIs, mirror-form variants), re-read each
 allow-list reason against the file's current behavior, write failing
 tests for real findings or cite grep for deferred blindspots.
 
-If your environment has the `residuals-review` skill installed (at
-`~/.claude/skills/residuals-review/SKILL.md`), it implements this
-cycle and auto-terminates when two consecutive reviews find nothing.
+The `residuals-review` skill implements this cycle and auto-terminates
+when two consecutive reviews find nothing.
 
 ## Common pitfalls
 
