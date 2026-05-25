@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 22
+version: 23
 target: CLAUDE.md
 order: 10
 ---
@@ -20,3 +20,4 @@ order: 10
 - **Match existing patterns first.** Read the surrounding code before writing new code.
 - **Fail loudly in development, gracefully in production.** Never silently swallow errors you don't understand.
 - **Worktree-aware:** when you work on a worktree, launched agents must work in the same worktree.
+- **When you consider the work finish, update documentation and committing, do not push**. Report this clearly as your last words before proposing the user to finish the session. If there is any outstanding or defered work that needs attention, state it (but do not mention items that are already solved and do not actually require the user intervention). 
