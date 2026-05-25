@@ -98,9 +98,12 @@ This session runs on the **main working tree** (not a worktree) so the report is
    Do not proceed past this step without an explicit response.
 
 8. **Fix phase (only if the user approved fixes).**
-   - For each approved bug: read the failing test, understand the root cause and the nearby fragility noted in the report, apply the minimal fix that makes the test pass without breaking the fragile engineering around it.
-   - Run `{{testCommand}}` after each fix — the bug test plus the full suite must pass.
-   - Commit per bug with message `fix: BUG-N <short title>`.
+   - For each approved bug:
+     1. Read the failing test and the report's root cause + fragility notes.
+     2. **Run the bug test first and confirm it fails for the documented root cause** — not for a typo, missing import, stale fixture, or unrelated error. The hunter wrote this test in a different session; you must verify the RED is the *right* RED before patching. If the failure mode doesn't match the report, stop and investigate — re-read the code, update the report, or escalate. Do not patch a test that's failing for the wrong reason.
+     3. Apply the minimal fix that makes the test pass without breaking the fragile engineering around it.
+     4. Run `{{testCommand}}` — the bug test plus the full suite must pass.
+     5. Commit with message `fix: BUG-N <short title>`.
    - For each dismissed bug: delete the test file and edit the report to mark the row `Dismissed: <one-line reason>`.
    - When all approved bugs are fixed, run the full test suite one last time and report the result.
 

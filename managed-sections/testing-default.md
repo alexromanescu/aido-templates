@@ -1,7 +1,7 @@
 ---
 section: testing
 stack: default
-version: 12
+version: 13
 target: CLAUDE.md
 order: 70
 ---
@@ -29,11 +29,12 @@ If any answer is "no," redesign before implementing. Common fixes: inject ports 
 
 Bugs tracked in `docs/roadmap.md` → `## Bugs` use the `BUG-NNN: <title>` convention (the aido UI prefills the next free `NNN`).
 
-1. Write a test at `tests/bugs/bug-NNN-<slug>.test.ts` that reproduces the user-visible symptom — not the code path of the patch. The test file's header docstring is the bug's permanent record (symptom / root cause / fix).
-2. Run it — confirm it fails.
-3. Fix the bug.
-4. Run it — confirm it passes.
-5. Delete the row from `## Bugs` in the same commit that lands the fix.
+1. Reproduce and trace the root cause first. Don't write the test against a guessed cause — find the actual one (read the code, add traces, run the failing path) so the test pins the real defect.
+2. Write a test at `tests/bugs/bug-NNN-<slug>.test.ts` that reproduces the user-visible symptom — not the code path of the patch. The test file's header docstring is the bug's permanent record (symptom / root cause / fix).
+3. Run it — confirm it fails **for the documented root cause**, not for a typo, missing import, wrong fixture, or unrelated error. If the failure mode doesn't match the report, stop and investigate before patching — you're about to fix the wrong thing.
+4. Fix the bug.
+5. Run it — confirm it passes, and run the full suite to confirm no regression.
+6. Delete the row from `## Bugs` in the same commit that lands the fix.
 
 Assert on observable behavior at the natural level of abstraction, not on the patch's internal shape. A test that spies on a specific function call (`expect(internalHelper).toHaveBeenCalled()`) breaks when the fix is refactored. Pin to what the caller sees: rejected promise, emitted event, persisted row, rendered string.
 
