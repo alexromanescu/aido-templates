@@ -29,11 +29,16 @@ Coordinate a team of Claude Code agents to complete the tasks listed below in pa
    Verify with `git -C "$PROJECT_ROOT" worktree list` that every brief got a distinct row before continuing. Never spawn a teammate whose worktree was not provisioned and verified.
 4. Call `TeamCreate` to form a team for this mission.
 5. For each brief, call the `Agent` tool with:
-   - `isolation: "worktree"` — belt-and-suspenders only; the explicit `cd` in the teammate prompt is the real isolation mechanism.
+   - `isolation: "worktree"` — belt-and-suspenders only; the explicit `cd` in the teammate prompt is the real isolation mechanism. When the lead is itself running inside a git worktree (it usually is), `isolation: "worktree"` has historically been observed to silently no-op and drop teammates back in the lead's worktree. Never rely on it; the assertion below is what catches that case.
    - `team_name` set to the team you created.
    - `name` set to the brief slug so the teammate is addressable.
    - `{{teammateModel}}` — the model aido's Settings → Agents tab selected for parallel teammates. Pass this parameter verbatim on every `Agent` call so all teammates run on the configured model.
-   - A prompt whose **first instruction** is `cd "<absolute worktree path>"` followed by `git worktree list | grep "$(pwd)"` to verify the row exists. If verification fails, the teammate must stop and report.
+   - A prompt whose **first instructions** are the airtight three-line isolation assertion below — interpolate the literal absolute worktree path you provisioned for `WT` and the literal team branch (`team/<slug>`) for `BR`. The teammate MUST run this verbatim as its very first action; if any line exits non-zero the teammate stops and reports back to you, never proceeds. Substring-only checks like `git worktree list | grep "$(pwd)"` are not enough — when the teammate's `cd` silently no-ops and `pwd` still equals the lead's worktree, the grep still matches the lead's row and the teammate thinks it's isolated when it's not.
+     ```bash
+     cd "<WT>" || { echo "ISOLATION FAILED — cd to provisioned worktree failed: <WT>. STOP and report to team lead."; exit 1; }
+     [ "$(pwd)" = "<WT>" ] || { echo "ISOLATION FAILED — pwd $(pwd) != provisioned <WT>. STOP and report to team lead."; exit 1; }
+     [ "$(git rev-parse --abbrev-ref HEAD)" = "<BR>" ] || { echo "ISOLATION FAILED — branch $(git rev-parse --abbrev-ref HEAD) != <BR>. STOP and report to team lead."; exit 1; }
+     ```
    - The prompt inlines the brief's `description`, `parallelismReason`, and (if present) `userNote`. Instruct the teammate to stay within scope.
    - **Thinking budget:** the `MAX_THINKING_TOKENS` env var was set on your process by aido; teammates dispatched via `Agent` inherit it automatically, so do not override it inside the teammate prompt.
 6. Spawn **up to 5 teammates concurrently**. If there are more than 5 briefs, spawn 5 and queue the rest — launch a new teammate each time an active one completes.
