@@ -84,6 +84,10 @@ Multi-cycle is meaningful when the target **evolves between cycles** — i.e., c
 
 When invoked, default to **looping until termination** with a **checkpoint every 5 cycles**.
 
+**The loop runs autonomously between cycles.** Once one cycle's review → fix → commit → reflect is done, **immediately start the next cycle** without asking. Do not pause to ask "should I continue?", "want another cycle?", "is this enough?", "shall I do a deeper sweep?" — those are loop-killers disguised as politeness, and they override the user's stated intent (which was to run the loop). The user invoked the skill to get the full cycle, not to be polled per iteration. **The only sanctioned pauses are the 5-cycle checkpoint and natural termination at two consecutive zero-finding cycles.** Neither requires confirmation — checkpoint asks; termination just announces and exits.
+
+One cycle is **never** a complete invocation of this skill in auto-loop mode. If you find yourself wrapping up after cycle 1 with a single zero, you are in violation — keep going.
+
 Initialize a TodoWrite list at the start with these recurring tasks (one per cycle):
 - "Cycle N: read prior commit and audit"
 - "Cycle N: write failing tests for findings"
@@ -111,6 +115,33 @@ The cycle ends in one of these ways:
 - **Two consecutive zero-finding reviews** (the natural termination).
 - **User intervention** (at a 5-cycle checkpoint or via direct message).
 - **Hard cap reached** — if findings tally goes 0/0/0+ without termination signal, something is wrong; pause and report.
+
+## Stopping early — rationalizations to override
+
+After cycle 1, agents under loop pressure invent reasons to bail. **Every reason below is wrong.** If you find yourself thinking any of them, override and start the next cycle.
+
+| Excuse | Reality |
+|--------|---------|
+| "Only one finding this cycle, must be near-done" | One finding is not zero. Continue. |
+| "Zero findings this cycle, we're done" | One zero is not *two consecutive* zeros. Continue. |
+| "Let me check with the user before another cycle" | The 5-cycle checkpoint is the only sanctioned pause. Continue. |
+| "The user probably didn't mean a full loop" | The skill spec IS the loop. If they wanted single-cycle they'd have said. Continue. |
+| "Findings are getting speculative" | Then defer them with grep citations and continue. Termination is two zeros, not "feels diminishing". |
+| "Context might be running low" | The harness compresses for you. Don't preemptively bail. Continue. |
+| "This commit was small, one cycle suffices" | Cycle count scales to findings, not commit size. Continue. |
+| "I might be wrong about further findings" | Then write the failing test and let it tell you. Continue. |
+| "I already did the obvious sweep" | Cycles walk *deeper*, not wider. The next cycle's target is the prior cycle's fix. Continue. |
+| "I want to be efficient / save tokens" | Stopping early after one cycle is the most expensive failure mode — the user re-invokes the skill. Continue. |
+| "The remaining findings are all P2-deferred" | Deferring is part of the cycle, not a reason to end it. Continue. |
+| "I'm tired / context is heavy / this is enough" | Fatigue is not a termination condition. Continue. |
+| "Spirit of the rule is satisfied" | The *letter* of the loop is the spirit. Two zeros or a checkpoint — nothing else. Continue. |
+
+**The only acceptable reasons to stop the loop before natural termination:**
+1. **Two consecutive zero-finding cycles** → terminate, announce, exit.
+2. **5-cycle checkpoint reached** → pause, summarize tally and cost, ask user.
+3. **Hard infrastructure error** (tests can't run, target unparseable, git in a broken state) → report and pause.
+
+Nothing else is grounds to stop. Treat "one and done" as a violation, not a judgment call.
 
 ## Cost-curve awareness (level-10 lesson from q1dms)
 
