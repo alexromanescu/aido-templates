@@ -1,6 +1,6 @@
 # aido-templates — Template Content & Authoring Guide
 
-This repo contains the template content distributed by the aido app: managed sections, project scaffolds, prompts, room-protocol templates, and stack-detection rules. The deployed aido app at `~/Apps/aido/` reads from this folder at runtime and edits it via its `/templates` page UI. The intent is to keep `CLAUDE.md` and its referenced docs in sync across applications and propagate learnings between them, supporting structured agent-driven development across multiple apps.
+This repo contains the template content distributed by the aido app: managed sections, project scaffolds, prompts, room-protocol templates, and stack-detection rules. The aido app reads from this folder at runtime and edits it via its `/templates` page UI. It is an **external repo, independent of the aido source tree** — aido locates it per-instance via `AIDO_TEMPLATES_ROOT` env var, the `templatesFolder` SQLite setting (set in `/settings → General`), or the default `~/Work/Projects/aido-templates`. The intent is to keep `CLAUDE.md` and its referenced docs in sync across applications and propagate learnings between them, supporting structured agent-driven development across multiple apps.
 
 ## Layout
 
