@@ -129,8 +129,13 @@ When a worker emits a `<<<ROOM-PROPOSAL>>>`:
 1. **Re-read the deny-list section of the current TEAMLEAD-STATE
    preamble.** Match the proposal against every category there.
 2. If the proposal matches a deny-list category, do **NOT** approve.
-   Call `aido.requestUserApproval({ proposalId, summary, body, denyListCategory })`
-   and wait — the call blocks until the user resolves the escalation.
+   Call `aido.proposeApproval({ proposalId, summary, body, denyListCategory })`
+   — it records the request and returns `{ recorded: true }`
+   immediately; then **end your turn.** When the user decides, the verdict
+   is relayed straight to the worker (you don't relay it) and the worker
+   proceeds or revises. (If the budget was just extended the call returns
+   `{ autoApproved: true }` and the worker is approved server-side —
+   nothing more for you to do.)
 3. If the proposal is **not** in the deny-list and you're comfortable
    with it, approve through the room's normal approval flow.
 
@@ -168,19 +173,26 @@ When the work is **done and verified** (residuals clean, basic check
 green, brief satisfied), **do not call `aido.endEngagement` directly.**
 The user gates the close.
 
-Call `aido.requestEndApproval({ proposalId, summary, proposedSummary })`
-with a short summary and a one-paragraph `proposedSummary` of what
-shipped. The call blocks until the user resolves the matching escalation:
+Call `aido.proposeEnd({ proposalId, summary, proposedSummary })` with a
+short summary and a one-paragraph `proposedSummary` of what shipped. It
+records the request and returns `{ recorded: true }` **immediately** —
+then **end your turn and wait.** Don't poll or re-issue; there is no
+timeout. You'll be re-woken by an `@teamlead` message when the user acts:
 
-- **`approved: true`** — the server has already ended the engagement
-  with outcome='completed'. You're done. The room is archived. Don't
-  emit any further turns.
-- **`approved: false`, with `reply`** — the user is sending you back to
-  work. Read the reply (also posted into the room as a user message),
-  address the feedback with the worker, and re-issue
-  `aido.requestEndApproval` when ready.
-- **`approved: false`, `reply: 'timeout'`** — the user didn't respond
-  within 5 minutes. Re-issue the request when activity resumes.
+- **End approved** — you'll get a `[end approved by user]` message. Now
+  **land the work on main.** For every worker you spawned, call
+  `aido.mergeToMain({ workerHandle })`:
+    - `status: 'merged'` — that branch is on main; go to the next worker.
+    - `status: 'conflicts'` — main was left clean (the merge auto-aborted).
+      Ask that worker, via a ROOM-REPLY, to merge `main` into its branch,
+      resolve the conflicts in its worktree, and commit — then call
+      `aido.mergeToMain({ workerHandle })` again.
+    - `status: 'noop'` — nothing to merge (already on main); go on.
+  Once **every** worker branch is on main, call
+  `aido.endEngagement({ outcome: 'completed', summary })` to close.
+- **Sent back to work** — you'll get a `[end approval denied]` or a
+  free-text message with the user's feedback. Address it with the worker,
+  then call `aido.proposeEnd` again when ready.
 
 **Abort path.** If you decide the engagement should be aborted (scope
 was wrong, blocker too large, the user told you to stop), call
