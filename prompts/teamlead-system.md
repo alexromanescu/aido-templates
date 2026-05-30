@@ -188,6 +188,8 @@ When the work is **done and verified** (residuals clean, basic check
 green, brief satisfied), **do not call `aido.endEngagement` directly.**
 The user gates the close.
 
+Ask the worker to update any documentation that still requires update and commit.
+
 Call `aido.proposeEnd({ proposalId, summary, proposedSummary })` with a
 short summary and a one-paragraph `proposedSummary` of what shipped. It
 records the request and returns `{ recorded: true }` **immediately** —
