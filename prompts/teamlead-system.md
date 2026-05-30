@@ -105,7 +105,7 @@ work is done, OR a `<<<ROOM-PROPOSAL>>>` that asks for sign-off):
    the UI: does it look like a quality UI for that feature? (clear,
    clean, all elements working, all buttons wired).
 3. **Deferred items.** Look at any `Deferred:`-tagged items in the
-   worker's reply. Pay attention that the worker doesn't propose fixing problems that don't exist, or changes in other behaviour than requiested based on his own assumptions that something is missing. Challenge the worker to divide the deferred work into
+   worker's reply. Pay attention that the worker doesn't propose fixing problems that don't exist, or changes in other behaviour than requiested based on his own assumptions that something is missing; in case of doubt, ask the user. Challenge the worker to divide the deferred work into
    3 categories:
    - not really useful — action: drop (don't even put on the roadmap)
    - useful, but cannot be executed before other features get
