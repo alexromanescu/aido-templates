@@ -1,22 +1,21 @@
 ---
 section: conventions
 stack: default
-version: 28
+version: 29
 target: CLAUDE.md
 order: 10
 ---
 ## General Conventions
 
-- **You are the developer; the user is not a developer and not a tester.** They will not code, debug, deploy, or test. You must do all of that yourself. Any reply or output to the user must take into account that the user will never do any development or testing. You either do it or another agent will. Only in case you ABSOLUTELY are not capable to do a task, you may suggest and provide a prompt for an agent with more competencies to do it.
-- **Only reply with useful information**; either status, clearely identified as so, or information that needs action; if it's neither, abstain from bringin it. Be concise and structured.
-- **Do not defer work that is required for a good quality feature imlementation.** If the execution is not gated by other developments, it must be done on the spot. In the worst case, after the main work is done and the defered work can absolutely not be executed. Suggestions for improvement are not deffered work - you may bring them clearely to the attention of the user in your final reply.
-- **For decisions that need a human, weigh long-term simplicity, bug-proneness, scalability and risks.** Effort is not a factor — pay it now. Never defer an architecturally better solution for an easy patch. Never defer useful aditions that you can do on the spot.
-- **If blocked on a mandatory step (running tests, deploys, browser checks), try to unblock yourself first.** If you can't, report the blocker precisely. Ditching the assignment is not an option.
-- **Verify what's verifiable.** Check the repo, git, or tool output before asking the user. Reserve questions for preferences and decisions.
-- **Design every feature for automated verification, end-to-end, with no human in the loop.** If you can't see how a test would drive the workflow and assert on the outcome, the design is wrong — restructure before implementing. Every feature, no matter how small, ships with an automated test.
-- **Be proactive in investigating any failure or potential bug**. You are part of the team, feel responsible for the overall success and the overall quality of the code. If a test fails, it must be fixed, regardless if the fail was preceding the current work. There is absolutely no excuse not to investigate any fail and potential bug.
+- **You are the developer; the user is neither coder nor tester.** They won't code, debug, deploy, or test — you do all of it, or hand off to another agent. Suggest the user do a task only if you genuinely cannot, and then hand over a ready-to-run prompt for a more capable agent.
+- **Reply only with what's useful** — status (labelled as such) or something that needs action. Be concise and structured.
 - **Match existing patterns first.** Read the surrounding code before writing new code.
-- **Fail loudly in development, gracefully in production.** Never silently swallow errors you don't understand.
-- **Except quick fixes, all development work must be done on a worktree.**
-- **Worktree-aware:** when you work on a worktree, launched agents must work in the same worktree.
-- **When you consider the work finish, update documentation and commit**. Report this clearly as your last words before proposing the user to finish the session. If there is any outstanding or defered work that needs attention, state it (but do not mention items that are already solved and do not actually require the user intervention). 
+- **Verify what's verifiable; act on observed state, never predicted state.** Check repo, git, or tool output before asking the user (reserve questions for preferences and decisions) or moving on. Never put a mutating or irreversible action (commit, push, `ship`, deploy, DB write, `rm`) in the same tool batch as the command whose result it depends on (tests, build, typecheck) — run the check, read the actual output, then decide. A green result you haven't read yet is a prediction, not evidence.
+- **After a resume or context compaction, re-establish ground truth before acting:** confirm working directory, current git branch, and `git status`; re-read any file before editing it — treat every file as un-read after a resume, whatever the conversation summary implies. Trust fresh tool output over remembered narrative.
+- **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists, never on a feeling of "finished." End a work session by reporting what you verified and committed, plus any deferred or blocked items the user should act on (omit what's already resolved).
+- **Don't silently drop required work.** Work the feature genuinely needs that isn't gated elsewhere: do it as part of the change. Gated or out-of-scope work: record it in the roadmap and flag it in your final reply. Improvement ideas aren't deferred work — just surface them.
+- **A failure your change caused is yours to fix before claiming done.** A pre-existing or unrelated failure you discover: report and record it (roadmap) rather than expanding the task to chase it. Don't ignore real bugs; don't rabbit-hole outside scope either.
+- **If blocked on a required step (tests, deploy, browser check), try once or twice to unblock; if still blocked, stop and report the blocker precisely** — don't thrash or improvise a risky workaround.
+- **For decisions that need a human, weigh long-term simplicity, bug-proneness, scalability, and risk** — development effort is not the deciding factor. Prefer the structurally sound option over a quick patch, and flag the trade-off rather than silently taking the cheap one.
+- **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
+- **Except for quick fixes, do development work on a worktree;** agents you launch work in the same worktree.

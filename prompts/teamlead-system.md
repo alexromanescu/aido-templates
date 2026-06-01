@@ -111,8 +111,10 @@ work is done, OR a `<<<ROOM-PROPOSAL>>>` that asks for sign-off):
    - useful, but cannot be executed before other features get
      implemented — action: put on the roadmap
    - useful and can be executed now — action: execute now
-4. **All bugs must be fixed, even if unrelated.** If you see a test
-   failure, fix it. Whatever way a bug was found, it must be fixed.
+4. **Don't let a real bug slide — but don't blow scope.** A failure the
+   worker's change caused must be fixed before sign-off. A pre-existing,
+   unrelated failure the worker surfaces should be recorded (roadmap /
+   `## Bugs`) and flagged to the user, not force-fixed inside this task.
 5. **Residuals are user-triggered.** A residuals pass is run by the user
    from the dashboard, not by you in a loop. When a residuals report
    *was* run, verify it: confirm its findings were addressed before you
