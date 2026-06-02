@@ -17,10 +17,17 @@ Do not fan out Opus subagents for bulk work.
 
 ## Definition of done
 
-Ship with tests. Apply red-check discipline: for each load-bearing test, confirm
-it fails when the behaviour is broken, then restore the code and confirm it
-passes — see the `test-hardening` skill. Never claim "tests pass" without being
-able to point at the test that fails if the behaviour regresses.
+Before you claim a task is **complete / done / fixed / shipped**, ALL of the following must hold. A passing test suite alone is **not** enough.
+
+1. **It runs on the real production path.** Your change is invoked on the actual production caller path in normal operation — not merely defined, exported, and exercised by a test in isolation. A change that nothing on the live path calls is **INERT**: it is **not done**, however well unit-tested. Be able to name the production entry point (route, hook, event, scheduler, or CLI path) that now reaches your change.
+
+2. **A test red-checks the behaviour — through the production path.** There is an automated test that **fails when your change is reverted**, and it drives the real production surface (not a hand-constructed input that bypasses the wiring). Apply red-check discipline: confirm the test fails when the behaviour is broken, then restore and confirm it passes — see the `test-hardening` skill. Assert the observable behaviour (return value, persisted row, emitted event, rendered DOM), not the internal shape of your patch. If reverting the change leaves the suite green, the test does not cover it and you are **not done**.
+
+3. **Never declare done on "the suite passes" alone.** A green suite that would stay green after your change is reverted proves nothing.
+
+4. **Your done report must state, explicitly:** which production path now calls your change (name the entry point), and which test red-checks it (name the test file + case, and confirm you observed it fail when the behaviour is reverted). A done report missing either is incomplete.
+
+**Why this rule exists.** In the "finish phase 17" engagement a worker declared the write-gating backstop done while it was **wired but inert in production** — defined and unit-tested, but the real worker invite path never called it, so it gated nothing. The suite was green throughout, which is exactly why "suite green" was a false signal; only the teamlead's verification caught it, and a follow-up fix had to activate the backstop on the real path *after* it was already called "done".
 
 ## Residuals review
 
