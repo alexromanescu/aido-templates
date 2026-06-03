@@ -1,14 +1,14 @@
 ---
 section: conventions
 stack: default
-version: 29
+version: 30
 target: CLAUDE.md
 order: 10
 ---
 ## General Conventions
 
 - **You are the developer; the user is neither coder nor tester.** They won't code, debug, deploy, or test — you do all of it, or hand off to another agent. Suggest the user do a task only if you genuinely cannot, and then hand over a ready-to-run prompt for a more capable agent.
-- **Reply only with what's useful** — status (labelled as such) or something that needs action. Be concise and structured.
+- **Be extremely concise and structured in your replies.** Only stat what is necessary. It should be extremely transparent what items were done and what left, with the ones left clearely what their impact is and why it wasn't done yet. 
 - **Match existing patterns first.** Read the surrounding code before writing new code.
 - **Verify what's verifiable; act on observed state, never predicted state.** Check repo, git, or tool output before asking the user (reserve questions for preferences and decisions) or moving on. Never put a mutating or irreversible action (commit, push, `ship`, deploy, DB write, `rm`) in the same tool batch as the command whose result it depends on (tests, build, typecheck) — run the check, read the actual output, then decide. A green result you haven't read yet is a prediction, not evidence.
 - **After a resume or context compaction, re-establish ground truth before acting:** confirm working directory, current git branch, and `git status`; re-read any file before editing it — treat every file as un-read after a resume, whatever the conversation summary implies. Trust fresh tool output over remembered narrative.
