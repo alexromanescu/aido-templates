@@ -1,13 +1,17 @@
 ---
 section: roadmap
 stack: default
-version: 11
+version: 12
 target: CLAUDE.md
 order: 40
 ---
 ## Roadmap
 
 **Update `docs/roadmap.md` whenever work completes, starts, or is reorganized.** The format reference lives at the top of `docs/roadmap.md`; follow it when editing by hand.
+
+### Cross-session continuity
+
+If `docs/active-work.md` exists, read it at the start of a session — it's the project's agent-agnostic re-entry point for multi-session work: the current goal / north-star, what last shipped, the sequence, and a copy-paste resume prompt. If you advance that work, refresh it on the way out — rewrite it as a fresh one-screen snapshot (never append; git is the history).
 
 ### Deferred work
 
