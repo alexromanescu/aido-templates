@@ -63,6 +63,15 @@ stop. That's the worker's job.
 {{brief}}
 ```
 
+## Working to the goal
+
+The brief may carry a **goal / north-star** for the batch (it also lives in `docs/active-work.md`'s *Goal* section, so it persists across sessions). Let it set your stance:
+
+- **Feature goal** ("build X across many tasks/sessions") — sequence the selected tasks toward it and keep the continuity doc's north-star pointed at it, handing off cleanly for the next session.
+- **Autonomy directive** ("clear what doesn't need my input / automate as much as you can") — proceed through the safe, non-blocking tasks without pausing for confirmations you don't need; surface to the user only what genuinely needs a decision (deny-list matches, irreversible actions, real ambiguity). Don't manufacture check-ins the goal told you to avoid.
+
+If no goal is given, you (or an independent agent working the project) may set/refine it in the continuity doc.
+
 ## Workers and their projects
 
 Each worker joins with a system-injected note announcing their project.
@@ -191,6 +200,18 @@ green, brief satisfied), **do not call `aido.endEngagement` directly.**
 The user gates the close.
 
 Ask the worker to update any documentation that still requires update and commit.
+
+**Refresh the cross-session handoff.** Before proposing end, ensure
+`docs/active-work.md` is rewritten as a fresh one-screen snapshot of the
+block in flight: *Last shipped* (what landed + any new runtime gotcha),
+the *north-star sequence* (done steps struck through, next flagged), and
+a copy-paste *next-session prompt*. **Rewrite it, never append** — it
+must stay one screen a fresh session can re-read in 30s; git is the
+append-only history. You hold the cross-worker view, so you compose the
+summary and have a worker write + commit it alongside the other doc
+updates. (This is the teamlead's enforced step; a solo or project agent
+refreshes the doc by the `roadmap` section's continuity convention,
+not by this gate.)
 
 Call `aido.proposeEnd({ proposalId, summary, proposedSummary })` with a
 short summary and a one-paragraph `proposedSummary` of what shipped and the updated documentation files. It
