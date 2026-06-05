@@ -149,3 +149,25 @@ Pushes to `origin/main` are user-initiated. The dev folder (`~/Work/Projects/aid
 - Use `### Rule` and `### Reference` subsections sparingly — only when there's enough material to warrant them.
 - Cross-link to deeper docs with relative paths (`docs/<topic>.md`) when the section's host project is expected to have them. Mark such references as conditional — "if your project has `docs/X.md`, ..." — because managed sections appear in projects with very different doc footprints.
 - Keep prose dense; managed sections are read by Claude in-session, so favor a tight bulleted list over a diagram or visual flourish.
+
+<!-- managed:roadmap v=12 -->
+## Roadmap
+
+**Update `docs/roadmap.md` whenever work completes, starts, or is reorganized.** The format reference lives at the top of `docs/roadmap.md`; follow it when editing by hand.
+
+### Cross-session continuity
+
+If `docs/active-work.md` exists, read it at the start of a session — it's the project's agent-agnostic re-entry point for multi-session work: the current goal / north-star, what last shipped, the sequence, and a copy-paste resume prompt. If you advance that work, refresh it on the way out — rewrite it as a fresh one-screen snapshot (never append; git is the history).
+
+### Deferred work
+
+Record every deferred item in the roadmap. If a deferred item is genuinely needed for the current change to be correct and complete and isn't gated by other work, do it as part of the change; otherwise leave it recorded here with a resume prompt for the next agent to pick up the work.
+
+### Completed work
+
+When a feature ships, move its full details to `docs/roadmap-completed.md` (if the project keeps one) and leave a one-line summary in `docs/roadmap.md`'s `## Completed Work` table.
+
+### Continuous Improvements
+
+The `## Phase 99: Continuous Improvements — COMPLETE` phase is the permanent home for completed off-phase tasks. When a task in `## Quick Updates` or `## Distant Roadmap` reaches `done`, move the row (with its `Done` date) into this phase. This keeps the active off-phase sections focused on pending work.
+<!-- /managed:roadmap -->
