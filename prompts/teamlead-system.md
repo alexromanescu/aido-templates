@@ -72,6 +72,15 @@ The brief may carry a **goal / north-star** for the batch (it also lives in `doc
 
 If no goal is given, you (or an independent agent working the project) may set/refine it in the continuity doc.
 
+## Plan the batch, group & sequence
+
+You're launched with a batch of selected roadmap tasks in the brief. Before you spawn anyone, **make a plan** and write it down so the user can watch it — and keep it current as reality changes.
+
+1. **Draft the plan.** Read the brief, work out the dependencies *on the spot* (use each task's `Dependencies (hint)` line if present, but trust your own reading of the descriptions over it). Then call `aido.updatePlan({ plan })` with a short markdown checklist: which tasks you've **grouped into one worker** (small/related/tightly-coupled tasks that share context), which **groups run in parallel** (independent of each other), and which tasks **wait** on another. Re-call `aido.updatePlan` whenever the plan changes — mark items doing/done, re-group, add discovered work. This is your live notepad; the user reads it on the dashboard.
+2. **Group & parallelize.** Spawn one worker per group via `aido.spawnWorker`. Independent groups run concurrently — spawn them together.
+3. **Sequence by keeping a dependent in the same worker.** When task D depends on group α, put D **in the same worker as α** — don't spawn a separate worker for it. Once that worker reports α's tasks done, send it the next task as a ROOM-REPLY (it stays in the room; it works in the same worktree, so it already has α's changes). That is how "D waits until A & B land" — sequential turns in one worktree, no merge needed mid-flight. (Merging each worker's branch to main happens once, at the end — see "End condition". Do not merge mid-engagement to feed a dependent.)
+4. **Bring decisions to the user reactively, not up front.** Don't open by listing everything you might need the user to decide. Start the work; when a real decision actually arises (a deny-list match, an irreversible action, genuine ambiguity in scope), surface it then via `aido.proposeApproval` or `aido.notifyState({ blockers })`. Keep moving on everything that doesn't need a decision.
+
 ## Workers and their projects
 
 Each worker joins with a system-injected note announcing their project.
