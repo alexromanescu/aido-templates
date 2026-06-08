@@ -259,73 +259,56 @@ the reason in `summary`.
 ## Active-work loop
 
 When this engagement was started in **active-work mode** — picked up from the
-project's `docs/active-work.md` focus rather than a one-off brief — your job is
-to **turn the ENTIRE focus into a session plan and drive all of it to
-completion.** You run a **capped pass loop** instead of the single
-`## End condition` gate above. Do these steps in order:
+project's `docs/active-work.md` focus rather than a one-off brief — take that one
+focus, make a single plan that comprises all of it, and carry it out.
 
-1. **Take the whole active-work focus.** Read `docs/active-work.md` in full.
-   **Every item in its sequence is in scope and is committed work** — it is not a
-   menu to pick from, and not a "next item" to do in isolation. The harness
-   re-feeds this file each pass (it may have changed), so always re-read it in
-   full; never work from a stale copy.
+1. **Read the whole focus.** Read `docs/active-work.md` in full. Everything in it
+   is the work you've been asked to do — it's one focus, not a menu to pick a
+   single item from. (If you're handed it again later, re-read it; it may have
+   changed.)
 
-2. **Build a plan that covers EVERY item — this analysis is the core of your
-   job.** Look at all the tasks in the focus and decide the *session structure*:
-   - **Group** tightly-coupled tasks (shared context / one naturally implies the
-     other) into **one session** (one worker).
-   - Give **independent** tasks their **own session**.
-   - Run **independent sessions in parallel** — spawn them together.
-   - **Sequence** a task that depends on another: keep the dependent in the
-     **same worker** to run after its dependency lands, or hold its session until
-     the dependency's session is merged.
-   Write this plan with `aido.updatePlan({ plan })` **before you spawn anyone**,
-   and it **MUST account for every item in the focus — no focus item left out of
-   the plan.** Keep it current as you go. (This is the
-   `## Plan the batch, group & sequence` discipline applied to the *entire*
-   active-work focus, not a single slice.)
+2. **Make one plan that covers the whole focus** — call
+   `aido.updatePlan({ plan })` before you spawn anyone. Working out the session
+   structure is the substance of your job:
+   - Combine tightly-coupled items (one naturally implies the other, or they
+     share the same code) into **one session**.
+   - Give clearly-distinct pieces of work their **own session**.
+   - **Prefer running sessions one after another.** Only run two in parallel when
+     they clearly won't interfere — different areas of the code, no shared files
+     or sections. If there's any doubt they'd touch the same code, sequence them;
+     a clean serial run beats a merge tangle.
+   - When an item **depends on** another, run it after its dependency (the same
+     worker on its next turn, since it already has the changes; or hold it until
+     the dependency merges).
+   The plan should account for every item in the focus.
 
-3. **Execute the WHOLE plan.** Spawn every session your plan calls for — run the
-   independent ones concurrently, sequence the dependents — and supervise each to
-   the Definition-of-done bar in the workflow contract above. **Do not stop after
-   one task:** a pass drives *all* currently-outstanding focus work, not a slice
-   of it.
+3. **Carry out the plan.** Spawn the sessions, supervise each to the
+   Definition-of-done bar in the workflow contract above, and merge each worker
+   to local `main` as it finishes (`aido.mergeToMain({ workerHandle })`). **Don't
+   push or deploy** — that's operator-gated, from the dashboard, after you're
+   done.
 
-4. **Never defer an in-scope focus item.** Every item in the focus is committed
-   work — execute it. Do **NOT** move a focus item to `docs/roadmap.md` and treat
-   the focus as "done": that is not completion, it is abandonment, and it is the
-   single most important thing to get right here. The only things that go to the
-   roadmap are **genuinely new, out-of-scope ideas** that surface and were never
-   part of the focus.
+4. **Do the focus as fully as is sensible — deferral is fine when it's genuine.**
+   Finish what can reasonably be done now. If an item turns out to be genuinely
+   blocked, or carrying out the work surfaces a follow-up that's better done as
+   its own step, that's expected — just **record it back into
+   `docs/active-work.md`** so it isn't lost. (A genuinely new, out-of-scope idea
+   can go to `docs/roadmap.md` instead — but a focus item stays in the focus;
+   don't move it to the roadmap just to call the focus finished.)
 
-5. **Merge each worker to local `main` as its work lands — do NOT push.** When a
-   worker's task is done and verified, merge its branch via
-   `aido.mergeToMain({ workerHandle })` (this supersedes the batch "merge once at
-   the end" rule — land each worker as it finishes). **Never push and never
-   deploy:** pushing is **operator-gated**, done from the dashboard after you are
-   finished. Land work on local `main`; do not ship it.
+5. **Report with `aido.passComplete({ status, summary })`:**
+   - **`cleared`** — the focus is fully done and every worker is merged to local
+     `main`. (The harness empties `docs/active-work.md` for you — you don't
+     rewrite it.)
+   - **`more-remaining`** — you've recorded leftover or newly-surfaced items into
+     `docs/active-work.md`; they'll be picked up afterwards to finish.
+   - `summary`: a short paragraph on what landed.
 
-6. **Close the pass with `aido.passComplete({ status, summary })`.**
-   - Use **`status: "cleared"`** only when **every item in the focus is done AND
-     every worker branch is merged** to local `main`. The harness **rejects a
-     premature `cleared`** and re-injects the focus. On an accepted clear it
-     **empties `docs/active-work.md`** for you — you do not rewrite it.
-   - Use **`status: "more-remaining"`** only when executing the focus **surfaced
-     new in-scope work** (a task split into follow-ups that belong to this
-     focus). Record that new work into `docs/active-work.md`, then call
-     `more-remaining`; the harness bumps the pass counter and re-feeds the updated
-     focus so you clear it next pass. **Passes exist to absorb newly-discovered
-     work — NOT to do one planned item per pass.** Everything you planned in
-     step 2 must be executed *within* the pass, before you report.
-   - `summary` is a short one-paragraph account of what the pass landed.
-
-7. **The harness caps you at 3 passes.** Aim to finish the **entire** focus
-   within the budget. In active-work mode you do **not** call
-   `aido.endEngagement` — `aido.passComplete` drives the close.
+You don't track rounds or counts — do the focus, record what genuinely needs to
+carry over (into the focus file), and report.
 
 **Relation to `## End condition`.** That gate (`aido.proposeEnd`, then refreshing
-`docs/active-work.md` as a snapshot) is the path for a normal, non-active-work
-engagement. In active-work mode it does **not** apply: the harness owns the
-focus file's lifecycle — re-feeding it each pass and emptying it on `cleared` —
-and `aido.passComplete` replaces both the manual end gate and the snapshot
-refresh. Do not rewrite `docs/active-work.md` yourself in this mode.
+`docs/active-work.md` as a snapshot) is for a normal, non-active-work engagement.
+In active-work mode it doesn't apply: the harness owns the focus file (re-feeding
+it and emptying it on `cleared`), and `aido.passComplete` replaces both the
+manual end gate and the snapshot refresh.
