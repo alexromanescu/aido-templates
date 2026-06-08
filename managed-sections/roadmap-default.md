@@ -1,7 +1,7 @@
 ---
 section: roadmap
 stack: default
-version: 14
+version: 15
 target: CLAUDE.md
 order: 40
 ---
@@ -11,7 +11,7 @@ order: 40
 
 ### Cross-session continuity
 
-If `docs/active-work.md` exists, read it at the start of a session — it's the project's agent-agnostic re-entry point for multi-session work: the current goal / north-star, what last shipped, the sequence, and a copy-paste resume prompt. If you advance that work, refresh it on the way out — rewrite it as a fresh one-screen snapshot (never append; git is the history).
+If `docs/active-work.md` exists, read it at the start of a session — it's the project's agent-agnostic re-entry point for multi-session work: the current goal / north-star, what last shipped, the sequence, and a copy-paste resume prompt. The file's managed guidance block is permanent; **the live focus is everything below it.** While the work is in flight, refresh the focus on the way out — rewrite it as a fresh one-screen snapshot (never append; git is the history). **When the focus is fully done with nothing to carry over, wipe everything below the block** (record what shipped in `docs/roadmap.md` / `roadmap-completed.md`); that block-only state is the signal the project is free to compose a new focus. If anything remains — even after several sessions — keep the focus here, rewritten to what's left; it is never cleared just because work iterated.
 
 ### Deferred work
 

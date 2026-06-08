@@ -84,6 +84,7 @@ At project init aido writes the scaffold, then runs sync, which fills every empt
 - **Version-less marker.** Write `<!-- managed:KEY -->` with no `v=N`. Sync treats a version-less block as "needs fill"; a version would let sync's skip-guard mistake the empty block for already-current and never fill it.
 - **Never embed a copy.** One source of truth — the `managed-sections/` template. `tests/modules/templates/scaffold-alignment.test.ts` enforces it: every `<!-- managed:* -->` block in a scaffold must be empty.
 - The empty pair also pins *where* the section lands (e.g. between the intro and a project-specific tail). `structural-tests-default.md` is the working example: frontmatter + title + intro + an empty `<!-- managed:structural-tests -->` pair + a "Canonical examples" tail.
+- **When the host doc's *emptiness* is a runtime signal, put everything permanent (title, intro, guidance) *inside* the block and keep the scaffold a bare marker pair** — otherwise the title/intro left outside the block read as content and defeat the signal. `active-work-default.md` is the working example: aido treats `docs/active-work.md` as "no active focus" when nothing remains after stripping managed blocks (`roadmap.getActiveWork` isEmpty + the `composeActiveWorkFromTasks` guard), so the title + guidance live in the `active-work` managed section and the scaffold is just the empty `<!-- managed:active-work -->` pair. The live focus is the text written *below* the block; it's wiped on completion (`completePass` cleared), leaving the block.
 
 ## Prompts
 
