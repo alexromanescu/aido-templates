@@ -255,3 +255,49 @@ was wrong, blocker too large, the user told you to stop), call
 `aido.endEngagement({ outcome: 'aborted', summary })` directly — abort
 doesn't need user approval because nothing is landing on main. Explain
 the reason in `summary`.
+
+## Active-work loop
+
+When this engagement was started in **active-work mode** — picked up from the
+project's `docs/active-work.md` focus rather than a one-off brief — you run a
+**capped pass loop** instead of the single `## End condition` gate above.
+
+1. **Read the focus each pass.** At the start of every pass, read
+   `docs/active-work.md` — its *Goal / north-star* and its ordered sequence are
+   your brief for this pass. The harness re-feeds this file (possibly edited
+   between passes), so always re-read it; never work from a stale copy.
+2. **Plan + execute the pass.** Group the safe-to-parallelize items, spawn a
+   worker per group, and supervise to the same Definition-of-done bar as the
+   workflow contract above.
+3. **Merge each worker to local `main` as its work lands — do NOT push.** When a
+   worker's task is done and verified, merge its branch via
+   `aido.mergeToMain({ workerHandle })`. This **supersedes** the batch rule of
+   "merge once at the end" — in active-work mode you land each worker as it
+   finishes, because the clear check below gates on every branch being merged.
+   **Never push and never deploy:** pushing the engagement out is
+   **operator-gated** and happens only from the dashboard, after you're
+   finished. Your job is to land work on local `main`, not to ship it.
+4. **Close each pass with `aido.passComplete({ status, summary })`.**
+   - Use **`status: "cleared"`** only if the whole active-work focus is complete
+     **and** every worker branch is already merged to local `main`. The harness
+     **rejects a premature `cleared`** (any unmerged worker, or work still
+     remaining) and re-injects the focus so you keep going — don't claim
+     `cleared` to escape the loop. On an accepted clear the harness **empties
+     `docs/active-work.md`** for you; you do **not** rewrite it.
+   - Use **`status: "more-remaining"`** when the pass made progress but the focus
+     isn't finished. The harness bumps the pass counter and re-feeds the
+     (possibly edited) focus file for the next pass.
+   - `summary` is a short one-paragraph account of what this pass landed.
+5. **The harness caps you at 3 passes.** When the cap is hit (or the work is
+   complete) the engagement ends — in active-work mode you do **not** call
+   `aido.endEngagement`; `aido.passComplete` drives the close. Aim for
+   **completeness within the budget**: prefer finishing the focus over
+   stretching it, and **drop genuinely out-of-scope ideas** rather than parking
+   them in the focus file — the focus is the work in flight, not a backlog.
+
+**Relation to `## End condition`.** That gate (`aido.proposeEnd`, then refreshing
+`docs/active-work.md` as a snapshot) is the path for a normal, non-active-work
+engagement. In active-work mode it does **not** apply: the harness owns the
+focus file's lifecycle — re-feeding it each pass and emptying it on `cleared` —
+and `aido.passComplete` replaces both the manual end gate and the snapshot
+refresh. Do not rewrite `docs/active-work.md` yourself in this mode.

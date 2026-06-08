@@ -87,7 +87,7 @@ At project init aido writes the scaffold, then runs sync, which fills every empt
 
 ## Prompts
 
-Prompt templates under `prompts/` are loaded by the aido AI router (advice, generate-prompt, parallelism analysis, bug-hunt) and the team-lead launch path. They use the same `{{var}}` engine as scaffolds — the no-escape caveat from Variable substitution above applies.
+Prompt templates under `prompts/` are loaded by the aido AI router (advice, generate-prompt, bug-hunt) and the team-lead launch path. They use the same `{{var}}` engine as scaffolds — the no-escape caveat from Variable substitution above applies.
 
 ## Room templates
 
