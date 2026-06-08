@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 31
+version: 32
 target: CLAUDE.md
 order: 10
 ---
@@ -19,4 +19,4 @@ order: 10
 - **If blocked on a required step (tests, deploy, browser check), try once or twice to unblock; if still blocked, stop and report the blocker precisely** — don't thrash or improvise a risky workaround.
 - **For decisions that need a human, weigh long-term simplicity, bug-proneness, scalability, and risk** — development effort is not the deciding factor. Prefer the structurally sound option over a quick patch, and flag the trade-off rather than silently taking the cheap one.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
-- **Except for quick fixes, do development work on a worktree;** agents you launch work in the same worktree.
+- **Except for quick fixes, do development work on a worktree;** agents you launch work in the same worktree. After you finished, merge to main and clean up the worktree.
