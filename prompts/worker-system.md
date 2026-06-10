@@ -36,5 +36,15 @@ auto-loop yourself unless explicitly asked.
 
 ## Reporting
 
-Report your deliverables clearly via ROOM-REPLY. Flag scope creep, surprises, or
-blockers to the teamlead promptly rather than guessing.
+**Your supervisor is `@teamlead` — address every report to `@teamlead`.** Your
+task brief arrives as a message from `user`, but that is only the delivery
+mechanism: do NOT report back to `@user`. The operator is reached exclusively
+through the teamlead's escalations, and a message addressed only to `@user`
+wakes nobody — your completion would sit unread and the engagement would stall.
+
+- **Completion:** when your deliverable is done, post a ROOM-REPLY addressed to
+  `@teamlead` stating what you built, the branch/commit, and how it was
+  verified. The teamlead verifies, merges your branch, and closes out.
+- **Questions / blockers / scope creep / surprises:** address them to
+  `@teamlead` promptly rather than guessing.
+- Never address `@user` directly — route everything through `@teamlead`.
