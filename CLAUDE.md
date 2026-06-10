@@ -55,6 +55,8 @@ Worked example: the `conventions` section was renamed from `## Conventions` to `
 
 The `process-*` sections (`process-doc-sync`, `process-roadmap`, `process-bugs`, `process-help-sync`) each target a file under `docs/process/` and own the **entire** file: the H1 title and all content live inside the managed block, and there is no scaffold — `syncSection` creates the target file (including the directory) when it doesn't exist. They hold activity-scoped procedure reference that used to live inline in the CLAUDE.md blocks; the lean CLAUDE.md blocks point at them with trigger-shaped one-liners ("**when you fix a bug**, read `docs/process/bugs.md` before writing the test"). Keep that division when editing: per-turn invariants stay in the CLAUDE.md block; multi-step, activity-triggered procedure goes in the `process-*` doc. A project should only carry the process docs matching its managed blocks (no `process-help-sync` without the `help` block).
 
+## Scaffolds
+
 Files at the repo root named `<key>-default.md` are project scaffolds — written into a new project at creation or init time. They are NOT managed sections: no version number, no drift propagation. Once written into a project they belong to that project's owner to edit freely.
 
 ### Frontmatter
@@ -153,32 +155,10 @@ Pushes to `origin/main` are user-initiated. The dev folder (`~/Work/Projects/aid
 - Cross-link to deeper docs with relative paths (`docs/<topic>.md`) when the section's host project is expected to have them. Mark such references as conditional — "if your project has `docs/X.md`, ..." — because managed sections appear in projects with very different doc footprints.
 - Keep prose dense; managed sections are read by Claude in-session, so favor a tight bulleted list over a diagram or visual flourish.
 
-<!-- managed:roadmap v=14 -->
+<!-- managed:roadmap v=16 -->
 ## Roadmap
 
-**Update `docs/roadmap.md` whenever work completes, starts, or is reorganized.** The format reference lives at the top of `docs/roadmap.md`; follow it when editing by hand.
+**All work tracking lives in `docs/roadmap.md`.** When you complete, start, file, defer, or reorganize work — including bugs and speculative ideas — read `docs/process/roadmap.md` **before editing** and follow it exactly: the parser is strict, and the lifecycles (bugs, deferred work, potential improvements, completed work) are defined there.
 
-### Cross-session continuity
-
-If `docs/active-work.md` exists, read it at the start of a session — it's the project's agent-agnostic re-entry point for multi-session work: the current goal / north-star, what last shipped, the sequence, and a copy-paste resume prompt. If you advance that work, refresh it on the way out — rewrite it as a fresh one-screen snapshot (never append; git is the history).
-
-### Deferred work
-
-Record every deferred item in the roadmap. If a deferred item is genuinely needed for the current change to be correct and complete and isn't gated by other work, do it as part of the change; otherwise leave it recorded here with a resume prompt for the next agent to pick up the work.
-
-### Bugs
-
-`docs/roadmap.md`'s `## Bugs` is a **normal task-table section** — no special handling. Name the row `BUG-NNN: <title>` and use the standard statuses: a newly-filed bug is `next`, `doing` while it's being fixed, `blocked` if waiting on something. There is **no `open` status**. When fixed, mark it `done` and move it into the Continuous Improvements phase like any other off-phase done task; ship the fix with a regression test at `tests/bugs/bug-NNN-*.test.ts` where practical.
-
-### Potential Improvements
-
-`docs/roadmap.md`'s `## Potential Improvements` section is a parking lot for speculative ideas we are deliberately **not** acting on now — distinct from deferred work (needed, with a resume prompt) and from `## Distant Roadmap` (which we do intend to do, just later). Rows default to `Status: postponed`. When you add one, the `Description` must state three things so a future reader can re-evaluate it: **what it may improve** (the benefit), **the cost** (use `Size` for the S/M/L estimate), and **why it wasn't done at the time**. Promote an idea by moving its row to `## Distant Roadmap` or a phase with an active status.
-
-### Completed work
-
-When a feature ships, move its full details to `docs/roadmap-completed.md` (if the project keeps one) and leave a one-line summary in `docs/roadmap.md`'s `## Completed Work` table.
-
-### Continuous Improvements
-
-The `## Phase 99: Continuous Improvements — COMPLETE` phase is the permanent home for completed off-phase tasks. When a task in `## Quick Updates`, `## Bugs`, or `## Distant Roadmap` reaches `done`, move the row (with its `Done` date) into this phase. This keeps the active off-phase sections focused on pending work.
+If `docs/active-work.md` exists, read it at the start of a session — it's the cross-session re-entry point (current focus, sequence, resume prompt). If you advance that work, refresh it on the way out following the guidance block at its top.
 <!-- /managed:roadmap -->
