@@ -51,7 +51,9 @@ Rule of thumb: prefer a qualifier that names the *source* of the rules (e.g., `#
 
 Worked example: the `conventions` section was renamed from `## Conventions` to `## General Conventions` in v19 because projects like mara and q1dms already had their own `## Conventions` block (touch-target rules, UUID format, domain-specific conventions) that don't belong in the shared template. The qualifier lets both coexist cleanly in the same `CLAUDE.md`.
 
-## Scaffolds
+### Whole-doc process sections (`process-*`)
+
+The `process-*` sections (`process-doc-sync`, `process-roadmap`, `process-bugs`, `process-help-sync`) each target a file under `docs/process/` and own the **entire** file: the H1 title and all content live inside the managed block, and there is no scaffold — `syncSection` creates the target file (including the directory) when it doesn't exist. They hold activity-scoped procedure reference that used to live inline in the CLAUDE.md blocks; the lean CLAUDE.md blocks point at them with trigger-shaped one-liners ("**when you fix a bug**, read `docs/process/bugs.md` before writing the test"). Keep that division when editing: per-turn invariants stay in the CLAUDE.md block; multi-step, activity-triggered procedure goes in the `process-*` doc. A project should only carry the process docs matching its managed blocks (no `process-help-sync` without the `help` block).
 
 Files at the repo root named `<key>-default.md` are project scaffolds — written into a new project at creation or init time. They are NOT managed sections: no version number, no drift propagation. Once written into a project they belong to that project's owner to edit freely.
 

@@ -10,48 +10,7 @@ init: true
 updated: {{today}}
 -->
 
-**File format reference** — the parser is strict about this shape; follow it exactly when editing the file by hand. The aido `/project/:name/roadmap` page does this for you.
-
-Phases use a level-2 heading with this exact shape:
-
-```
-## Phase <N>: <Name> — <STATE>
-```
-
-`<STATE>` is one of `COMPLETE`, `IN PROGRESS`, `PLANNED` — uppercase, em-dash `—` (not a hyphen `-`), and **the state token is the last thing on the line**. No trailing dates, parentheticals, or notes — the closeout date belongs in `roadmap-meta:` at the top of the file, not in the heading. Other words (`DONE`, `SHIPPED`, `WIP`, `TODO`) are not recognized; phases that don't match this exact shape are silently dropped from the parsed roadmap.
-
-Free-form explanatory text (paragraphs, lists, level-3 subsections like `### Outcome` or `### Background`) is permitted between a phase heading and its `### Features` table while the phase is not yet `COMPLETE` (i.e. `PLANNED` or `IN PROGRESS`). Once it reaches `COMPLETE`, that content must be moved to `docs/roadmap-completed.md` or deleted — the active roadmap should not accumulate stale narrative.
-
-Sections inside a phase use a level-3 heading and contain one task table:
-
-```
-### Features
-| Task | Area | Size | Status | Description | Dependencies |
-| ---- | ---- | ---- | ------ | ----------- | ------------ |
-| Short task name | Backend | M | next | One-line description | Other task name |
-```
-
-**Column rules:**
-
-- `Task` (required) — short, human-readable; also the identity key, so renaming is treated as a new task. Don't use pipes; escape as `\|` if you must.
-- `Area` (required) — free-form tag (e.g. `Backend`, `UI`, `Infra`, `UI + Backend`). Pick a small vocabulary per project and reuse it.
-- `Size` (required) — one of `S`, `M`, `L` (uppercase).
-- `Status` (required) — one of `done`, `doing`, `next`, `blocked`, `planned` (lowercase).
-- `Description` (required) — one-line summary; newlines are stripped on write.
-- `Dependencies` (optional) — comma-separated task names this task depends on. The column may be omitted entirely from a table that has no dependencies.
-- `Done` (optional) — ISO date `YYYY-MM-DD` recording when the task reached `done`. The aido UI auto-stamps this on the `*→done` transition; agents can backdate inline. The column is omitted from tables where no row has a date.
-
-**Special top-level sections** (outside any phase, level-2 headings, exact names):
-
-- `## Quick Updates` — small ad-hoc improvements that don't belong in a phase. Same task-table shape. Lives **above** the first phase.
-- `## Bugs` — open bugs, a **normal task-table section** (same `Task | Area | Size | Status | Description` shape as the others), living **above** the first phase. Name the task `BUG-NNN: <title>`. Use the standard statuses — there is no special `open`: a newly-filed bug is `next`, `doing` while it's being fixed, `blocked` if waiting on something. A fixed bug becomes `done` and then moves into the Continuous Improvements phase like any other off-phase done task. Ship the fix with a regression test at `tests/bugs/bug-NNN-*.test.ts` where practical (its header documents symptom / root cause / fix).
-- `## Distant Roadmap` — same task-table shape as a phase section; holds long-horizon items not yet scheduled into a phase.
-- `## Potential Improvements` — speculative ideas captured for the record but **not** planned for now — distinct from `## Distant Roadmap` (which holds items we *do* intend to do eventually) and from deferred work (which is needed and carries a resume prompt). Same task-table shape; default `Status` is `postponed` (a recognized status, filtered out of active workflow). When adding a row, the `Description` must state three things so a future reader can re-evaluate it: **what it may improve** (lead with the benefit), **the cost** (use `Size` for the S/M/L estimate, expand inline if needed), and **why it was not done at the time**. Promote an item by moving its row to `## Distant Roadmap` or a phase with an active status. Lives **below** `## Distant Roadmap`.
-- `## Completed Work` — a two-column summary table with headers `Phase / Feature | Summary`, one row per shipped feature (not per task).
-
-**Continuous Improvements phase** — `## Phase 99: Continuous Improvements — COMPLETE` is a permanent always-`COMPLETE` phase that sits at the end of the phase block, just above `## Distant Roadmap`. When a task in `## Quick Updates`, `## Bugs`, or `## Distant Roadmap` reaches `done`, move the row (with its `Done` date) into this phase so the active off-phase sections stay focused on pending work. It parses as a regular phase — the high number keeps it pinned to the bottom of the phase list.
-
-The `roadmap-meta` block above is optional; use it for free-form `key: value` lines (e.g. `updated:`). Values must stay on a single line.
+**Format reference:** this file is parsed by the aido app — the exact phase-heading shape, task-table columns, statuses, and section lifecycles are defined in [docs/process/roadmap.md](process/roadmap.md). Read it before editing this file by hand; the aido `/project/:name/roadmap` page follows it for you.
 
 ## Quick Updates
 | Task | Area | Size | Status | Description |

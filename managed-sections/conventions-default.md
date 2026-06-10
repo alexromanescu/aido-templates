@@ -1,15 +1,15 @@
 ---
 section: conventions
 stack: default
-version: 32
+version: 33
 target: CLAUDE.md
 order: 10
 ---
 ## General Conventions
 
 - **You are the developer; the user is neither coder nor tester.** They won't code, debug, deploy, or test — you do all of it, or hand off to another agent. Suggest the user do a task only if you genuinely cannot, and then hand over a ready-to-run prompt for a more capable agent.
-- **Default to finishing, not asking.** Just do reversible/local actions; ask only before irreversible/outward-facing ones. Override any skill that says to present options, when one option is clearly best. 'Checkpoint' = commit and continue, never stop-and-ask for commit and local branches/merge. Continue to the end of the logical arc (the feature meant to build in this session) before handing back. When you consider it done, evaluate which of the deffered work can be also done and do it.
-- **Be extremely concise and structured in your replies.** Only stat what is necessary. It should be extremely transparent what items were done and what left, with the ones left clearely what their impact is and why it wasn't done yet. 
+- **Default to finishing, not asking.** Just do reversible/local actions; ask only before irreversible/outward-facing ones. Override any skill that says to present options, when one option is clearly best. 'Checkpoint' = commit and continue, never stop-and-ask for commit and local branches/merge. Continue to the end of the logical arc (the feature meant to build in this session) before handing back. When you consider it done, evaluate which of the deferred work can also be done now and do it.
+- **Be extremely concise and structured in your replies.** State only what is necessary: make it transparent what was done and what's left, and for each open item its impact and why it isn't done yet.
 - **Match existing patterns first.** Read the surrounding code before writing new code.
 - **Verify what's verifiable; act on observed state, never predicted state.** Check repo, git, or tool output before asking the user (reserve questions for preferences and decisions) or moving on. Never put a mutating or irreversible action (commit, push, `ship`, deploy, DB write, `rm`) in the same tool batch as the command whose result it depends on (tests, build, typecheck) — run the check, read the actual output, then decide. A green result you haven't read yet is a prediction, not evidence.
 - **After a resume or context compaction, re-establish ground truth before acting:** confirm working directory, current git branch, and `git status`; re-read any file before editing it — treat every file as un-read after a resume, whatever the conversation summary implies. Trust fresh tool output over remembered narrative.
@@ -19,4 +19,4 @@ order: 10
 - **If blocked on a required step (tests, deploy, browser check), try once or twice to unblock; if still blocked, stop and report the blocker precisely** — don't thrash or improvise a risky workaround.
 - **For decisions that need a human, weigh long-term simplicity, bug-proneness, scalability, and risk** — development effort is not the deciding factor. Prefer the structurally sound option over a quick patch, and flag the trade-off rather than silently taking the cheap one.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
-- **Except for quick fixes, do development work on a worktree;** agents you launch work in the same worktree. After you finished, merge to main and clean up the worktree.
+- **Except for quick fixes, do development work on a worktree;** agents you launch work in the same worktree. After you finish, merge to main and clean up the worktree.
