@@ -1,7 +1,7 @@
 ---
 section: process-roadmap
 stack: default
-version: 1
+version: 2
 target: docs/process/roadmap.md
 order: 10
 ---
@@ -18,6 +18,8 @@ Phases use a level-2 heading with this exact shape:
 ```
 
 `<STATE>` is one of `COMPLETE`, `IN PROGRESS`, `PLANNED` — uppercase, em-dash `—` (not a hyphen `-`), and **the state token is the last thing on the line**. No trailing dates, parentheticals, or notes — the closeout date belongs in `roadmap-meta:` at the top of the file, not in the heading. Other words (`DONE`, `SHIPPED`, `WIP`, `TODO`) are not recognized.
+
+For a phase **with rows**, `<STATE>` is now **derived from those rows by the app** (all `done` → COMPLETE, none started → PLANNED, otherwise IN PROGRESS); a task-less phase keeps the token you write. You must still write a valid `COMPLETE | IN PROGRESS | PLANNED` token — an invalid one drops the phase — but for a phase with rows the app corrects a stale token on the next save, so don't fight it.
 
 Free-form explanatory text (paragraphs, lists, level-3 subsections like `### Outcome` or `### Background`) is permitted between a phase heading and its `### Features` table while the phase is `PLANNED` or `IN PROGRESS`. Once it reaches `COMPLETE`, move that content to `docs/roadmap-completed.md` or delete it — the active roadmap should not accumulate stale narrative.
 
