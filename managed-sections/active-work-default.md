@@ -1,7 +1,7 @@
 ---
 section: active-work
 stack: default
-version: 3
+version: 4
 target: docs/active-work.md
 order: 10
 ---
@@ -19,5 +19,5 @@ _Cross-session re-entry point: any agent reads this to pick up the current focus
 - **Run it** — the exact commands to launch and test the app against this focus, so any session verifies without rediscovering them.
 - **Next-session prompt** — copy-paste resume: re-establish ground truth (branch, status, tests) → which roadmap rows → which deferred items / bugs to fold in → which skill/approach to open with → where to start.
 - **Key references** — the few docs / specs an agent needs for this focus.
-
+- **Never relegate an unfinished part of the active item to Distant Roadmap / Potential Improvements.** A partially-done item is rewritten to show what shipped and keeps the unfinished part as the next step — it is not marked done.
 _A small focus may be just Goal + Sequence + Next-session prompt. A trivial quick-fix may legitimately leave the focus untouched; that's expected, not a bug._
