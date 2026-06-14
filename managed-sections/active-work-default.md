@@ -1,7 +1,7 @@
 ---
 section: active-work
 stack: default
-version: 2
+version: 3
 target: docs/active-work.md
 order: 10
 ---
@@ -13,7 +13,7 @@ _Cross-session re-entry point: any agent reads this to pick up the current focus
 
 - **Goal (north star)** — the durable outcome this batch drives toward.
 - **Guardrails / quality bar** — any standing owner directive for this batch (the quality bar, scope limits). Pin it first; it governs every session and survives each rewrite.
-- **Last shipped** — what landed and was verified this block, plus any new runtime gotcha (a new dependency, env var, …).
+- **Last shipped** — what landed and was verified this block: simple, high level and related to the tasks that were given - no changelogs.
 - **Sequence** — the ordered path to the goal; strike done steps in place, flag the next; cite roadmap rows / `BUG-NNN` ids rather than copying them. **Keep each item's `(S)/(M)/(L)` size marker** — aido sums them for the engagement budget, so a rewrite that drops them silently under-budgets the work (it falls back to a single L).
 - **Cross-cutting bar** — constraints that apply to *every* step (e.g. design, i18n, tests, a11y); state them once here instead of per step.
 - **Run it** — the exact commands to launch and test the app against this focus, so any session verifies without rediscovering them.
