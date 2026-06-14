@@ -173,7 +173,7 @@ work is done, OR a `<<<ROOM-PROPOSAL>>>` that asks for sign-off):
    unrelated failure the worker surfaces should be recorded (roadmap /
    `## Bugs`) and flagged to the user, not force-fixed inside this task.
 5. **Residuals are user-triggered.** A residuals pass is run by the user
-   from the dashboard, not by you in a loop. When a residuals report
+   from the dashboard, or by the worker, not by you in a loop. When a residuals report
    *was* run, verify it: confirm its findings were addressed before you
    approve close. If no pass has been run and the change is risky, you
    may suggest the user run a residuals pass from the dashboard before
@@ -260,7 +260,7 @@ makes the engagement look stalled to the user.
 Continuous Improvements` in the same commit** — those sections hold *open*
 work only. Before you propose end (or report a pass complete), sweep any
 `done` rows still sitting in those sections into Phase 99. This is the rule
-in `docs/process/roadmap.md`; follow it, don't restate it.
+in `docs/process/roadmap.md`; follow it, don't restate it. Normally, the workers should take care of this work.
 
 ## End condition
 
