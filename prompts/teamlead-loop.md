@@ -23,7 +23,11 @@ slice and keeps the file current. You are the loop driver and the quality gate.
 2. **Run the workflow contract** on the deliverable (challenge the covering
    test, do the basic user-level check, triage `Deferred:` items, don't let a
    real bug slide) — exactly as in the core above.
-3. **Evaluate worker's status** the worker generally finishes with a merge; if not, `aido.mergeToMain({ workerHandle })`.
+3. **Record the merge** — always call `aido.mergeToMain({ workerHandle })`. Even
+   when the worker already self-merged this isn't redundant: it lands the branch
+   if they haven't merged, or **records** their self-merge (including when
+   they've already removed their worktree). This call is what marks the slice
+   `merged` for the loop's clear check — skip it and the loop can't complete.
 4. **Decide the pass.** Re-read `docs/active-work.md` (docs are readable per the
    read-code policy above). If the focus below the managed block is now empty →
    `aido.passComplete({ status: "cleared", summary })`. Otherwise →
