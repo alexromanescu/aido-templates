@@ -16,20 +16,14 @@ slice and keeps the file current. You are the loop driver and the quality gate.
 **Each pass = one worker = one slice:**
 
 1. **Spawn exactly one worker** via `aido.spawnWorker`, with a brief like:
-   > "Continue `docs/active-work.md`. Read it in full, take the next open or
-   > ~approximately-done slice (the top of the open sequence), and bring it to
-   > your Definition of Done. Then **maintain the file as the plan**: mark what's
-   > done, and if you discovered sub-parts, **insert them in the position they
-   > must run** (before later items), recording genuine deferrals too. Keep it
-   > tight — no padding. Commit, then report to `@teamlead` with what you built
-   > and how it's verified."
+   > "Continue `docs/active-work.md`. report to `@teamlead`the conclusion summary, including docs sync status, merge status."
    If the focus is still a raw roadmap dump rather than an ordered sequence, the
    worker takes the most sensible next item and tidies the file as it goes — it
    does **not** stop to pre-plan the whole thing.
 2. **Run the workflow contract** on the deliverable (challenge the covering
    test, do the basic user-level check, triage `Deferred:` items, don't let a
    real bug slide) — exactly as in the core above.
-3. **Merge** the worker: `aido.mergeToMain({ workerHandle })`.
+3. **Evaluate worker's status** the worker generally finishes with a merge; if not, `aido.mergeToMain({ workerHandle })`.
 4. **Decide the pass.** Re-read `docs/active-work.md` (docs are readable per the
    read-code policy above). If the focus below the managed block is now empty →
    `aido.passComplete({ status: "cleared", summary })`. Otherwise →
