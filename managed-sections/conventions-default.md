@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 35
+version: 36
 target: CLAUDE.md
 order: 10
 ---
@@ -20,4 +20,4 @@ order: 10
 - **If blocked on a required step (tests, deploy, browser check), try once or twice to unblock; if still blocked, stop and report the blocker precisely** — don't thrash or improvise a risky workaround.
 - **For decisions that need a human, weigh long-term simplicity, bug-proneness, scalability, and risk** — development effort is not the deciding factor. Prefer the structurally sound option over a quick patch, and flag the trade-off rather than silently taking the cheap one.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
-- **Except for quick fixes, do development work on a worktree;** agents you launch work in the same worktree. After you finish, merge to main and clean up the worktree.
+- **Except for quick fixes, develop on a worktree (agents you launch share it). Trust git rev-parse --git-dir vs --git-common-dir, not the cwd label, to know if you're isolated — a worktree-style path can be labelled before the worktree exists: equal ⇒ really on main (create the worktree before committing dev work); unequal ⇒ already isolated, don't nest. Finish by merging to main, then confirm git worktree list shows only the main checkout —mnever leave a worktree behind.
