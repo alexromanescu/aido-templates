@@ -1,7 +1,7 @@
 ---
 section: process-roadmap
 stack: default
-version: 2
+version: 3
 target: docs/process/roadmap.md
 order: 10
 ---
@@ -66,7 +66,7 @@ Record every deferred item in the roadmap. If a deferred item is genuinely neede
 
 ### Potential improvements
 
-`## Potential Improvements` holds speculative ideas deliberately **not** acted on now — distinct from deferred work (needed, with a resume prompt) and from `## Distant Roadmap` (intended, just later). Rows default to `Status: postponed`. Each row's `Description` must state three things so a future reader can re-evaluate it: **what it may improve** (the benefit), **the cost** (use `Size` for the S/M/L estimate), and **why it wasn't done at the time**. Promote an idea by moving its row to `## Distant Roadmap` or a phase with an active status.
+`## Potential Improvements` holds speculative ideas deliberately **not** acted on now — distinct from deferred work (needed, with a resume prompt) and from `## Distant Roadmap` (intended, just later). Rows default to `Status: postponed`. Each row's `Description` must state four things so a future reader can prioritize it without re-deriving the analysis: **what it may improve** (the benefit), **how much** it improves (the impact — frequency × severity × magnitude, honestly scaled: who is affected, how often, and whether it is a correctness gain or only UX/polish), **the cost** (use `Size` for the S/M/L estimate), and **why it wasn't done at the time**. Be honest about small or zero impact — an idea whose benefit is latent (e.g. "zero until feature X ships") or purely cosmetic should say so plainly, so it doesn't get promoted on vague optimism. Promote an idea by moving its row to `## Distant Roadmap` or a phase with an active status.
 
 ### Completed work
 
