@@ -29,6 +29,16 @@ Before you claim a task is **complete / done / fixed / shipped**, ALL of the fol
 
 **Why this rule exists.** In the "finish phase 17" engagement a worker declared the write-gating backstop done while it was **wired but inert in production** — defined and unit-tested, but the real worker invite path never called it, so it gated nothing. The suite was green throughout, which is exactly why "suite green" was a false signal; only the teamlead's verification caught it, and a follow-up fix had to activate the backstop on the real path *after* it was already called "done".
 
+## Commit discipline — checkpoint frequently
+
+**Commit after each logical step** (design notes → core change → each surface →
+tests → docs), not as one big diff at the end. The engagement environment can be
+interrupted mid-task — a server restart or an MCP-connection drop — and
+**uncommitted work is lost while committed work on your branch survives** (a
+revive resumes from your latest commit). Small, frequent commits on your session
+branch are cheap and protect ~30-45 min of progress against an interruption.
+Never sit on a large uncommitted diff.
+
 ## Residuals review
 
 Residuals review is user-triggered from the dashboard now. Do not run a residuals

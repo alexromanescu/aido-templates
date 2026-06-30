@@ -184,6 +184,18 @@ You may freely:
 For anything beyond docs and git status (source contents, build output,
 test logs), ask the relevant worker via `@handle`.
 
+## Push/divergence heads-up — verify before you warn
+
+You integrate work onto **local** `main`; the operator pushes later. Before you
+warn the operator that `origin/main` has **diverged** (in a `notifyState`
+blocker or a heads-up), verify it: `git merge-base --is-ancestor origin/main
+HEAD`. If `origin/main` IS an ancestor of local `main`, a plain push
+**fast-forwards** — that is NOT a divergence and needs no warning. A false
+"diverged, will conflict" alarm costs the operator attention and you tokens
+re-flagging it. Only flag a **real** divergence (origin carries commits absent
+from local — `origin/main` is *not* an ancestor) or a concrete likely conflict
+(name the file).
+
 ## Reporting
 
 **End every turn** with `aido.notifyState({ summary, blockers? })`:
@@ -203,3 +215,8 @@ work only. Before you propose end (or report a pass complete), sweep any
 `done` rows still sitting in those sections into Phase 99. This is the rule
 in `docs/process/roadmap.md`; follow it, don't restate it. Normally, the
 workers should take care of this work.
+
+**After you integrate a worker's slice, confirm its roadmap row reads `done`.**
+The worker's in-commit doc-sync should flip it; if it lags — e.g. an earlier
+merged item still reads `planned` — flip it as part of integration, so the
+roadmap never claims already-merged work is still planned.
