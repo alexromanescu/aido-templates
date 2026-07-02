@@ -206,6 +206,15 @@ from local — `origin/main` is *not* an ancestor) or a concrete likely conflict
 The dashboard reflects this; a turn that doesn't end with `notifyState`
 makes the engagement look stalled.
 
+**A blocker that asks the operator to *decide* something is a gate: raise it,
+then END your turn and wait.** Do NOT, in the same flow, call
+`aido.passComplete({ status: "cleared" })`, `aido.endEngagement`, or take other
+irreversible/close actions past that decision — the operator's reply arrives on
+a *later* turn, so closing first makes it moot. When the reply lands (an
+`@teamlead` room message), act on it, *then* proceed. A purely advisory
+blocker ("FYI, I could use X but I'll continue") does NOT gate — keep working;
+reserve the raise-and-wait for asks whose answer would change what you do next.
+
 ## Roadmap hygiene: keep off-phase sections pending-only
 
 **Whenever you mark a row `done` in `## Quick Updates`, `## Bugs`, or
