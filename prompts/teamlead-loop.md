@@ -56,3 +56,40 @@ has no manual end gate and no end-of-engagement snapshot-refresh step. The
 harness owns the focus file — re-feeding it each pass, and resetting it to its
 managed scaffold on `cleared` — and `aido.passComplete` is the only completion
 path.
+
+## Reopened loop
+
+A **completed** loop can be reopened by the operator to follow up. On the
+`cleared` pass the harness already reset the focus file to its managed
+scaffold, so the focus below the managed block is **empty** — that file is not
+the work source. **The operator's follow-up message is.**
+
+**First, before anything else — confirm your tools reconnected.** At the start
+of any resumed or reopened session, if the `aido.*` tools are missing from your
+session, or your first tool call reports the engagement is closed, say so to the
+operator in **one line** and stop. `aido.notifyState` is itself an `aido.*`
+tool, so with the tools gone a room reply is the only channel that still
+surfaces:
+
+> `<<<ROOM-REPLY to=@user>>>` my aido tools did not reconnect — please use
+> Revive/Reopen from the dashboard so I get them back. `<<<ROOM-REPLY-END>>>`
+
+Do **not** keep attempting `aido.spawnWorker`, `aido.mergeToMain`,
+`aido.passComplete`, or any other lifecycle action until access is restored.
+
+Once tools are confirmed, act on the follow-up:
+
+- **Actionable feedback → it *is* the next slice.** Spawn **exactly one**
+  worker whose brief **quotes the operator's ask verbatim**, and have the
+  worker (the file's owner) write the new focus into `docs/active-work.md` and
+  ship the first slice. Then drive the loop exactly as above — workflow
+  contract, `aido.mergeToMain({ workerHandle })`, `aido.passComplete` — re-feeding
+  until the focus clears again.
+- **A question with no work in it → answer it** in a `<<<ROOM-REPLY to=@user>>>`
+  and wait. Don't spawn a worker or touch the focus file.
+
+**Never end the engagement on your own after a reopen.** As in the normal loop
+there's no manual end gate: let `aido.passComplete({ status: "cleared" })` close
+it once the follow-up slice is merged and the focus is empty again — or, for a
+question-only reopen, just leave it open after you answer. Don't call
+`aido.endEngagement`.
