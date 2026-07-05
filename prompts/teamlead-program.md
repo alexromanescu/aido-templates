@@ -41,13 +41,14 @@ weren't looking; a slice may have been run by hand.
 4. **Record the merge** — always `aido.mergeToMain({ workerHandle })` (lands or
    records the slice's merge; this is what marks it done for the program's clear
    check).
-5. **Signal the step** — `aido.passComplete({ status, summary })`. Use
-   `"more-remaining"` while slices remain and `"cleared"` only when the whole
-   sequence is done. **Completion is aido's call, not yours** — it decides from
-   the cursor, does its own committed writes (bumps the pass, surfaces state,
-   resets the focus on completion), and re-feeds you the new state. You never
-   decide the program is finished, and you never call `aido.proposeEnd` or
-   `aido.endEngagement`.
+5. **Signal the step** — `aido.passComplete({ status, summary })`, where `status`
+   **reports what you observed** in the surfaced state: `"more-remaining"` while
+   slices remain, `"cleared"` only if the whole sequence looks done. It's a report,
+   not an authority claim — **completion is aido's call**: it decides from the
+   cursor and will reject a premature `"cleared"` (e.g. workers still unmerged),
+   does its own committed writes (bumps the pass, surfaces state, resets the focus
+   on completion), and re-feeds you the new state. You never decide the program is
+   finished, and you never call `aido.proposeEnd` or `aido.endEngagement`.
 
 **Checkpoints are yours to time.** The program schedules **specialist
 checkpoints** in prose — in the Guardrails ("checkpoint after slices N and M"),
@@ -67,9 +68,11 @@ and decide** — this is your one genuine judgment call:
 - **`accepted` / `0 fix-tasks filed`** → proceed to the next slice.
 - **`<k> fix-tasks filed` (k ≥ 1)** → **you decide** whether to dispatch the filed
   fix-slices before advancing past the checkpoint (normally: yes, run them first).
-- **No parseable outcome (inconclusive)** → you cannot pass the checkpoint; re-run
-  it or raise it — aido will reject dispatching a slice ordered after an
-  unresolved checkpoint.
+- **No parseable outcome (inconclusive)** → treat the checkpoint as unresolved and
+  **do not dispatch any further slices until you resolve it** — re-run the review,
+  or raise it to the operator. A prose-scheduled checkpoint has no slice of its
+  own, so **there is no aido-side gate holding this for you**; honoring it is your
+  discipline.
 
 **Act on the escalation triggers aido surfaces.** If the surfaced state reports a
 trigger — a `Blockers for …` line, a slice that failed twice, or a worker that
