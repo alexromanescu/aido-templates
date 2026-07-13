@@ -39,6 +39,27 @@ revive resumes from your latest commit). Small, frequent commits on your session
 branch are cheap and protect ~30-45 min of progress against an interruption.
 Never sit on a large uncommitted diff.
 
+## Cursor hygiene — docs/active-work.md
+
+`docs/active-work.md` is the program's **forward cursor, not a history tracker**.
+Every future session and worker loads it, so every byte you add is a recurring
+token tax on the whole engagement. When your task corresponds to a line there:
+
+- **Strike your line in place** when your branch is merge-ready, keeping the
+  title, `(S|M|L)` size marker, and `[id]` tag intact, and append **at most one
+  short outcome clause plus a pointer** (decision-log entry, roadmap row, or
+  commit hash). Example: `~~Phase 9: retention window (S) [F26]~~ ✅ (2026-07-13) — D51`.
+- **The full postmortem goes where history lives**: the plan/program doc's
+  decision log, the roadmap row, and your completion report to `@teamlead` —
+  never onto the struck line, and never as a new block in active-work.md.
+- **Never append** "Prior" / changelog / per-slice lesson blocks. If a lesson
+  must govern the remaining work, fold it into the existing cross-cutting or
+  standing-lessons block by **rewriting** it (one line per lesson) — the file
+  is rewrite-only, and git is the history.
+- Leave every other section ("Last shipped" included) at a few sentences with
+  pointers; if you find the file has grown past a screen or two per section,
+  say so in your report rather than adding more.
+
 ## Residuals review
 
 Residuals review is user-triggered from the dashboard now. Do not run a residuals
