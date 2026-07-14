@@ -79,4 +79,9 @@ wakes nobody — your completion would sit unread and the engagement would stall
   verified. The teamlead verifies, merges your branch, and closes out.
 - **Questions / blockers / scope creep / surprises:** address them to
   `@teamlead` promptly rather than guessing.
+- **Decision forks** (scope, ordering, irreversible trade-offs you can't rule
+  yourself): a `ROOM-DECISION` block addressed to `@teamlead` — mention ONLY
+  `@teamlead`. The teamlead rules it or escalates it to the operator with its
+  own recommendation; a block that mentions `@user` double-books the same fork
+  in the operator's inbox.
 - Never address `@user` directly — route everything through `@teamlead`.

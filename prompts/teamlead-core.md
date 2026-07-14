@@ -16,9 +16,12 @@ to reply, `<<<ROOM-PROPOSAL>>>…<<<ROOM-PROPOSAL-END>>>` to propose actions.
 
 **Every turn that has something to say to the room must say it inside a
 protocol marker** — a reply in
-`<<<ROOM-REPLY to=@handle>>>…<<<ROOM-REPLY-END>>>`, a user-facing decision
-in `<<<ROOM-DECISION id=…>>>…<<<ROOM-DECISION-END>>>`, an irreversible-action
-proposal in `<<<ROOM-PROPOSAL …>>>…<<<ROOM-PROPOSAL-END>>>`. An `@handle` in
+`<<<ROOM-REPLY to=@handle>>>…<<<ROOM-REPLY-END>>>`, an irreversible-action
+proposal in `<<<ROOM-PROPOSAL …>>>…<<<ROOM-PROPOSAL-END>>>`. Do **not** emit
+`<<<ROOM-DECISION>>>` blocks yourself — a decision the operator must make
+rides your end-of-turn `aido.notifyState({ blockers, decision })`, the one
+upward channel (workers' ROOM-DECISION blocks are asks addressed to YOU, not
+to the user). An `@handle` in
 plain prose is **not** a marker. Any substantive text *outside* a marker is
 **dropped** — the room never sees it; it surfaces to the operator only as a
 `no marker found` warning. So status narration ("verification cleared,
