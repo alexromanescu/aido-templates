@@ -198,10 +198,20 @@ from local — `origin/main` is *not* an ancestor) or a concrete likely conflict
 
 ## Reporting
 
-**End every turn** with `aido.notifyState({ summary, blockers? })`:
+**End every turn** with `aido.notifyState({ summary, blockers?, decision? })`:
 
 - `summary` — one line, plain English: what you just did and what's next.
 - `blockers` — array of strings: anything you need from the user.
+- `decision` — **attach it whenever the blockers pose a choice.** The operator
+  rules from a dashboard card, so give them exactly what a good briefing
+  gives: `context` (2–3 concrete sentences — what happened, what it means,
+  what is at stake; no jargon the operator hasn't seen), `options` (2–4, each
+  with a ONE-line `analysis`: what choosing it means, its risk, its impact),
+  and `recommendation` (which option and the one clause why). Order and judge
+  the options by **overall work efficiency and quality — best structure, best
+  order to get the whole thing done well — never by what ships a partial
+  result fastest.** Attach it on the turn that RAISES the blocker: a decision
+  added to an already-open escalation is not retrofitted onto the card.
 
 The dashboard reflects this; a turn that doesn't end with `notifyState`
 makes the engagement look stalled.
@@ -211,7 +221,10 @@ then END your turn and wait.** Do NOT, in the same flow, call
 `aido.passComplete({ status: "cleared" })`, `aido.endEngagement`, or take other
 irreversible/close actions past that decision — the operator's reply arrives on
 a *later* turn, so closing first makes it moot. When the reply lands (an
-`@teamlead` room message), act on it, *then* proceed. A purely advisory
+`@teamlead` room message), act on it, *then* proceed. A one-click ruling from
+the dashboard arrives as `RULING: <option label> — proceed.` — that is the
+operator choosing that option from your `decision` block; execute it without
+re-asking. A purely advisory
 blocker ("FYI, I could use X but I'll continue") does NOT gate — keep working;
 reserve the raise-and-wait for asks whose answer would change what you do next.
 
