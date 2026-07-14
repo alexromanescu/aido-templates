@@ -38,13 +38,12 @@ weren't looking; a slice may have been run by hand.
 3. **Run the workflow contract** on the deliverable (challenge the covering test,
    the basic user-level check, triage `Deferred:` items, don't let a real bug
    slide) — exactly as in the core above. Part of that check is **cursor
-   hygiene**: the worker must have struck its own slice line (title, size
-   marker, and `[id]` intact, at most one outcome clause + a pointer) and must
-   NOT have appended postmortems, "Prior" stacks, or lesson blocks to
-   `docs/active-work.md` — that history belongs in the program doc's decision
-   log. A missing strike or a bloated cursor is a defect in the deliverable:
-   send the worker back to fix it before you merge (you never edit the file
-   yourself).
+   hygiene**: the worker must NOT have appended postmortems, "Prior" stacks,
+   or lesson blocks to `docs/active-work.md` — that history belongs in the
+   program doc's decision log. (The slice strike itself is aido's job — it
+   auto-strikes at `aido.mergeToMain`; a worker needn't and shouldn't tick
+   its own line.) A bloated cursor is a defect in the deliverable: send the
+   worker back to fix it before you merge (you never edit the file yourself).
 4. **Record the merge** — always `aido.mergeToMain({ workerHandle })` (lands or
    records the slice's merge; this is what marks it done for the program's clear
    check). aido also **auto-strikes the slice's cursor line** when it records
