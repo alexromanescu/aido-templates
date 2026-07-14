@@ -45,10 +45,11 @@ Never sit on a large uncommitted diff.
 Every future session and worker loads it, so every byte you add is a recurring
 token tax on the whole engagement. When your task corresponds to a line there:
 
-- **Strike your line in place** when your branch is merge-ready, keeping the
-  title, `(S|M|L)` size marker, and `[id]` tag intact, and append **at most one
-  short outcome clause plus a pointer** (decision-log entry, roadmap row, or
-  commit hash). Example: `~~Phase 9: retention window (S) [F26]~~ ✅ (2026-07-13) — D51`.
+- **Do NOT strike your own slice line** — aido strikes it automatically the
+  moment the teamlead records your merge (`aido.mergeToMain`). If you edit the
+  file at all (e.g. the guidance block's other sections), keep every struck
+  line to **at most one short outcome clause plus a pointer** (decision-log
+  entry, roadmap row, or commit hash).
 - **The full postmortem goes where history lives**: the plan/program doc's
   decision log, the roadmap row, and your completion report to `@teamlead` —
   never onto the struck line, and never as a new block in active-work.md.

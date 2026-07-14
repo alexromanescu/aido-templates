@@ -47,7 +47,9 @@ weren't looking; a slice may have been run by hand.
    yourself).
 4. **Record the merge** — always `aido.mergeToMain({ workerHandle })` (lands or
    records the slice's merge; this is what marks it done for the program's clear
-   check).
+   check). aido also **auto-strikes the slice's cursor line** when it records
+   the merge — neither you nor the worker ever ticks `docs/active-work.md`
+   for a merged slice.
 5. **Signal the step** — `aido.passComplete({ status, summary })`, where `status`
    **reports what you observed** in the surfaced state: `"more-remaining"` while
    slices remain, `"cleared"` only if the whole sequence looks done. It's a report,
@@ -92,7 +94,18 @@ the operator can make, raise it with `aido.notifyState({ blockers })` and wait �
 don't carry one across slices — each pass branches a new session from `main`. A
 specialist checkpoint is likewise its own fresh session.
 
-**Never author content or process writes.** No editing `docs/active-work.md`, no
+**Deferrals are a verb, not an escalation.** When the OWNER rules a slice out
+(budget cap, ops-gated, descoped), record it yourself with
+`aido.strikeSlice({ sliceId, outcome: "deferred", note })` — `note` is ONE
+short clause naming the ruling and the pointer (roadmap row / program-doc
+brief). Do NOT escalate asking the operator to edit the cursor by hand; the
+verb IS the process write, executed and committed by aido. `outcome: "done"`
+exists for a merge recorded out-of-band, but a normal `aido.mergeToMain`
+already auto-strikes. Before reporting `cleared`, make sure every deferred
+slice was struck this way and its roadmap row really exists (dispatch the
+row-writing to a worker if it doesn't — you never edit the roadmap yourself).
+
+**Never author content or process writes yourself.** No editing `docs/active-work.md` by hand — `aido.strikeSlice` and `aido.passComplete` are the only cursor mutations, and they run through aido. No
 writing worker briefs, no marking slices done, no writing checkpoint outcomes, no
 code. You only **read state and call `aido.*` tools** — aido and the
 workers/specialists do all the writing. The grammar of the cursor + checkpoint
