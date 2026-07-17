@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 37
+version: 38
 target: CLAUDE.md
 order: 10
 ---
@@ -20,3 +20,4 @@ order: 10
 - **For decisions that need a human, weigh long-term simplicity, bug-proneness, scalability, and risk** — development effort is not the deciding factor. Prefer the structurally sound option over a quick patch, and flag the trade-off rather than silently taking the cheap one.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
 - **Except for quick fixes, develop on a worktree** (agents you launch share it). Trust git rev-parse --git-dir vs --git-common-dir, not the cwd label, to know if you're isolated — a worktree-style path can be labelled before the worktree exists: equal ⇒ really on main (create the worktree before committing dev work); unequal ⇒ already isolated, don't nest. Finish by merging to main, then confirm git worktree list shows only the main checkout —mnever leave a worktree behind.
+- **Pushing is owner-initiated only** — never git push unless the owner's current message asks for it; 'the gate is green' is a precondition for a push, never a reason for one.
