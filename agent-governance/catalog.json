@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "defaultProfile": "standard",
+  "capabilities": [
+    {
+      "id": "frontend-component-testing",
+      "name": "Frontend component testing",
+      "description": "Render-level testing discipline for interactive user interfaces.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "frontend-component-testing.claude-skill",
+          "harness": "claude",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "frontend-tests",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/frontend-tests"
+          }
+        },
+        {
+          "id": "frontend-component-testing.codex-skill",
+          "harness": "codex",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "frontend-tests",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/frontend-tests"
+          }
+        }
+      ]
+    },
+    {
+      "id": "adversarial-fresh-eyes-review",
+      "name": "Adversarial fresh-eyes review",
+      "description": "Adversarial review for invariant decay, proxy blind spots, and residual defects.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "adversarial-fresh-eyes-review.claude-skill",
+          "harness": "claude",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "residuals-review",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/residuals-review"
+          }
+        },
+        {
+          "id": "adversarial-fresh-eyes-review.codex-skill",
+          "harness": "codex",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "residuals-review",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/residuals-review"
+          }
+        }
+      ]
+    },
+    {
+      "id": "structural-invariant-testing",
+      "name": "Structural invariant testing",
+      "description": "Source-structure tests for cross-cutting architectural invariants.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "structural-invariant-testing.claude-skill",
+          "harness": "claude",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "structural-tests",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/structural-tests"
+          }
+        },
+        {
+          "id": "structural-invariant-testing.codex-skill",
+          "harness": "codex",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "structural-tests",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/structural-tests"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-hardening",
+      "name": "Test hardening",
+      "description": "Mechanical red-check and mutation discipline for load-bearing tests.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "test-hardening.claude-skill",
+          "harness": "claude",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "test-hardening",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/test-hardening"
+          }
+        },
+        {
+          "id": "test-hardening.codex-skill",
+          "harness": "codex",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "test-hardening",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/test-hardening"
+          }
+        }
+      ]
+    },
+    {
+      "id": "state-transition-simulation",
+      "name": "State-transition simulation",
+      "description": "Deterministic simulation of state transitions, races, and concurrent behavior.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "state-transition-simulation.claude-skill",
+          "harness": "claude",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "testing-by-simulation",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/testing-by-simulation"
+          }
+        },
+        {
+          "id": "state-transition-simulation.codex-skill",
+          "harness": "codex",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "testing-by-simulation",
+          "provenance": {
+            "type": "templates",
+            "path": "skills/testing-by-simulation"
+          }
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "id": "standard",
+      "name": "Standard",
+      "description": "Common globally governed workflows for Claude Code and Codex CLI.",
+      "requirements": [
+        {
+          "capabilityId": "frontend-component-testing",
+          "harness": "claude",
+          "realizationId": "frontend-component-testing.claude-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "frontend-component-testing",
+          "harness": "codex",
+          "realizationId": "frontend-component-testing.codex-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "adversarial-fresh-eyes-review",
+          "harness": "claude",
+          "realizationId": "adversarial-fresh-eyes-review.claude-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "adversarial-fresh-eyes-review",
+          "harness": "codex",
+          "realizationId": "adversarial-fresh-eyes-review.codex-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "structural-invariant-testing",
+          "harness": "claude",
+          "realizationId": "structural-invariant-testing.claude-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "structural-invariant-testing",
+          "harness": "codex",
+          "realizationId": "structural-invariant-testing.codex-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "test-hardening",
+          "harness": "claude",
+          "realizationId": "test-hardening.claude-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "test-hardening",
+          "harness": "codex",
+          "realizationId": "test-hardening.codex-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "state-transition-simulation",
+          "harness": "claude",
+          "realizationId": "state-transition-simulation.claude-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "state-transition-simulation",
+          "harness": "codex",
+          "realizationId": "state-transition-simulation.codex-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        }
+      ]
+    }
+  ]
+}

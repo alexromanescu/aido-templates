@@ -8,7 +8,8 @@ This repo contains the template content distributed by the aido app: managed sec
 - `*-default.md` (repo root) — Project scaffolds (`claudemd`, `roadmap`, `deploy`, `active-work`, `agent-card`, `tests`). Written into a project at creation/init time.
 - `prompts/` — Prompt templates rendered with `{{var}}` substitution by the aido AI router and the team-lead launch path.
 - `rooms/` — Agent-facing prose loaded into multi-agent room JOIN payloads and message envelopes. Special escape rules — see below.
-- `skills/` — Skill definitions installed to `~/.claude/skills/<name>/` on user machines. Project-agnostic procedural knowledge auto-activated by description-matching; preferred over managed-section + referenced doc when there's a clear "when to use" trigger.
+- `skills/` — Canonical governed custom-skill sources. Every immediate skill folder is registered in `agent-governance/catalog.json`; one source may back one or more explicitly selected harness realizations.
+- `agent-governance/catalog.json` — Portable desired-policy catalog for semantic capabilities, harness realizations, and profiles. It contains no live host observations and does not itself install or enable anything.
 - `stacks.json` — Stack-detection rules and metadata; gates which managed-section variants are offered to each project.
 
 ## Managed sections
@@ -116,18 +117,11 @@ When you add a new room template file, name it under `rooms/` and load it via th
 
 ## Skills
 
-Folders under `skills/` are skill definitions installed to `~/.claude/skills/<name>/` on user machines. Each is a directory containing `SKILL.md` with YAML frontmatter (`name`, `description`) and a Markdown body. Claude Code auto-discovers them at session start and activates them by matching the `description` against user intent — preferred over a managed section + referenced doc when the content is **project-agnostic procedural knowledge with a clear "when to use" trigger**, because activation is reliable (every turn, every session) and there's no per-project sync overhead.
+Folders under `skills/` are the canonical governed sources for custom skills. Each is a directory containing `SKILL.md` with YAML frontmatter (`name`, `description`) and a Markdown body. Claude Code and Codex CLI realizations are separate catalog records even when they share this source; the native skill ID must match the folder and frontmatter `name`.
 
-Distribution is currently manual (the user copies folders to `~/.claude/skills/`); aido will manage per-project skill installation as a separate effort. There is no versioning or drift-tracking machinery — a skill folder is either installed or it isn't.
+`agent-governance/catalog.json` owns the semantic capability mapping and the governed profile requirements. Every immediate `skills/*/SKILL.md` source must be represented exactly once at the capability level, and a catalogued custom skill source must exist here. The catalog records desired policy only: do not add absolute host paths, observed versions, caches, usage state, or current enablement. A desired realization is a target state, not evidence that a live harness can execute the source; reconciliation must verify harness compatibility before deployment.
 
-Authoring guidance: lead the `description` with "Use when …" and enumerate the trigger shapes (user phrases, code shapes, file types) so the matcher fires reliably. The body is a regular Markdown procedure; keep it tight and project-agnostic. If a procedure has project-specific tails (canonical examples, runner choice), record those in the project's own docs rather than in the skill.
-
-The current set:
-
-- `frontend-tests/` — when and how to render-test UI components.
-- `residuals-review/` — adversarial fresh-eyes-review cycle for proxy decay and shape-mirror bugs.
-- `structural-tests/` — when to add a regex/AST-over-source test and how to keep its scaffolding honest.
-- `testing-by-simulation/` — when to choose simulation over E2E for state machines, races, and merges.
+For new or normalized sources, lead the `description` with "Use when …" and enumerate the trigger shapes (user phrases, code shapes, file types) so the matcher fires reliably. The body is a regular Markdown procedure; keep it tight and project-agnostic. Existing sources may predate this contract; normalize them and verify harness compatibility before deploying a newly selected realization. If a procedure has project-specific tails (canonical examples, runner choice), record those in the project's own docs rather than in the skill. When adding or renaming a canonical skill, update its semantic capability, harness realizations, and applicable profile requirements in the catalog in the same change.
 
 ## stacks.json
 
