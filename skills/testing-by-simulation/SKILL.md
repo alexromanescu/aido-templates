@@ -56,6 +56,8 @@ Aim for ~90% simulation, ~10% e2e on state-shaped surfaces.
 
 ## Canonical pattern (skeleton)
 
+This TypeScript/Vitest example is illustrative; translate the pattern to the project's language and test runner.
+
 ```ts
 import { describe, it, expect } from "vitest";
 import { TestClock } from "...";

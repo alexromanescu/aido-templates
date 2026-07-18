@@ -1,7 +1,7 @@
 ---
 section: tests
 stack: default
-version: 8
+version: 9
 target: docs/tests.md
 order: 10
 ---
@@ -61,10 +61,4 @@ If this doc carries a hand-maintained test inventory, update it in the same comm
 
 ## Adding a new testing pattern
 
-When a new testing pattern appears repeatedly (property-based, snapshot-replay, contract), promote it to a skill (`~/.claude/skills/<topic>/SKILL.md`, or via aido's skill management when available). The skill description should follow the "Use when ..." form so it activates on the right trigger. Reference the new skill from the Test tiers table above.
-
-Canonical pattern skills (project-independent, auto-activated by description):
-
-- `testing-by-simulation` — when to choose simulation over E2E.
-- `structural-tests` — when to add a regex/AST-over-source test.
-- `frontend-tests` — when and how to render-test UI components.
+When a new testing pattern appears repeatedly (property-based, snapshot-replay, contract), promote it to a governed custom skill in aido-templates and register its harness realizations and allowed scopes in `agent-governance/catalog.json`. Lead the skill description with "Use when ..." so it activates on the right trigger. Shared patterns belong in the common profile; project-only patterns stay out of the global baseline and are selected by that project's requirements. Reference a pattern from the Test tiers table when it helps choose the layer, but do not maintain a second canonical-skill inventory here — derive inventory from the catalog.

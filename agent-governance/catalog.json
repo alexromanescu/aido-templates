@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "defaultProfile": "standard",
   "capabilities": [
     {
@@ -14,6 +14,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "frontend-tests",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/frontend-tests"
@@ -25,6 +26,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "frontend-tests",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/frontend-tests"
@@ -44,6 +46,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "residuals-review",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/residuals-review"
@@ -55,6 +58,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "residuals-review",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/residuals-review"
@@ -74,6 +78,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "structural-tests",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/structural-tests"
@@ -85,6 +90,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "structural-tests",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/structural-tests"
@@ -104,6 +110,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "test-hardening",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/test-hardening"
@@ -115,6 +122,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "test-hardening",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/test-hardening"
@@ -134,6 +142,7 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "testing-by-simulation",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/testing-by-simulation"
@@ -145,9 +154,74 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "testing-by-simulation",
+          "allowedScopes": ["global", "project"],
           "provenance": {
             "type": "templates",
             "path": "skills/testing-by-simulation"
+          }
+        }
+      ]
+    },
+    {
+      "id": "program-preparation",
+      "name": "Program preparation",
+      "description": "File-carried preparation of large work into independently executable slices.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "program-preparation.claude-skill",
+          "harness": "claude",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "program-prep",
+          "allowedScopes": ["global", "project"],
+          "provenance": {
+            "type": "templates",
+            "path": "skills/program-prep"
+          }
+        },
+        {
+          "id": "program-preparation.codex-skill",
+          "harness": "codex",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "program-prep",
+          "allowedScopes": ["global", "project"],
+          "provenance": {
+            "type": "templates",
+            "path": "skills/program-prep"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aido-running-app-verification",
+      "name": "Aido running-app verification",
+      "description": "Project-specific verification of aido changes at the built running-app surface.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "aido-running-app-verification.claude-skill",
+          "harness": "claude",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "verify",
+          "allowedScopes": ["project"],
+          "provenance": {
+            "type": "templates",
+            "path": "skills/verify"
+          }
+        },
+        {
+          "id": "aido-running-app-verification.codex-skill",
+          "harness": "codex",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "verify",
+          "allowedScopes": ["project"],
+          "provenance": {
+            "type": "templates",
+            "path": "skills/verify"
           }
         }
       ]
@@ -262,6 +336,28 @@
           "capabilityId": "state-transition-simulation",
           "harness": "codex",
           "realizationId": "state-transition-simulation.codex-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "program-preparation",
+          "harness": "claude",
+          "realizationId": "program-preparation.claude-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "program-preparation",
+          "harness": "codex",
+          "realizationId": "program-preparation.codex-skill",
           "disposition": "required",
           "scope": "global",
           "desired": {

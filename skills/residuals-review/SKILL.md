@@ -1,11 +1,11 @@
 ---
 name: residuals-review
-description: Run an adversarial fresh-eyes-review cycle on a specified target — defaulting to the most recent commit but accepting any of: a specific commit (`HEAD~3`), a commit range (`main..HEAD`), a PR (`#42`), a branch comparison (current vs main), the working-tree (uncommitted changes), a module/path (`packages/server/src/modules/auth`), or the whole codebase (no scope). Hunts for proxy evasions, shape-mirror bugs, and unverified universal claims. Applies red-then-green fixes for real findings; defers structural blindspots with grep citations. Auto-loops until two consecutive zero-finding reviews terminate, with a checkpoint every 5 cycles for cost control. Use when the user says "residuals review", "fresh-eyes review", "audit this PR/branch/module", "find what's wrong before I merge", "find what was missed", "audit for invariant decay", or after a non-trivial change to invariant-sensitive code.
+description: Use when the user says "residuals review", "fresh-eyes review", "audit this PR/branch/module", "find what's wrong before I merge", "find what was missed", or "audit for invariant decay", or after a non-trivial change to invariant-sensitive code. Runs an adversarial fresh-eyes cycle against a commit, range, PR, branch, working tree, path, or whole codebase; hunts proxy evasions, shape-mirror bugs, and unverified universal claims; applies red-then-green fixes; and loops until two consecutive zero-finding reviews terminate.
 ---
 
 # Residuals Review — Adversarial Fresh-Eyes Cycle
 
-You are conducting one (or more) **adversarial reviews** of the most recent commit on the current branch. The goal is to find **proxy evasions** — places where a test or invariant binds to a syntactic shape that *approximates* the real invariant but doesn't fully encode it. Each cycle walks one level deeper.
+Conduct one or more **adversarial reviews** of the selected target. The goal is to find **proxy evasions** — places where a test or invariant binds to a syntactic shape that *approximates* the real invariant but doesn't fully encode it. Each cycle walks one level deeper.
 
 ## Core principle
 
@@ -15,17 +15,17 @@ The discipline: **the next reviewer assumes nothing**. Every closeout claim from
 
 ## Target selection (what is being reviewed)
 
-The user's request determines the **target** — the body of code/claims under audit. Six invocation shapes:
+The user's request determines the **target** — the body of code/claims under audit. Seven invocation shapes:
 
 | Invocation | Target | What "the proxies" are |
 |---|---|---|
 | (default) | Most recent commit (`HEAD`) | The commit message's claims; the diff itself |
 | `audit HEAD~5..HEAD` | A range of commits | The cumulative claims across the range |
-| `audit PR #42` / `audit this PR` | A GitHub PR | `gh pr view 42 --json files,body,title,commits` — the PR description's claims, the cumulative diff, the linked issue's claims |
+| `audit PR #42` / `audit this PR` | A GitHub PR | The available GitHub integration (or authenticated `gh` fallback) — the PR description's claims, cumulative diff, commits, and linked issue |
 | `audit this branch` / `before I merge` | Current branch vs base (usually `dev` / `main`) | `git diff <base>...HEAD` — the divergence's claims; the branch name itself often signals intent |
 | `audit my uncommitted work` | Working tree | `git diff` (staged + unstaged) — what the user is *about to* claim |
 | `audit modules/auth` / `find gaps in X` | A path | The current state of that module against its invariants — bootstrap mode, no commit to bind to |
-| (none specified) | The whole codebase | The structural tests' claims (allow-lists, exhaustiveness scans) and the project's documented invariants |
+| `audit the codebase` / `whole-codebase audit` | The whole codebase | The structural tests' claims (allow-lists, exhaustiveness scans) and the project's documented invariants |
 
 **Pick the right target by listening to the user's verb**:
 - "review", "what was missed", "another cycle" → default to most recent commit unless they specify
@@ -37,7 +37,7 @@ If unclear, **ask once** then proceed: "I'll review HEAD by default — or did y
 
 ## Single-cycle workflow
 
-1. **Establish the target.** Use the table above. For commit-based targets, `git log` and `git show --stat` to scope. For PR-based, `gh pr view <N>`. For branches, `git diff <base>...HEAD`. For working-tree, `git status` + `git diff`. For path-based, read the module's structural tests and reflections to find the invariants.
+1. **Establish the target.** Use the table above. For commit-based targets, use `git log` and `git show --stat`. For PR-based targets, use the available GitHub integration; fall back to `gh` only when it is installed and authenticated. For branches, use `git diff <base>...HEAD`; for the working tree, `git status` plus staged/unstaged diffs. For path-based targets, read the module's structural tests and reflections to find the invariants.
 
 2. **Identify the proxies the target relies on.** Patterns to look for:
    - **Structural-test regexes** over source code (extractors, allow-list scanners). The regex's capture set is the proxy; the invariant is whatever it's meant to enforce.
@@ -55,40 +55,37 @@ If unclear, **ask once** then proceed: "I'll review HEAD by default — or did y
    - **Defensive observability**: every refactor that removes a throw/assert must explicitly justify it.
 
 4. **For each candidate finding**, classify:
-   - **P0/P1 (real bug, fix now)** — concrete demonstrator (grep finds a current site that exhibits the evasion). Write a failing test on dev HEAD, apply the fix, confirm green.
+   - **P0/P1 (real bug, fix now)** — concrete demonstrator (grep finds a current site that exhibits the evasion). Write a failing test against the unmodified target/base state, apply the fix, confirm green.
    - **P2 cheap+concrete (fix preemptively)** — small cost (regex tweak, single-line fix) AND clear shape-mirror of an existing fix. Apply.
    - **P2 architectural (defer with roadmap entry)** — multi-module move, scope creep risk. Add roadmap entry; cite grep showing current state.
    - **P2 speculative (defer with grep citation)** — no current sites, structural blindspot only. Document in spec; do not fix preemptively.
 
 5. **Apply fixes with red-then-green discipline:**
-   - Write the failing test FIRST. Run it on dev HEAD; confirm it fails.
+   - Write the failing test FIRST. Run it against the unmodified target/base state; confirm it fails.
    - Apply the fix.
    - Run the test; confirm it passes.
    - Run the broader test suite to confirm no regression.
    - **No exceptions.** A fix without a regression-guarding test is not landed.
 
-6. **Update the reflections doc** (project-specific location; usually `docs/meta/reflections.md` or similar). Add a new "level-N lesson" sub-section under the prior. Be honest:
+6. **Update the project's established review/reflections record if one exists.** Do not create a new project-specific documentation convention merely for this skill. Be honest:
    - What proxy did the prior session bind to?
    - What evasion did this session find?
    - What's the discipline correction?
    - Cite the grep that confirms claims.
 
-7. **Commit on the working branch.** Use a structured message:
-   - First line: `fix(<phase>): <one-line summary> (Session N)`
-   - Body: P0/P1/P2 finding labels, repro lines, fix shapes, test counts, typecheck status.
-   - End with `Co-Authored-By:` if applicable.
+7. **Commit on the working branch when the task authorizes commits.** Follow the project's established commit convention; do not invent a new one for this skill. Capture finding labels, repro, fix shape, and verification in the commit or the project's review record.
 
 ## Multi-cycle (auto-loop) workflow
 
 Multi-cycle is meaningful when the target **evolves between cycles** — i.e., commit-based targets (the prior cycle's fix becomes the next cycle's target). For static targets (path-based audits, PRs that aren't being modified), one cycle is the typical scope unless the user keeps editing.
 
-When invoked, default to **looping until termination** with a **checkpoint every 5 cycles**.
+When invoked, default to **looping until termination**. Before the loop, read the governing project's pause/checkpoint policy. If it defines none, use the fifth-cycle cost-control fallback below.
 
-**The loop runs autonomously between cycles.** Once one cycle's review → fix → commit → reflect is done, **immediately start the next cycle** without asking. Do not pause to ask "should I continue?", "want another cycle?", "is this enough?", "shall I do a deeper sweep?" — those are loop-killers disguised as politeness, and they override the user's stated intent (which was to run the loop). The user invoked the skill to get the full cycle, not to be polled per iteration. **The only sanctioned pauses are the 5-cycle checkpoint and natural termination at two consecutive zero-finding cycles.** Neither requires confirmation — checkpoint asks; termination just announces and exits.
+**The loop runs autonomously between cycles.** Once one cycle's review → fix → commit/record is done, **immediately start the next cycle** without asking. Do not pause to ask "should I continue?", "want another cycle?", "is this enough?", or "shall I do a deeper sweep?" The sanctioned pauses are those required by governing project guidance, the fifth-cycle fallback when no such guidance exists, and natural termination at two consecutive zero-finding cycles.
 
 One cycle is **never** a complete invocation of this skill in auto-loop mode. If you find yourself wrapping up after cycle 1 with a single zero, you are in violation — keep going.
 
-Initialize a TodoWrite list at the start with these recurring tasks (one per cycle):
+Create the recurring checklist in the harness's native task/plan tracker when one is available; otherwise keep a concise working checklist:
 - "Cycle N: read prior commit and audit"
 - "Cycle N: write failing tests for findings"
 - "Cycle N: apply fixes"
@@ -99,7 +96,7 @@ After each commit:
 
 1. **Termination check**: was this cycle's findings count zero? If yes AND the previous cycle was also zero → **TERMINATE** with a summary commit (or just announce termination if no doc changes).
 
-2. **Cost-control checkpoint**: every 5 cycles, **PAUSE and ask the user**:
+2. **Project policy or fallback cost boundary**: follow the governing project's pause/checkpoint policy. If it defines none, every fifth cycle **pause and ask the user** with:
    - Cycles completed in this run
    - Findings tally per cycle (e.g., 5/3/2/2/0)
    - Estimated cost so far (rough — token budget consumed)
@@ -113,7 +110,7 @@ After each commit:
 
 The cycle ends in one of these ways:
 - **Two consecutive zero-finding reviews** (the natural termination).
-- **User intervention** (at a 5-cycle checkpoint or via direct message).
+- **User intervention** (at a policy-required pause, the fallback fifth-cycle boundary, or via direct message).
 - **Hard cap reached** — if findings tally goes 0/0/0+ without termination signal, something is wrong; pause and report.
 
 ## Stopping early — rationalizations to override
@@ -124,7 +121,7 @@ After cycle 1, agents under loop pressure invent reasons to bail. **Every reason
 |--------|---------|
 | "Only one finding this cycle, must be near-done" | One finding is not zero. Continue. |
 | "Zero findings this cycle, we're done" | One zero is not *two consecutive* zeros. Continue. |
-| "Let me check with the user before another cycle" | The 5-cycle checkpoint is the only sanctioned pause. Continue. |
+| "Let me check with the user before another cycle" | Continue unless governing project guidance or the fallback fifth-cycle boundary requires a pause. |
 | "The user probably didn't mean a full loop" | The skill spec IS the loop. If they wanted single-cycle they'd have said. Continue. |
 | "Findings are getting speculative" | Then defer them with grep citations and continue. Termination is two zeros, not "feels diminishing". |
 | "Context might be running low" | The harness compresses for you. Don't preemptively bail. Continue. |
@@ -134,16 +131,16 @@ After cycle 1, agents under loop pressure invent reasons to bail. **Every reason
 | "I want to be efficient / save tokens" | Stopping early after one cycle is the most expensive failure mode — the user re-invokes the skill. Continue. |
 | "The remaining findings are all P2-deferred" | Deferring is part of the cycle, not a reason to end it. Continue. |
 | "I'm tired / context is heavy / this is enough" | Fatigue is not a termination condition. Continue. |
-| "Spirit of the rule is satisfied" | The *letter* of the loop is the spirit. Two zeros or a checkpoint — nothing else. Continue. |
+| "Spirit of the rule is satisfied" | Two zeros or a policy/fallback pause — nothing else. Continue. |
 
 **The only acceptable reasons to stop the loop before natural termination:**
 1. **Two consecutive zero-finding cycles** → terminate, announce, exit.
-2. **5-cycle checkpoint reached** → pause, summarize tally and cost, ask user.
+2. **Governing guidance requires a pause, or the fallback fifth-cycle boundary is reached** → follow that policy; for the fallback, summarize tally/cost and ask the user.
 3. **Hard infrastructure error** (tests can't run, target unparseable, git in a broken state) → report and pause.
 
 Nothing else is grounds to stop. Treat "one and done" as a violation, not a judgment call.
 
-## Cost-curve awareness (level-10 lesson from q1dms)
+## Cost-curve awareness
 
 Findings should DECREASE across cycles. A typical trajectory: 8 → 5 → 5 → 2 → 2 → 0 → 0. As findings shrink:
 
@@ -163,7 +160,7 @@ Once a cycle terminates, restart only when:
 
 ## Project-specific calibration
 
-Different projects have different invariant surfaces. On first use in a new project, the model should read:
+Different projects have different invariant surfaces. On first use in a new project, the reviewer should read:
 - The reflections doc (or equivalent) to find prior cycles
 - The structural test files (look for `*.exhaustiveness.test.ts`, `*-coverage.test.*`, regex-over-source tests)
 - The allow-list / classification tables
@@ -179,15 +176,13 @@ If none of these exist yet, the cycle is BOOTSTRAPPING — first session establi
 
 ## Worked examples by target
 
-- **`/residuals-review`** (no args, after a commit lands) — review HEAD; loop with checkpoints; the q1dms reference cycle.
-- **`audit PR #42`** — `gh pr view 42` to read claims; `gh pr diff 42` for the diff; treat the PR description as the closeout claim. Findings get posted as PR review comments OR added as commits on the branch (ask user). Single-cycle by default; loop only if user keeps pushing.
-- **`audit this branch before I merge`** — `git diff dev...HEAD` (or `main`, depending on policy); the divergence's claims live in the branch's commit messages. Findings get committed to the branch; loop until clean, then user merges.
+- **`residuals-review` with no explicit target** (after a commit lands) — review `HEAD`; loop under project checkpoint guidance until termination.
+- **`audit PR #42`** — use the available GitHub integration (or authenticated `gh` fallback) to read claims and the cumulative diff; treat the PR description as the closeout claim. Apply findings only when the task authorizes branch changes. Single-cycle by default; loop only as the target evolves.
+- **`audit this branch before I merge`** — `git diff <base>...HEAD`; the divergence's claims live in the branch's commit messages. Findings get committed to the branch when authorized; loop until clean, then the user merges.
 - **`audit my uncommitted work`** — `git diff` (staged + unstaged); the user's *intended* commit message is the closeout claim. Findings get applied directly to the working tree before the commit. Single-cycle.
 - **`audit modules/auth for invariant decay`** — bootstrap mode: read the module's structural tests and reflections; if none exist, the first cycle establishes them; subsequent cycles audit them. Long-running, can span many sessions.
 - **`audit the codebase`** — broadest sweep: walk all `*.exhaustiveness.test.ts` (or equivalent) and audit each one's allow-list for honest classifications. Multi-cycle, multi-session.
 
-## Reference: the q1dms cycle
+## Reference trajectory
 
-The first 11-cycle execution of this discipline lives at `/home/alex/Work/Projects/q1dms/docs/meta/reflections.md` (see "Footgun decay" through "Discipline cycle terminates" sub-sections). The 11-level lesson history table at the bottom is the canonical worked example.
-
-Findings tally for that cycle: **6/8/6/4/3/5/5/2/2/0/0** (12 commits, ~40 findings, terminated naturally).
+One mature execution produced a **6/8/6/4/3/5/5/2/2/0/0** findings tally and terminated naturally. Treat the shape—not any particular project, path, or cycle count—as the lesson: findings can rise when a deeper proxy opens, but the long-run curve should converge to two zeros.
