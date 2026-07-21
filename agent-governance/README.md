@@ -80,11 +80,11 @@ environment, host assignment, observed version, or physical action.
 
 ## Resolution and conflicts
 
-Resolution emits one estate-wide global variant and only project-scoped targets
-inside each logical project's plan. Identical complete global sets coalesce and
-retain every origin. Different global sets remain visible as incompatible
-variants; they are not unioned, intersected, prioritized, or selected by input
-order.
+A ready resolution emits one estate-wide global variant and only
+project-scoped targets inside each logical project's plan. Identical complete
+global sets coalesce and retain every origin. Different global sets remain
+visible as incompatible variants; they are not unioned, intersected,
+prioritized, or selected by input order.
 
 Unresolved references, incompatible profile variants, collisions, and shadows
 block the plan; resolution never guesses policy or adapter-native identity.
