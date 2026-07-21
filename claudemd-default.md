@@ -1,6 +1,6 @@
 ---
 target: CLAUDE.md
-description: Project CLAUDE.md. Written to new projects on creation.
+description: Physical guidance authority (CLAUDE.md). Written to new projects on creation.
 variables: [name, description]
 init: true
 ---

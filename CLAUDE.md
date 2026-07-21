@@ -1,6 +1,8 @@
 # aido-templates — Template Content & Authoring Guide
 
-This repo contains the template content distributed by the aido app: managed sections, project scaffolds, prompts, room-protocol templates, and stack-detection rules. The aido app reads from this folder at runtime and edits it via its `/templates` page UI. It is an **external repo, independent of the aido source tree** — aido locates it per-instance via `AIDO_TEMPLATES_ROOT` env var, the `templatesFolder` SQLite setting (set in `/settings → General`), or the default `~/Work/Projects/aido-templates`. The intent is to keep `CLAUDE.md` and its referenced docs in sync across applications and propagate learnings between them, supporting structured agent-driven development across multiple apps.
+This repo contains the template content distributed by the aido app: managed sections, project scaffolds, prompts, room-protocol templates, and stack-detection rules. The aido app reads from this folder at runtime and edits it via its `/templates` page UI. It is an **external repo, independent of the aido source tree** — aido locates it per-instance via `AIDO_TEMPLATES_ROOT` env var, the `templatesFolder` SQLite setting (set in `/settings → General`), or the default `~/Work/Projects/aido-templates`. The intent is to keep logical agent guidance and its referenced docs in sync across applications and propagate learnings between them, supporting structured agent-driven development across multiple apps.
+
+Logical agent guidance has one physical `CLAUDE.md` authority and a portable `AGENTS.md -> CLAUDE.md` compatibility alias. That shared guidance is distinct from harness-specific runtime prompts, room protocols, provider/CLI behavior, and session material; preserve those native distinctions instead of generalizing them through the alias.
 
 ## Layout
 
@@ -149,7 +151,7 @@ Pushes to `origin/main` are user-initiated. The dev folder (`~/Work/Projects/aid
 - Start with the **rule** (one or two lines), then explain.
 - Use `### Rule` and `### Reference` subsections sparingly — only when there's enough material to warrant them.
 - Cross-link to deeper docs with relative paths (`docs/<topic>.md`) when the section's host project is expected to have them. Mark such references as conditional — "if your project has `docs/X.md`, ..." — because managed sections appear in projects with very different doc footprints.
-- Keep prose dense; managed sections are read by Claude in-session, so favor a tight bulleted list over a diagram or visual flourish.
+- Keep prose dense; managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 
 <!-- managed:roadmap v=16 -->
 ## Roadmap
