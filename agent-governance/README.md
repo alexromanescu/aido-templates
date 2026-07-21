@@ -63,8 +63,10 @@ A project may own the fixed file
 ```
 
 A missing project declaration selects `defaultProfile`; it does not mean an
-empty profile. A present declaration selects its named profile. Never copy the
-profile's global baseline into a project declaration. Project requirements may
+empty profile. A present declaration selects its named profile. A present
+malformed, unreadable, unsafe, or unresolved declaration is an error, never
+absence; a missing project is also an error. Never copy the profile's global
+baseline into a project declaration. Project requirements may
 add a realization or replace a selected profile realization, and every
 project-owned record uses `scope: "project"`. Replacement occurs only when a
 project requirement matches a profile project requirement by capability and
