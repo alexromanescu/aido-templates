@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 45
+version: 46
 target: CLAUDE.md
 order: 10
 ---
@@ -18,5 +18,5 @@ order: 10
 - **For decisions that need a human, weigh long-term simplicity, bug-proneness, and risk** — not development effort. Flag the trade-off rather than silently taking the cheap option.
 - **Verify review feedback against the codebase before implementing it.** Reviewers — human or automated — can lack context: implement what checks out, push back with technical reasoning on what doesn't, never implement blind.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
-- **Except for quick fixes, develop on a worktree** (agents you launch share it). Trust git rev-parse --git-dir vs --git-common-dir, not the cwd label, to know if you're isolated — a worktree-style path can be labelled before the worktree exists: equal ⇒ really on main (create the worktree before committing dev work); unequal ⇒ already isolated, don't nest. Finish by merging to main, then confirm git worktree list shows only the main checkout — never leave a worktree behind.
+- **Except for quick fixes, develop on a worktree — never commit dev work to the repo's default branch** (agents you launch share it). This is a standing owner instruction: it holds even when a harness or launcher configured the session to work in place, so create the worktree rather than skipping it. Trust git rev-parse --git-dir vs --git-common-dir, not the cwd label, to know if you're isolated — a worktree-style path can be labelled before the worktree exists: equal ⇒ really on the default branch (create the worktree before committing dev work); unequal ⇒ already isolated, stay there and don't nest. Finish by merging back to the default branch, then confirm git worktree list shows only the main checkout — never leave a worktree behind.
 - **Pushing is owner-initiated only** — never git push unless the owner's current message asks for it; 'the gate is green' is a precondition for a push, never a reason for one.
