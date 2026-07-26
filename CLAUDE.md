@@ -128,6 +128,7 @@ The current set:
 - `frontend-tests/` — when and how to render-test UI components.
 - `residuals-review/` — adversarial fresh-eyes-review cycle for proxy decay and shape-mirror bugs.
 - `structural-tests/` — when to add a regex/AST-over-source test and how to keep its scaffolding honest.
+- `test-hardening/` — mechanical methods against false-green tests: scoped mutation testing, branch-coverage gating on changed files, a11y/DOM lint promoted to failures, per-test red-checks.
 - `testing-by-simulation/` — when to choose simulation over E2E for state machines, races, and merges.
 
 ## stacks.json
