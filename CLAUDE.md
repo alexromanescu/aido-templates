@@ -124,6 +124,7 @@ Authoring guidance: lead the `description` with "Use when …" and enumerate the
 
 The current set:
 
+- `debugging/` — root-cause-first debugging: one hypothesis at a time, boundary instrumentation, three-failed-fixes escalation.
 - `frontend-tests/` — when and how to render-test UI components.
 - `residuals-review/` — adversarial fresh-eyes-review cycle for proxy decay and shape-mirror bugs.
 - `structural-tests/` — when to add a regex/AST-over-source test and how to keep its scaffolding honest.
