@@ -3,6 +3,44 @@
   "defaultProfile": "standard",
   "capabilities": [
     {
+      "id": "root-cause-debugging",
+      "name": "Root-cause debugging",
+      "description": "Root-cause-first debugging with explicit hypotheses, boundary instrumentation, and escalation after repeated failed fixes.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "root-cause-debugging.claude-skill",
+          "harness": "claude",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "debugging",
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
+          "provenance": {
+            "type": "templates",
+            "path": "skills/debugging"
+          }
+        },
+        {
+          "id": "root-cause-debugging.codex-skill",
+          "harness": "codex",
+          "kind": "skill",
+          "ownership": "custom",
+          "nativeId": "debugging",
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
+          "provenance": {
+            "type": "templates",
+            "path": "skills/debugging"
+          }
+        }
+      ]
+    },
+    {
       "id": "frontend-component-testing",
       "name": "Frontend component testing",
       "description": "Render-level testing discipline for interactive user interfaces.",

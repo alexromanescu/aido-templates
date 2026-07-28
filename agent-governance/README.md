@@ -101,8 +101,9 @@ the next deterministic plan. It does not trigger reconciliation, alter current
 state, or prove that a realization is compatible with an installed harness.
 
 Migration proceeds through observation, deterministic planning, explicit owner
-review where required, and only then a later reconciliation phase. Preserve
-occupants and unknown artifacts, review destructive cleanup path by path, and
-use the owning adapter's preview/apply/verify contract when that later phase is
-available. Until then, author policy and review its plan without changing live
-Claude or Codex state.
+review where required, and only then reconciliation. Use the reconciliation
+service's Preview/Apply/Retry/Verify boundary; normal production remains
+Preview-only, and any live mutation requires its exact owner-approved local
+acceptance procedure. Preserve occupants and unknown artifacts, and review
+destructive cleanup path by path. Editing policy or reviewing a plan never
+authorizes a live Claude or Codex change.
