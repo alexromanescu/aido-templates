@@ -1,7 +1,7 @@
 ---
 section: active-work
 stack: default
-version: 6
+version: 7
 target: docs/active-work.md
 order: 10
 ---
@@ -19,7 +19,7 @@ _**This file is the forward cursor, not a history tracker.** It is reloaded ever
 - **Sequence** — the ordered path to the goal; strike done steps in place, flag the next; cite roadmap rows / `BUG-NNN` ids rather than copying them. **Keep each item's `(S)/(M)/(L)` size marker** — aido sums them for the engagement budget, so a rewrite that drops them silently under-budgets the work. **A struck item keeps at most one short outcome clause plus a pointer** (decision-log entry, roadmap row, or commit) — the full postmortem goes to the plan/program doc or the roadmap row, never onto the struck line.
 - **Cross-cutting bar** — constraints that apply to *every* step (design, i18n, tests, a11y); state them once here instead of per step.
 - **Run it** — the exact commands to launch and test the app against this focus, so any session verifies without rediscovering them.
-- **Next-session prompt** — copy-paste resume: re-establish ground truth (branch, status, tests) → which roadmap rows → which deferred items / bugs to fold in → which skill/approach to open with → where to start.
+- **Resume prompt** — copy-paste resume: re-establish ground truth (branch, status, tests) → which roadmap rows → which deferred items / bugs to fold in → which skill/approach to open with → where to start. (Writing it is not an exit.)
 - **Key references** — the few docs / specs an agent needs for this focus.
 - **Never relegate an unfinished part of the active item to Distant Roadmap / Potential Improvements.** A partially-done item is rewritten to show what shipped and keeps the unfinished part as the next step — it is not marked done.
 
