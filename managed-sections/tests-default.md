@@ -1,40 +1,24 @@
 ---
 section: tests
 stack: default
-version: 9
+version: 10
 target: docs/tests.md
 order: 10
 ---
 ## Test tiers
 
-| Tier | Runner | When to run | Duration |
-|------|--------|-------------|----------|
-| Unit | <runner> | During development, every change | Seconds |
-| Integration | <runner> | When changing DB / storage / external code | Seconds–minutes |
-| Simulation | <runner> | When changing concurrency / state machines / merge logic | Sub-second per test typical |
-| Render / component | <runner> | Every change (fast tier) | Seconds |
-| E2E | <runner> | At milestones, before release | Minutes |
-| Structural | <runner> | Every test run (cheap; runs as part of unit) | Sub-second |
-| CI gates | <CI> | Every PR + push | ~N min |
+Standard tiers and when each applies. The project's actual runners, commands, CI gates, and isolation setup are documented **below this managed block**, in the project-owned part of this doc — never inside it.
 
-CI gates that block merge: typecheck, lint, unit + integration + simulation + structural, E2E smoke (one happy path per major journey), `<project-specific gates>`.
+- **Unit** — every change, during development; seconds.
+- **Integration** — when changing DB / storage / external-facing code.
+- **Simulation** — when changing concurrency, state machines, or merge logic; in-process with a controlled clock.
+- **Render / component** — every UI change (fast tier).
+- **E2E** — at milestones and before release; CI carries an E2E smoke gate (one happy path per major journey).
+- **Structural** — regex/AST invariant scans; cheap, runs with unit on every test run.
 
 When deciding which tier a test belongs in — or writing component, structural, or simulation tests — load the matching skill: `frontend-tests`, `structural-tests`, `testing-by-simulation`.
 
-## Running tests
-
-```
-<command for all tests>                # full suite
-<command for one package>              # filter to a package
-<command for one file>                 # filter to a file
-<command for E2E>                      # E2E suite
-```
-
-Prerequisites: `<test DB created/migrated, docker compose up, etc.>`
-
-## Test isolation
-
-`<How tests avoid clobbering dev data: separate test DB, separate filesystem root, truncation in beforeEach, fresh-image-per-suite, etc. Document it explicitly — tests sharing state with dev produce silent corruption.>`
+**Test isolation is mandatory and must be documented** in the project-owned part below (separate test DB, separate filesystem root, truncation in beforeEach, fresh-image-per-suite, …) — tests sharing state with dev produce silent corruption.
 
 ## Design for testability
 
@@ -58,7 +42,3 @@ If any answer is "no," redesign first. Common fixes: inject ports for clock / fs
 ## Maintaining the test inventory
 
 If this doc carries a hand-maintained test inventory, update it in the same commit that adds/removes/moves tests. Hand-maintained inventories decay at scale — prefer the **generated inventory section** standard (`docs/process/doc-sync.md` → Generated inventory sections): a `gen:test-inventory` script emitting a sentinel-delimited table, guarded by a parity test. Once generated, the inventory is exempt from manual sync.
-
-## Adding a new testing pattern
-
-When a new testing pattern appears repeatedly (property-based, snapshot-replay, contract), promote it to a governed custom skill in aido-templates and register its harness realizations and allowed scopes in `agent-governance/catalog.json`. Lead the skill description with "Use when ..." so it activates on the right trigger. Shared patterns belong in the common profile; project-only patterns stay out of the global baseline and are selected by that project's requirements. Reference a pattern from the Test tiers table when it helps choose the layer, but do not maintain a second canonical-skill inventory here — derive inventory from the catalog.

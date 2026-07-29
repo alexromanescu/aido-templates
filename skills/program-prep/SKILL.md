@@ -20,7 +20,7 @@ Turn scope into a sliced program carried entirely by repo files, so any future s
 |---|---|
 | North-star doc (only for program scale w/ deferred horizons) | Cross-slice **seam contracts** — the interfaces later programs plug into, so slices can't drift the architecture |
 | Program doc | Append-only **decision log** + one **brief per slice** |
-| `active-work.md` focus (or the project's equivalent cursor) | Where we are: goal, guardrails, sequence w/ S/M/L sizes, run-it commands, a blockers line, next-session prompt |
+| `active-work.md` focus (or the project's equivalent cursor) | Where we are: goal, guardrails, sequence w/ S/M/L sizes, run-it commands, a blockers line, resume prompt |
 | Roadmap rows | Slice status, in the project's tracker format (read its process doc first) |
 
 ## Brief anatomy (the heart of the prep)
@@ -54,7 +54,7 @@ Specialist reviews append findings to the decision log and refresh remaining bri
 1. Ground truth: read the project's cursor/roadmap/process docs; survey what exists (delegate a codebase inventory if large).
 2. Decompose into slices; get the owner's touchpoint decisions (direction/scope) — nothing else.
 3. Write the artifacts per the contract above; commit.
-4. End state: the cursor's next-session prompt says exactly: *read your slice's brief first, then brainstorm → spec → plan (independent tasks, each with test scenario + verification command) → execute → verify → tick roadmap, rewrite cursor, append decisions to the log.*
+4. End state: the cursor's resume prompt says exactly: *read your slice's brief first, then brainstorm → spec → plan (independent tasks, each with test scenario + verification command) → execute → verify → tick roadmap, rewrite cursor, append decisions to the log.*
 
 ## Common mistakes
 
