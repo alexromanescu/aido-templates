@@ -1,7 +1,7 @@
 ---
 section: process-roadmap
 stack: default
-version: 5
+version: 6
 target: docs/process/roadmap.md
 order: 10
 ---
@@ -21,7 +21,7 @@ Phases use a level-2 heading with this exact shape:
 
 For a phase **with rows**, `<STATE>` is now **derived from those rows by the app** (all `done` → COMPLETE, none started → PLANNED, otherwise IN PROGRESS); a task-less phase keeps the token you write. You must still write a valid `COMPLETE | IN PROGRESS | PLANNED` token — an invalid one drops the phase — but for a phase with rows the app corrects a stale token on the next save, so don't fight it.
 
-Free-form explanatory text (paragraphs, lists, level-3 subsections like `### Outcome` or `### Background`) is permitted between a phase heading and its `### Features` table while the phase is `PLANNED` or `IN PROGRESS`. Once it reaches `COMPLETE`, move that content to `docs/roadmap-completed.md` or delete it — the active roadmap should not accumulate stale narrative.
+Free-form explanatory text (paragraphs, lists, level-3 subsections like `### Outcome` or `### Background`) is permitted between a phase heading and its `### Features` table while the phase is `PLANNED` or `IN PROGRESS`. Once a phase reaches `COMPLETE`, the **whole phase** leaves this file — see **Phase archival** under Lifecycles.
 
 Sections inside a phase use a level-3 heading and contain one task table:
 
@@ -56,6 +56,10 @@ Sections inside a phase use a level-3 heading and contain one task table:
 
 ## Lifecycles
 
+### Phase archival
+
+The active roadmap holds open work only. **When a phase reaches `COMPLETE` (its last row flips `done`), move the entire phase — heading, narrative, and tables — to `docs/roadmap-completed.md` in the same commit** (create the file if missing), and leave one row in `## Completed Work` (`Phase N: <name>` + a one-line summary) so the phase number stays registered. Phase 99 is permanent and never archived. If you find `COMPLETE` phases sitting inline — e.g. flipped from the aido UI, which does not archive — archive them as part of your roadmap edit. **Never reuse an archived phase's number**: `## Completed Work` and `roadmap-completed.md` are the registry of used numbers; new phases continue from the highest number ever used. A `Dependencies` reference to a task in an archived phase counts as satisfied (the phase was COMPLETE).
+
 ### Bugs
 
 A newly-filed bug is `next`, `doing` while being fixed, `blocked` if waiting on something. When fixed, mark it `done` and **move the row (with its `Done` date) into `## Phase 99: Continuous Improvements` in the same commit that lands the fix** — the `## Bugs` section holds open bugs only. Ship every fix with a regression test where practical (see `docs/process/bugs.md` for the full bug-fix procedure).
@@ -72,4 +76,4 @@ Record every deferred item in the roadmap. If a deferred item is genuinely neede
 
 ### Completed work
 
-When a feature ships, move its full details to `docs/roadmap-completed.md` (if the project keeps one) and leave a one-line summary in `## Completed Work`. When a task in `## Quick Updates`, `## Bugs`, or `## Distant Roadmap` reaches `done`, move the row (with its `Done` date) into `## Phase 99: Continuous Improvements` so the active off-phase sections stay focused on pending work.
+When a feature ships, move its full details to `docs/roadmap-completed.md` (create it if missing) and leave a one-line summary in `## Completed Work`. When a task in `## Quick Updates`, `## Bugs`, or `## Distant Roadmap` reaches `done`, move the row (with its `Done` date) into `## Phase 99: Continuous Improvements` so the active off-phase sections stay focused on pending work.
