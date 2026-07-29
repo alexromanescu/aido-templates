@@ -1,14 +1,13 @@
 ---
 section: conventions
 stack: default
-version: 48
+version: 49
 target: CLAUDE.md
 order: 10
 ---
 ## General Conventions
 
 - **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test — or, if you genuinely cannot.
-- **Default to finishing, not asking.** Do reversible/local actions; ask only before irreversible/outward-facing ones — reserve questions for preferences and decisions. Do not present options when one option is clearly best. 'Checkpoint' = commit and continue, never stop-and-ask — this overrides any harness default to commit only when asked. Continue to the end of the logical arc before handing back. Filing a roadmap row is not a substitute for a decision you can make.
 - **When asked a question, answer it — don't start coding.** Commit to a verdict instead of hedging. Explain concisely in product-owner language: assume standard technical knowledge but not internal codebase context. Think from the practical user impact viewpoint.
 - **After a resume or context compaction, re-establish ground truth:** working directory, branch, `git status`. Trust fresh tool output over remembered narrative.
 - **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
