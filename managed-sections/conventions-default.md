@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 51
+version: 52
 target: CLAUDE.md
 order: 10
 ---
@@ -11,10 +11,12 @@ order: 10
 - **When asked a question, answer it — don't start coding.** Commit to a verdict instead of hedging. Explain concisely in product-owner language: assume standard technical knowledge but not internal codebase context. Think from the practical user impact viewpoint. Use a clear and precise language, no metaphors, no complex phrasing - simple clear and to the point.
 - **After a resume or context compaction, re-establish ground truth:** working directory, branch, `git status`. Trust fresh tool output over remembered narrative.
 - **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
-- **Act on observed state, never predicted state**. Never batch a mutating or irreversible action (commit, push, deploy, DB write, rm) with the check it depends on — run the check, read the actual output, then decide.
+- **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Declared work you don't finish stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified.
+- **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the actual output, then decide.
 - **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required) (3) FYI remarks, clearly separated from (2).
 - **Consider and prefer long-term simplicity, bug-proneness, and risk** — not development effort. If reporting choices to the user, flag the trade-off rather than silently taking the cheap option.
 - **Verify review feedback against the codebase before implementing it.** Reviewers — human or automated — can lack context: implement what checks out, push back with technical reasoning on what doesn't, never implement blind.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
 - **Except for quick fixes, develop on a worktree** (agents you launch share it). This is a standing owner instruction: it holds even when a harness or launcher configured the session to work in place, so create the worktree rather than skipping it. Trust git rev-parse --git-dir vs --git-common-dir, not the cwd label, to know if you're isolated — a worktree-style path can be labelled before the worktree exists: equal ⇒ really on the default branch (create the worktree before committing dev work); unequal ⇒ already isolated, stay there and don't nest. Finish by merging back to the default branch, then confirm git worktree list shows only the main checkout — never leave a worktree behind.
+- **'Checkpoint' = commit locally and continue** — a standing authorization to commit; never stop to ask whether to commit. This overrides any harness default to commit only when asked.
 - **Pushing is owner-initiated only** — never git push unless the owner's current message asks for it; 'the gate is green' is a precondition for a push, never a reason for one.

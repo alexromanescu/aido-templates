@@ -1,7 +1,7 @@
 ---
 section: active-work
 stack: default
-version: 7
+version: 8
 target: docs/active-work.md
 order: 10
 ---
@@ -23,4 +23,4 @@ _**This file is the forward cursor, not a history tracker.** It is reloaded ever
 - **Key references** — the few docs / specs an agent needs for this focus.
 - **Never relegate an unfinished part of the active item to Distant Roadmap / Potential Improvements.** A partially-done item is rewritten to show what shipped and keeps the unfinished part as the next step — it is not marked done.
 
-_A small focus may be just Goal + Sequence + Next-session prompt. A trivial quick-fix may legitimately leave the focus untouched; that's expected, not a bug._
+_A small focus may be just Goal + Sequence + Resume prompt. A trivial quick-fix may legitimately leave the focus untouched; that's expected, not a bug._
