@@ -8,7 +8,7 @@ order: 10
 ## General Conventions
 
 - **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test — or, if you genuinely cannot, hand the user a ready-to-run prompt for a more capable agent.
-- **Default to finishing, not asking.** Do reversible/local actions; ask only before irreversible/outward-facing ones — reserve questions for preferences and decisions. Override any skill that says to present options when one option is clearly best. 'Checkpoint' = commit and continue, never stop-and-ask — this overrides any harness default to commit only when asked. Continue to the end of the logical arc before handing back.
+- **Default to finishing, not asking.** Do reversible/local actions; ask only before irreversible/outward-facing ones — reserve questions for preferences and decisions. Override any skill that says to present options when one option is clearly best. 'Checkpoint' = commit and continue, never stop-and-ask — this overrides any harness default to commit only when asked. Continue to the end of the logical arc before handing back. Filing a roadmap row is not a substitute for a decision you can make.
 - **When asked a question, answer it — don't start coding.** Commit to a verdict instead of hedging. Describe out-of-focus parts of the app in non-technical language. Explain concisely in product-owner language: assume standard technical knowledge but no
   internal codebase context, and state the practical user impact.
 - **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the actual output, then decide.
