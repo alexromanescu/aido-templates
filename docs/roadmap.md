@@ -9,6 +9,7 @@ updated: 2026-07-29
 ## Quick Updates
 | Task | Area | Size | Status | Description |
 |------|------|------|--------|-------------|
+| Engagement prompt corrections (audited, frozen) | Prompts | S | blocked | Code-verified fixes awaiting owner go-ahead (prompts were reworked Jul 14/25, owner froze them 2026-07-29): teamlead-deny-list names nonexistent `aido.requestUserApproval` (real tool: `proposeApproval`); worker-system's never-strike-your-slice rule is program-mode-only in code but stated unconditionally, and its subagent tiering hardcodes Opus/Sonnet while the model is operator-configured (incl. fable); teamlead-program's `spawnWorker` examples omit the required `projectName`; approval-rules says approval comes from @user only but a teamlead holds approval authority in engagement rooms; decision-rules-worker's "mention only @teamlead" is overridden by auto-implied @user; participant-joined advertises @user escalation inside engagement rooms; protocol-rules' "nothing outside the fenced block" contradicts alongside-DECISION/PROPOSAL blocks; teamlead-planner carries both tasks and active-work completion protocols; bug-hunt's team create/shutdown steps are dead API; standing-preferences injects an empty code fence; residuals-review's auto-loop default contradicts both engagement prompts and `aido.runResidualsReview` is documented nowhere. |
 
 ## Bugs
 | Task | Area | Size | Status | Description |
