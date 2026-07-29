@@ -1,4 +1,4 @@
-<!-- managed:process-roadmap v=3 -->
+<!-- managed:process-roadmap v=4 -->
 # Roadmap Process
 
 How aido-managed projects track work in `docs/roadmap.md`. The file is parsed by the aido app — the format below is strict; follow it exactly when editing by hand (the aido `/project/:name/roadmap` page does it for you). Phases or rows that don't match the expected shape are silently dropped from the parsed roadmap.
@@ -59,7 +59,7 @@ A newly-filed bug is `next`, `doing` while being fixed, `blocked` if waiting on 
 Record every deferred item in the roadmap. If a deferred item is genuinely needed for the current change to be correct and complete and isn't gated by other work, do it as part of the change; otherwise record it with a resume prompt for the next agent to pick up the work.
 
 ### Potential improvements
-
+ ## Before filing: is this part of the current active focus? If yes it is not a Potential Improvement — it stays in the focus as the next step. Filing a row for active-item work is deferral wearing the costume of record-keeping.
 `## Potential Improvements` holds speculative ideas deliberately **not** acted on now — distinct from deferred work (needed, with a resume prompt) and from `## Distant Roadmap` (intended, just later). Rows default to `Status: postponed`. Each row's `Description` must state four things so a future reader can prioritize it without re-deriving the analysis: **what it may improve** (the benefit), **how much** it improves (the impact — frequency × severity × magnitude, honestly scaled: who is affected, how often, and whether it is a correctness gain or only UX/polish), **the cost** (use `Size` for the S/M/L estimate), and **why it wasn't done at the time**. Be honest about small or zero impact — an idea whose benefit is latent (e.g. "zero until feature X ships") or purely cosmetic should say so plainly, so it doesn't get promoted on vague optimism. Promote an idea by moving its row to `## Distant Roadmap` or a phase with an active status.
 
 ### Completed work
