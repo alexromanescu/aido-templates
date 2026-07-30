@@ -27,6 +27,19 @@ uses a normalized repository-relative source such as `skills/program-prep`.
 The source must exist, and its folder and `SKILL.md` frontmatter name must match
 the realization's native ID.
 
+An externally owned realization uses external provenance with an explicit
+delivery shape. `{ "kind": "direct" }` means the realization occupies its own
+harness slot. A plugin-delivered skill or MCP uses
+`{ "kind": "plugin", "pluginNativeId": "<parent>" }`. Delivery is identity
+metadata only: never put commands, configuration bodies, paths, environment
+values, headers, or credentials in it. Provider, locator, and version policy
+describe acquisition intent; the realization's existing `nativeId` remains
+the harness-native occupant ID. A plugin itself always uses direct delivery.
+Co-selected direct-parent declarations and plugin-delivered children naming the
+same scoped parent address must declare the same provider, locator, and version
+policy, so planning can coalesce parent work without guessing. Unselected
+alternatives and isolated global/project addresses may carry different intent.
+
 Every requirement is a complete record: `capabilityId`, `harness`,
 `realizationId`, `disposition`, `scope`, and both `desired.installation` and
 `desired.activation` are explicit. Do not introduce capability-only shorthand,
@@ -89,9 +102,14 @@ prioritized, or selected by input order.
 Unresolved references, incompatible profile variants, collisions, and shadows
 block the plan; resolution never guesses policy or adapter-native identity.
 Custom-skill collisions use the portable harness/scope/native address already
-owned by the reconciler. Plugin and MCP address equivalence remains undefined
-until their adapters own it. A conflicted or invalid estate produces no partial
-executable plan.
+owned by the reconciler; a direct external skill shares that same case-folded
+skill slot because provenance does not create another harness occupant.
+Plugin-delivered skills remain distinct by their parent. Other external
+addresses use harness, scope, artifact kind, delivery, native ID, and the parent
+plugin ID when applicable. Provider, locator, and version policy do not create
+a second occupant at the same address. Project targets that would override a
+different global governed occupant are reported as shadows. A conflicted or
+invalid estate produces no partial executable plan.
 
 ## Migration and mutation boundary
 
