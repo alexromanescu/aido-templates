@@ -1,7 +1,7 @@
 ---
 section: process-bugs
 stack: default
-version: 1
+version: 2
 target: docs/process/bugs.md
 order: 10
 ---
@@ -20,6 +20,5 @@ Bugs live in `docs/roadmap.md` → `## Bugs` as `BUG-NNN: <title>` rows (the aid
 
 ## Test shape
 
-- Assert on observable behavior at the natural level of abstraction, not the patch's internal shape — spying on a specific call breaks on refactor; pin to what the caller sees.
 - If the defect depends on event ordering or concurrent mutation (state machines, races, merges, lifecycle hooks), write the regression test as a simulation — load the `testing-by-simulation` skill.
 - Where a permanent `tests/bugs/` regression test is impractical (e.g. requires live external credentials), say so in the roadmap row before closing it.

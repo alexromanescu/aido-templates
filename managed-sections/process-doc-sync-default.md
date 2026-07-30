@@ -1,7 +1,7 @@
 ---
 section: process-doc-sync
 stack: default
-version: 1
+version: 2
 target: docs/process/doc-sync.md
 order: 10
 ---
@@ -43,11 +43,11 @@ Three pieces make it trustworthy:
 2. A committed **parity test** that regenerates and diffs — the build fails on drift with the message "run `gen:<name>`".
 3. The exemption: generated regions need **no manual sync** — when the parity test fails, run the printed command; never hand-edit inside the sentinels.
 
-Hand-maintained inventories measurably decay at scale; recommended adoption (per project, at its own pace) for: API/procedure inventories, test inventories, module indexes. Reference implementation: q1dms `gen:api-reference` + `api-reference-parity.test.ts`.
+Hand-maintained inventories decay at scale; recommended for: API/procedure inventories, test inventories, module indexes. Reference implementation: q1dms `gen:api-reference` + `api-reference-parity.test.ts`.
 
 ## Optional: generated modules index
 
-For modular backends (roughly >15 modules), a generated `docs/modules-index.md` gives agents a deterministic per-module entry point: one row per module → doc anchors (architecture/api-reference/frontend), procedure count, test globs. Build it as a generated inventory per the standard above. Optional — adopt when module count makes hand navigation unreliable.
+For modular backends (roughly >15 modules), a generated `docs/modules-index.md` gives agents a deterministic per-module entry point (doc anchors, procedure count, test globs); build it as a generated inventory per the standard above. Adopt when module count makes hand navigation unreliable.
 
 ## Routing table ("When to read what")
 
@@ -63,4 +63,4 @@ Projects are encouraged to keep a ~15-line routing table in the **project-owned*
 
 ## Subdirectories
 
-When a topic has multiple standalone deep-dive docs (topic-specific docs separate from the topic's entry-point doc), group them under `docs/<topic>/`; the entry-point stays at top level. (E.g., a `docs/operations.md` entry-point with multiple `docs/operations/<runbook>.md` deep-dives below it.) Process docs like this one live under `docs/process/`.
+When a topic has multiple deep-dive docs beyond its entry point, group them under `docs/<topic>/`, entry point at top level (e.g. `docs/operations.md` + `docs/operations/<runbook>.md`). Process docs live under `docs/process/`.
