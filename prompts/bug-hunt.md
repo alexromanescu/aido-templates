@@ -23,16 +23,12 @@ This session runs on the **main working tree** (not a worktree) so the report is
 
 ## Instructions
 
-1. **Create a team** called `bug-hunt`
-
-2. **Create tasks** for three hunting passes:
+1. **Spawn three hunters in parallel** — general-purpose subagents named `unit-hunter`, `integration-hunter`, `e2e-hunter`, each briefed with its pass:
    - **Unit hunting** — probe services, utilities, pure functions with edge cases, boundary conditions, malformed input (empty strings, nulls, special characters), error paths the existing tests miss
    - **Integration hunting** — trace API endpoints end-to-end (input validation → service → response), test sequences (create → read → update → delete), concurrent mutations, error propagation between layers
    - **E2E hunting** — simulate full user workflows through the API, test failure modes, state inconsistencies after partial failures, file system edge cases (missing dirs, concurrent access)
 
-3. **Spawn three teammates** (general-purpose agents): `unit-hunter`, `integration-hunter`, `e2e-hunter` — assign each their task
-
-4. **Each hunter** should:
+2. **Each hunter** should:
    - Run existing tests first to confirm a clean baseline: `{{testCommand}}`
    - Read the code for their scope to understand what it does — including nearby comments, git blame on the suspicious lines, and existing tests that cover the area. Code that looks wrong often reflects a deliberate choice the author made for reasons that aren't visible at first glance.
    - Before flagging a suspected bug, satisfy **both** checks:
@@ -52,9 +48,8 @@ This session runs on the **main working tree** (not a worktree) so the report is
      ```
    - Only report bugs they can prove with a failing test AND that pass both intent/fragility checks
    - Don't modify source code — only add test files
-   - Mark their task complete when done
 
-5. **After all hunters finish**, compile findings into `docs/bug-reports/{{date}}.md` (create the directory if it doesn't exist):
+3. **After all hunters finish**, compile findings into `docs/bug-reports/{{date}}.md` (create the directory if it doesn't exist):
 
    ```markdown
    # Bug Report — {{date}}
@@ -85,9 +80,9 @@ This session runs on the **main working tree** (not a worktree) so the report is
    3. **[BUG-Z]** — fix when convenient
    ```
 
-6. Commit the report + all failing tests together, then shut down the team.
+4. Commit the report + all failing tests together.
 
-7. **Pause for human review.** Print the Overview table to the terminal and ask:
+5. **Pause for human review.** Print the Overview table to the terminal and ask:
    > I found N bugs. Review `docs/bug-reports/{{date}}.md`, then reply with one of:
    > - `fix all` — apply fixes for every bug
    > - `fix BUG-X, BUG-Y, …` — apply fixes for specific bugs only
@@ -97,7 +92,7 @@ This session runs on the **main working tree** (not a worktree) so the report is
 
    Do not proceed past this step without an explicit response.
 
-8. **Fix phase (only if the user approved fixes).**
+6. **Fix phase (only if the user approved fixes).**
    - For each approved bug:
      1. Read the failing test and the report's root cause + fragility notes.
      2. **Run the bug test first and confirm it fails for the documented root cause** — not for a typo, missing import, stale fixture, or unrelated error. The hunter wrote this test in a different session; you must verify the RED is the *right* RED before patching. If the failure mode doesn't match the report, stop and investigate — re-read the code, update the report, or escalate. Do not patch a test that's failing for the wrong reason.

@@ -1,11 +1,11 @@
 ---
 category: teamlead
 order: 10
-description: Categories of actions the teamlead must NEVER auto-approve — instead escalate to the user via aido.requestUserApproval. Rendered into every teamlead system prompt and read verbatim on every turn. Soft enforcement only in v1.
+description: Categories of actions the teamlead must NEVER auto-approve — instead escalate to the user via aido.proposeApproval. Rendered into every teamlead system prompt and read verbatim on every turn. Soft enforcement only in v1.
 ---
 # Teamlead deny-list
 
-The teamlead must escalate to the user (via `aido.requestUserApproval`)
+The teamlead must escalate to the user (via `aido.proposeApproval`)
 before approving any worker proposal that matches one of:
 
 - **Infrastructure cost** — any change that adds or removes cloud

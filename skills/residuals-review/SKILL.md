@@ -1,6 +1,6 @@
 ---
 name: residuals-review
-description: Use when the user says "residuals review", "fresh-eyes review", "audit this PR/branch/module", "find what's wrong before I merge", "find what was missed", or "audit for invariant decay", or after a non-trivial change to invariant-sensitive code. Runs an adversarial fresh-eyes cycle against a commit, range, PR, branch, working tree, path, or whole codebase; reports findings without mutation in read-only mode, applies red-then-green fixes only when authorized, and loops for evolving targets subject to project checkpoint policy.
+description: Use when the user says "residuals review", "fresh-eyes review", "audit this PR/branch/module", "find what's wrong before I merge", "find what was missed", or "audit for invariant decay", or after a non-trivial change to invariant-sensitive code. Runs an adversarial fresh-eyes cycle against a commit, range, PR, branch, working tree, path, or whole codebase; reports findings without mutation in read-only mode, applies red-then-green fixes only when authorized, and loops for evolving targets when a loop is requested, subject to project checkpoint policy.
 ---
 
 # Residuals Review — Adversarial Fresh-Eyes Cycle
@@ -83,9 +83,9 @@ Respect the requested mode. In a read-only audit, report findings and demonstrat
 
 Multi-cycle is meaningful when the target **evolves between cycles** — i.e., commit-based targets (the prior cycle's fix becomes the next cycle's target). For static targets (path-based audits, PRs that aren't being modified), one cycle is the typical scope unless the user keeps editing.
 
-When invoked, default to **looping until termination**. Before the loop, read the governing project's pause/checkpoint policy. If it defines none, use the fifth-cycle cost-control fallback below.
+Default to a **single cycle**; loop only when the request or invoking context asks for it ("until clean", "keep auditing", a standing loop mandate). Never self-start a loop in a supervised engagement — there, each pass is user-triggered. Before an authorized loop, read the governing project's pause/checkpoint policy; if it defines none, use the fifth-cycle cost-control fallback below.
 
-**The loop runs autonomously between cycles** — after one cycle's review and any authorized fix/record, start the next without asking. Follow the governing project's pause policy; when it defines none, pause at the fifth-cycle fallback. Natural termination remains two consecutive zero-finding reviews.
+**An authorized loop runs autonomously between cycles** — after one cycle's review and any authorized fix/record, start the next without asking. Follow the governing project's pause policy; when it defines none, pause at the fifth-cycle fallback. Natural termination remains two consecutive zero-finding reviews.
 
 Create the recurring checklist in the harness's native task/plan tracker when one is available; otherwise keep a concise working checklist:
 - "Cycle N: read prior commit and audit"
@@ -148,7 +148,7 @@ If none of these exist yet, the cycle is BOOTSTRAPPING — first session establi
 
 ## Worked examples by target
 
-- **`residuals-review` with no explicit target** (after a commit lands) — review `HEAD`; loop under project checkpoint guidance until termination.
+- **`residuals-review` with no explicit target** (after a commit lands) — review `HEAD`, single cycle; loop under project checkpoint guidance only when asked.
 - **`audit PR #42`** — use the available GitHub integration (or authenticated `gh` fallback) to read claims and the cumulative diff; treat the PR description as the closeout claim. Apply findings only when the task authorizes branch changes. Single-cycle by default; loop only as the target evolves.
 - **`audit this branch before I merge`** — `git diff <base>...HEAD`; the divergence's claims live in the branch's commit messages. Findings get committed to the branch when authorized; loop until clean, then the user merges.
 - **`audit my uncommitted work`** — `git diff` (staged + unstaged); the user's *intended* commit message is the closeout claim. Apply findings to the working tree only when changes are authorized. Single-cycle.

@@ -150,7 +150,7 @@ The deployed aido app at `~/Apps/aido/` is the primary editor:
 - `/templates` page in the aido UI: per-file editor for managed sections (Single + Compare modes), scaffolds, room prompts. Saves run through `safeWriteAndCommit` — autocommits land in this repo's `.git` (because git resolves `.git` from the edited file's directory).
 - For deeper authoring sessions, open `~/Work/Projects/aido-templates`, then launch the intended harness (`claude` or `codex`).
 
-Pushes to `origin/main` are user-initiated. The dev folder (`~/Work/Projects/aido/`) consumes this repo read-only via `npm run templates:sync` — it pulls the latest `main` on every test run, so changes pushed here become visible to the dev tooling on the next run.
+Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Projects/aido/`) resolves this repo live like any instance (`AIDO_TEMPLATES_ROOT` env → `templatesFolder` setting → the default path) — there is no sync step; edits here reach dev runs and deployed spawns immediately.
 
 ## Style conventions for managed-section content
 

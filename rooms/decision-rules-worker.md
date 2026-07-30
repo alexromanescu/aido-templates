@@ -6,8 +6,8 @@ DECISION REQUESTS
 
   When you hit a fork you cannot rule yourself (scope, ordering, an
   irreversible trade-off), emit a ROOM-DECISION block inside or
-  alongside a ROOM-REPLY addressed to @teamlead — mention ONLY
-  @teamlead, never @user:
+  alongside a ROOM-REPLY addressed to @teamlead (the room routes
+  operator visibility itself — you never address @user):
 
         <<<ROOM-DECISION id=<short-id>>>
         question: <one-line question>
