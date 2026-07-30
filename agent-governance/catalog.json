@@ -263,13 +263,282 @@
           }
         }
       ]
+    },
+    {
+      "id": "structured-development-workflow",
+      "name": "Structured development workflow",
+      "description": "A structured development method available across harnesses but retired from the standard active toolset.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "structured-development-workflow.claude-plugin",
+          "harness": "claude",
+          "kind": "plugin",
+          "ownership": "external",
+          "nativeId": "superpowers@claude-plugins-official",
+          "allowedScopes": ["global"],
+          "provenance": {
+            "type": "external",
+            "provider": "anthropic-official-marketplace",
+            "locator": "superpowers@claude-plugins-official",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://github.com/obra/superpowers"
+          }
+        },
+        {
+          "id": "structured-development-workflow.codex-plugin",
+          "harness": "codex",
+          "kind": "plugin",
+          "ownership": "external",
+          "nativeId": "superpowers@openai-curated",
+          "allowedScopes": ["global"],
+          "provenance": {
+            "type": "external",
+            "provider": "openai-curated",
+            "locator": "superpowers",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://github.com/openai/plugins/tree/main/plugins/superpowers"
+          }
+        }
+      ]
+    },
+    {
+      "id": "code-simplification",
+      "name": "Code simplification",
+      "description": "Focused simplification of recently changed code without changing its behavior.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "code-simplification.claude-plugin",
+          "harness": "claude",
+          "kind": "plugin",
+          "ownership": "external",
+          "nativeId": "code-simplifier@claude-plugins-official",
+          "allowedScopes": ["global"],
+          "provenance": {
+            "type": "external",
+            "provider": "anthropic-official-marketplace",
+            "locator": "code-simplifier@claude-plugins-official",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-simplifier"
+          }
+        }
+      ]
+    },
+    {
+      "id": "frontend-product-work",
+      "name": "Frontend product work",
+      "description": "Harness-native frontend design and implementation guidance.",
+      "kind": "workflow",
+      "realizations": [
+        {
+          "id": "frontend-product-work.claude-plugin",
+          "harness": "claude",
+          "kind": "plugin",
+          "ownership": "external",
+          "nativeId": "frontend-design@claude-plugins-official",
+          "allowedScopes": ["global"],
+          "provenance": {
+            "type": "external",
+            "provider": "anthropic-official-marketplace",
+            "locator": "frontend-design@claude-plugins-official",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design"
+          }
+        },
+        {
+          "id": "frontend-product-work.codex-plugin",
+          "harness": "codex",
+          "kind": "plugin",
+          "ownership": "external",
+          "nativeId": "build-web-apps@openai-curated",
+          "allowedScopes": ["global"],
+          "provenance": {
+            "type": "external",
+            "provider": "openai-curated",
+            "locator": "build-web-apps",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://github.com/openai/plugins/tree/main/plugins/build-web-apps"
+          }
+        }
+      ]
+    },
+    {
+      "id": "browser-automation",
+      "name": "Browser automation",
+      "description": "A single selected browser-control route for each harness.",
+      "kind": "integration",
+      "realizations": [
+        {
+          "id": "browser-automation.claude-playwright-mcp",
+          "harness": "claude",
+          "kind": "mcp",
+          "ownership": "external",
+          "nativeId": "playwright",
+          "allowedScopes": ["project"],
+          "provenance": {
+            "type": "external",
+            "provider": "anthropic-official-marketplace",
+            "locator": "playwright@claude-plugins-official",
+            "delivery": {
+              "kind": "plugin",
+              "pluginNativeId": "playwright@claude-plugins-official"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/playwright"
+          }
+        },
+        {
+          "id": "browser-automation.codex-playwright-mcp",
+          "harness": "codex",
+          "kind": "mcp",
+          "ownership": "external",
+          "nativeId": "playwright",
+          "allowedScopes": ["project"],
+          "provenance": {
+            "type": "external",
+            "provider": "microsoft",
+            "locator": "@playwright/mcp",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://github.com/microsoft/playwright-mcp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "library-documentation-lookup",
+      "name": "Library documentation lookup",
+      "description": "Project-selected current library documentation through Context7.",
+      "kind": "integration",
+      "realizations": [
+        {
+          "id": "library-documentation-lookup.claude-context7-mcp",
+          "harness": "claude",
+          "kind": "mcp",
+          "ownership": "external",
+          "nativeId": "context7",
+          "allowedScopes": ["project"],
+          "provenance": {
+            "type": "external",
+            "provider": "upstash",
+            "locator": "https://mcp.context7.com/mcp",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://context7.com/docs/resources/all-clients"
+          }
+        },
+        {
+          "id": "library-documentation-lookup.codex-context7-mcp",
+          "harness": "codex",
+          "kind": "mcp",
+          "ownership": "external",
+          "nativeId": "context7",
+          "allowedScopes": ["project"],
+          "provenance": {
+            "type": "external",
+            "provider": "upstash",
+            "locator": "https://mcp.context7.com/mcp",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://context7.com/docs/resources/all-clients"
+          }
+        }
+      ]
+    },
+    {
+      "id": "visual-design-canvas",
+      "name": "Visual design canvas",
+      "description": "Project-selected visual design work through the pen.dev-managed Pencil MCP.",
+      "kind": "integration",
+      "realizations": [
+        {
+          "id": "visual-design-canvas.claude-pencil-mcp",
+          "harness": "claude",
+          "kind": "mcp",
+          "ownership": "external",
+          "nativeId": "pencil",
+          "allowedScopes": ["project"],
+          "provenance": {
+            "type": "external",
+            "provider": "pen.dev",
+            "locator": "pencil",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://docs.pencil.dev/getting-started/ai-integration"
+          }
+        },
+        {
+          "id": "visual-design-canvas.codex-pencil-mcp",
+          "harness": "codex",
+          "kind": "mcp",
+          "ownership": "external",
+          "nativeId": "pencil",
+          "allowedScopes": ["project"],
+          "provenance": {
+            "type": "external",
+            "provider": "pen.dev",
+            "locator": "pencil",
+            "delivery": {
+              "kind": "direct"
+            },
+            "versionPolicy": {
+              "mode": "latest-compatible"
+            },
+            "documentation": "https://docs.pencil.dev/getting-started/ai-integration"
+          }
+        }
+      ]
     }
   ],
   "profiles": [
     {
       "id": "standard",
       "name": "Standard",
-      "description": "Common globally governed workflows for Claude Code and Codex CLI.",
+      "description": "Common governed workflows and conservative external defaults for Claude Code and Codex CLI.",
       "requirements": [
         {
           "capabilityId": "frontend-component-testing",
@@ -401,6 +670,127 @@
           "desired": {
             "installation": "present",
             "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "structured-development-workflow",
+          "harness": "claude",
+          "realizationId": "structured-development-workflow.claude-plugin",
+          "disposition": "disabled",
+          "scope": "global",
+          "desired": {
+            "installation": "unmanaged",
+            "activation": "disabled"
+          }
+        },
+        {
+          "capabilityId": "structured-development-workflow",
+          "harness": "codex",
+          "realizationId": "structured-development-workflow.codex-plugin",
+          "disposition": "disabled",
+          "scope": "global",
+          "desired": {
+            "installation": "unmanaged",
+            "activation": "disabled"
+          }
+        },
+        {
+          "capabilityId": "code-simplification",
+          "harness": "claude",
+          "realizationId": "code-simplification.claude-plugin",
+          "disposition": "optional",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "frontend-product-work",
+          "harness": "claude",
+          "realizationId": "frontend-product-work.claude-plugin",
+          "disposition": "optional",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "frontend-product-work",
+          "harness": "codex",
+          "realizationId": "frontend-product-work.codex-plugin",
+          "disposition": "optional",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "browser-automation",
+          "harness": "claude",
+          "realizationId": "browser-automation.claude-playwright-mcp",
+          "disposition": "disabled",
+          "scope": "project",
+          "desired": {
+            "installation": "unmanaged",
+            "activation": "disabled"
+          }
+        },
+        {
+          "capabilityId": "browser-automation",
+          "harness": "codex",
+          "realizationId": "browser-automation.codex-playwright-mcp",
+          "disposition": "disabled",
+          "scope": "project",
+          "desired": {
+            "installation": "unmanaged",
+            "activation": "disabled"
+          }
+        },
+        {
+          "capabilityId": "library-documentation-lookup",
+          "harness": "claude",
+          "realizationId": "library-documentation-lookup.claude-context7-mcp",
+          "disposition": "disabled",
+          "scope": "project",
+          "desired": {
+            "installation": "unmanaged",
+            "activation": "disabled"
+          }
+        },
+        {
+          "capabilityId": "library-documentation-lookup",
+          "harness": "codex",
+          "realizationId": "library-documentation-lookup.codex-context7-mcp",
+          "disposition": "disabled",
+          "scope": "project",
+          "desired": {
+            "installation": "unmanaged",
+            "activation": "disabled"
+          }
+        },
+        {
+          "capabilityId": "visual-design-canvas",
+          "harness": "claude",
+          "realizationId": "visual-design-canvas.claude-pencil-mcp",
+          "disposition": "disabled",
+          "scope": "project",
+          "desired": {
+            "installation": "unmanaged",
+            "activation": "disabled"
+          }
+        },
+        {
+          "capabilityId": "visual-design-canvas",
+          "harness": "codex",
+          "realizationId": "visual-design-canvas.codex-pencil-mcp",
+          "disposition": "disabled",
+          "scope": "project",
+          "desired": {
+            "installation": "unmanaged",
+            "activation": "disabled"
           }
         }
       ]

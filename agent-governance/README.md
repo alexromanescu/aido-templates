@@ -86,6 +86,40 @@ project requirement matches a profile project requirement by capability and
 harness; otherwise it is an addition. Global profile requirements remain
 global and cannot be overridden by project content.
 
+## Initial external portfolio
+
+`standard` selects a small reviewed external portfolio, not a marketplace
+mirror. Claude and Codex realizations are selected explicitly; a shared source
+does not imply harness parity.
+
+- Superpowers has separate Claude and Codex plugin realizations. Both are
+  globally disabled with unmanaged installation, preserving the accepted
+  retirement without requesting installation or removal.
+- Code simplification is a Claude-only optional plugin. Frontend product work
+  selects the native Claude `frontend-design` and Codex `build-web-apps`
+  plugins; their contents intentionally differ. Optional requirements still
+  carry their explicit desired state, so absent or disabled plugins can produce
+  advisory work for owner review.
+- Browser automation selects one route per harness: the Claude official
+  Playwright plugin's `playwright` child MCP and the direct Codex `playwright`
+  MCP. Context7 and Pencil use direct MCP realizations on both harnesses.
+- Browser, Context7, and Pencil are project requirements with unmanaged
+  installation and disabled activation. Every project selecting `standard`
+  inherits that active disabled policy until its declaration deliberately
+  replaces the matching `(capabilityId, harness)` requirement.
+
+MCP tool-schema deferment is not treated as an on-demand process lifecycle.
+Default-disabled candidates may remain installed, but an observed enabled state
+is advisory drift. External assessments remain report-only: they never enter
+the product Apply/Retry action list.
+
+Documented alternatives stay out of the selected catalog until they have both a
+stable harness identity and a policy reason to replace the current route.
+Examples are direct Claude Playwright MCP, Codex desktop Browser, Playwright CLI
+skills, and Context7 wrapper plugins. A missing harness peer, such as
+code-simplifier on Codex, is represented by no realization rather than an
+invented unavailable record.
+
 Write one complete project requirement for each harness that the project
 actually selects. Do not infer a Claude requirement from a Codex record, or the
 reverse. Project policy must not contain a source path, provenance, command,
