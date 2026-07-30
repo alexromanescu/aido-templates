@@ -1,7 +1,7 @@
 ---
 section: process-roadmap
 stack: default
-version: 6
+version: 7
 target: docs/process/roadmap.md
 order: 10
 ---
@@ -19,7 +19,7 @@ Phases use a level-2 heading with this exact shape:
 
 `<STATE>` is one of `COMPLETE`, `IN PROGRESS`, `PLANNED` — uppercase, em-dash `—` (not a hyphen `-`), and **the state token is the last thing on the line**. No trailing dates, parentheticals, or notes — the closeout date belongs in `roadmap-meta:` at the top of the file, not in the heading. Other words (`DONE`, `SHIPPED`, `WIP`, `TODO`) are not recognized.
 
-For a phase **with rows**, `<STATE>` is now **derived from those rows by the app** (all `done` → COMPLETE, none started → PLANNED, otherwise IN PROGRESS); a task-less phase keeps the token you write. You must still write a valid `COMPLETE | IN PROGRESS | PLANNED` token — an invalid one drops the phase — but for a phase with rows the app corrects a stale token on the next save, so don't fight it.
+For a phase **with rows**, `<STATE>` is **derived from those rows by the app** (all `done` → COMPLETE, none started → PLANNED, otherwise IN PROGRESS); a task-less phase keeps the token you write. You must still write a valid `COMPLETE | IN PROGRESS | PLANNED` token — an invalid one drops the phase — but for a phase with rows the app corrects a stale token on the next save, so don't fight it.
 
 Free-form explanatory text (paragraphs, lists, level-3 subsections like `### Outcome` or `### Background`) is permitted between a phase heading and its `### Features` table while the phase is `PLANNED` or `IN PROGRESS`. Once a phase reaches `COMPLETE`, the **whole phase** leaves this file — see **Phase archival** under Lifecycles.
 
@@ -72,7 +72,7 @@ Record every deferred item in the roadmap. If a deferred item is genuinely neede
 
 **Before filing, ask: is this part of the current active focus?** If yes it is not a Potential Improvement — it stays in the focus as the next step; filing a row for active-item work is deferral wearing the costume of record-keeping.
 
-`## Potential Improvements` holds speculative ideas deliberately **not** acted on now — distinct from deferred work (needed, with a resume prompt) and from `## Distant Roadmap` (intended, just later). Rows default to `Status: postponed`. Each row's `Description` must state four things so a future reader can prioritize it without re-deriving the analysis: **what it may improve** (the benefit), **how much** it improves (the impact — frequency × severity × magnitude, honestly scaled: who is affected, how often, and whether it is a correctness gain or only UX/polish), **the cost** (use `Size` for the S/M/L estimate), and **why it wasn't done at the time**. Be honest about small or zero impact — an idea whose benefit is latent (e.g. "zero until feature X ships") or purely cosmetic should say so plainly, so it doesn't get promoted on vague optimism. Promote an idea by moving its row to `## Distant Roadmap` or a phase with an active status.
+`## Potential Improvements` holds speculative ideas deliberately **not** acted on now — distinct from deferred work (needed, with a resume prompt) and from `## Distant Roadmap` (intended, just later). Rows default to `Status: postponed`. Each row's `Description` must let a future reader prioritize without re-deriving the analysis: the benefit, the honest impact (who's affected, how often, correctness vs polish — say plainly when it's small, latent, or cosmetic), the cost (`Size`), and why it wasn't done then. Promote an idea by moving its row to `## Distant Roadmap` or a phase with an active status.
 
 ### Completed work
 
