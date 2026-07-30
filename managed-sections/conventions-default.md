@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 53
+version: 54
 target: CLAUDE.md
 order: 10
 ---
@@ -14,7 +14,8 @@ order: 10
 - **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Declared work you don't finish stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified.
 - **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the actual output, then decide.
 - **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required) (3) FYI remarks, clearly separated from (2).
-- **Consider and prefer long-term simplicity, bug-proneness, and risk** — not development effort. If reporting choices to the user, flag the trade-off rather than silently taking the cheap option.
+- **Consider and prefer long-term simplicity, bug-proneness, and low risk, not development effort**. If reporting choices to the user, flag the trade-off rather than silently taking the cheap option.
+- **Implement in a simple and elegant way, while keeping structural soundness** - avoid overengineering and patching.
 - **Verify review feedback against the codebase before implementing it.** Reviewers — human or automated — can lack context: implement what checks out, push back with technical reasoning on what doesn't, never implement blind.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
 - **Except for quick fixes, develop on a worktree** (agents you launch share it). This is a standing owner instruction: it holds even when a harness or launcher configured the session to work in place, so create the worktree rather than skipping it. Trust git rev-parse --git-dir vs --git-common-dir, not the cwd label, to know if you're isolated — a worktree-style path can be labelled before the worktree exists: equal ⇒ really on the default branch (create the worktree before committing dev work); unequal ⇒ already isolated, stay there and don't nest. Finish by merging back to the default branch, then confirm git worktree list shows only the main checkout — never leave a worktree behind.
