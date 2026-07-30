@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 54
+version: 55
 target: CLAUDE.md
 order: 10
 ---
@@ -13,6 +13,7 @@ order: 10
 - **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
 - **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Declared work you don't finish stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified.
 - **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the actual output, then decide.
+- **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once. Stop early only when blocked or scope genuinely changes.
 - **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required) (3) FYI remarks, clearly separated from (2).
 - **Consider and prefer long-term simplicity, bug-proneness, and low risk, not development effort**. If reporting choices to the user, flag the trade-off rather than silently taking the cheap option.
 - **Implement in a simple and elegant way, while keeping structural soundness** - avoid overengineering and patching.
