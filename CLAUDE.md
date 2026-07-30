@@ -159,10 +159,10 @@ Pushes to `origin/main` are user-initiated. The dev folder (`~/Work/Projects/aid
 - Cross-link to deeper docs with relative paths (`docs/<topic>.md`) when the section's host project is expected to have them. Mark such references as conditional — "if your project has `docs/X.md`, ..." — because managed sections appear in projects with very different doc footprints.
 - Keep prose dense; managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 
-<!-- managed:roadmap v=17 -->
+<!-- managed:roadmap v=18 -->
 ## Roadmap
 
-**All work tracking lives in `docs/roadmap.md`.** When you complete, start, file, defer, or reorganize work — including bugs and speculative ideas — read `docs/process/roadmap.md` **before editing** — the format is strictly parsed and the lifecycles are defined there.
+**All work tracking lives in `docs/roadmap.md`.** When you complete, start, file, defer, or reorganize work — including bugs and speculative ideas — read `docs/process/roadmap.md` **before editing**: the format is strictly parsed and the lifecycles are defined there.
 
 If `docs/active-work.md` exists, read it at the start of a session — it's the cross-session re-entry point. If you advance that work, refresh it on the way out following the guidance block at its top.
 <!-- /managed:roadmap -->
