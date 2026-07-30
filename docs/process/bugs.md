@@ -1,4 +1,4 @@
-<!-- managed:process-bugs v=1 -->
+<!-- managed:process-bugs v=2 -->
 # Bug-Fix Process
 
 Bugs live in `docs/roadmap.md` → `## Bugs` as `BUG-NNN: <title>` rows (the aido UI prefills the next `NNN`; statuses per `docs/process/roadmap.md` — `next` when filed, `doing` while being fixed, `blocked` if waiting).
@@ -14,7 +14,6 @@ Bugs live in `docs/roadmap.md` → `## Bugs` as `BUG-NNN: <title>` rows (the aid
 
 ## Test shape
 
-- Assert on observable behavior at the natural level of abstraction, not the patch's internal shape — spying on a specific call breaks on refactor; pin to what the caller sees.
 - If the defect depends on event ordering or concurrent mutation (state machines, races, merges, lifecycle hooks), write the regression test as a simulation — load the `testing-by-simulation` skill.
 - Where a permanent `tests/bugs/` regression test is impractical (e.g. requires live external credentials), say so in the roadmap row before closing it.
 <!-- /managed:process-bugs -->
