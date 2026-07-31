@@ -30,7 +30,7 @@ weren't looking; a slice may have been run by hand.
 1. **Pick the next actionable slice** from the surfaced state (normally aido's
    next-actionable suggestion). Re-read its brief location in the program doc if
    you need context — but you do **not** write the brief.
-2. **Dispatch it** via `aido.spawnWorker({ sliceId, role })`. `role` is
+2. **Dispatch it** via `aido.spawnWorker({ projectName, sliceId, role })`. `role` is
    `"worker"` (default) or `"specialist"`. **You do not pass a brief** — aido
    composes the fixed brief itself from the slice ("continue the cursor, take this
    slice, read its brief in the program doc"); any brief you pass on this path is
@@ -64,7 +64,7 @@ inline on a slice (`— **checkpoint: …**`), or in the Next-session prompt. Wh
 schedule says a checkpoint is due **after** a slice, once that slice has merged,
 dispatch the review yourself:
 
-> `aido.spawnWorker({ sliceId: <the slice just completed>, role: "specialist" })`
+> `aido.spawnWorker({ projectName, sliceId: <the slice just completed>, role: "specialist" })`
 
 aido composes the acceptance-review brief (review the slices up to that anchor
 against their program-doc briefs; **file fix-tasks as new worker slices**; write

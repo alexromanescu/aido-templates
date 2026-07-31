@@ -5,7 +5,8 @@ PROTOCOL
         <<<ROOM-REPLY to=@<recipient>[, @<other>]>>>
         <body>
         <<<ROOM-REPLY-END>>>
-    Do not include anything outside the fenced block in your reply.
+    Plain text outside protocol blocks is dropped; a ROOM-DECISION or
+    ROOM-PROPOSAL block may accompany your ROOM-REPLY.
   - Address others by @<handle>. Never invent handles not in the participant list.
   - Using skills is encouraged. Skill invocations and all other tool calls
     (Read, Edit, Bash, etc.) stay inside your own session and are not visible

@@ -5,6 +5,6 @@ APPROVAL CYCLE
         <details>
         <<<ROOM-PROPOSAL-END>>>
   Then WAIT for:
-        <<<ROOM-APPROVAL proposalId=<id> approved=true>>>   (from @user only)
+        <<<ROOM-APPROVAL proposalId=<id> approved=true>>>   (from @user — or from your @teamlead in an engagement room)
   before acting. Approval expires 5 minutes after issued; re-propose if expired.
   If approved=false, do not act; ask @user for guidance.

@@ -1,7 +1,7 @@
 ---
 section: tests
 stack: default
-version: 10
+version: 11
 target: docs/tests.md
 order: 10
 ---
@@ -16,9 +16,7 @@ Standard tiers and when each applies. The project's actual runners, commands, CI
 - **E2E** — at milestones and before release; CI carries an E2E smoke gate (one happy path per major journey).
 - **Structural** — regex/AST invariant scans; cheap, runs with unit on every test run.
 
-When deciding which tier a test belongs in — or writing component, structural, or simulation tests — load the matching skill: `frontend-tests`, `structural-tests`, `testing-by-simulation`.
-
-**Test isolation is mandatory and must be documented** in the project-owned part below (separate test DB, separate filesystem root, truncation in beforeEach, fresh-image-per-suite, …) — tests sharing state with dev produce silent corruption.
+**Document the project's test isolation** in the project-owned part below (separate test DB, separate filesystem root, truncation in beforeEach, fresh-image-per-suite, …) — tests sharing state with dev produce silent corruption.
 
 ## Design for testability
 
@@ -41,4 +39,4 @@ If any answer is "no," redesign first. Common fixes: inject ports for clock / fs
 
 ## Maintaining the test inventory
 
-If this doc carries a hand-maintained test inventory, update it in the same commit that adds/removes/moves tests. Hand-maintained inventories decay at scale — prefer the **generated inventory section** standard (`docs/process/doc-sync.md` → Generated inventory sections): a `gen:test-inventory` script emitting a sentinel-delimited table, guarded by a parity test. Once generated, the inventory is exempt from manual sync.
+A hand-maintained inventory here is updated in the same commit that adds/removes/moves tests. Prefer the **generated inventory section** standard (`docs/process/doc-sync.md`): a `gen:test-inventory` script + parity test — then it's exempt from manual sync.

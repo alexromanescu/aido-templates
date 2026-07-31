@@ -38,7 +38,7 @@ One brief per slice, **constraint-level, not design-level**:
 ## Structure the sequence
 
 - Dependency-ordered; foundational/design-language slices first (later surfaces built once, in the final language); the riskiest cross-cutting slice **last** and checkpointed.
-- Every sequence item is one executable slice with a size marker — no opaque "Phase N (5 tasks)" lines.
+- Every sequence item is one executable slice with a size marker — no opaque "Phase N (5 tasks)" lines. Size a slice to one session: as much as a single session can spec, build, verify, and merge — batch steps that share context (same subsystem/files); split where shared context stops paying for itself or the diff outgrows one review.
 - Owner touchpoints: only direction picks, scope changes, irreversibles. List them explicitly; everything else is decided and logged.
 
 ## Review layers (encode conditionally, by what's available)
