@@ -86,32 +86,24 @@ project requirement matches a profile project requirement by capability and
 harness; otherwise it is an addition. Global profile requirements remain
 global and cannot be overridden by project content.
 
-## Initial external portfolio
+## External capability inventory
 
-`standard` selects a small reviewed external portfolio, not a marketplace
-mirror. Claude and Codex realizations are selected explicitly; a shared source
-does not imply harness parity.
+`standard` records a small inventory of known external capabilities, not a
+marketplace mirror and not a recommendation about their live state. Claude and
+Codex realizations are selected explicitly; a shared source does not imply
+harness parity.
 
-- Superpowers has separate Claude and Codex plugin realizations. Both are
-  globally disabled with unmanaged installation, preserving the accepted
-  retirement without requesting installation or removal.
-- Code simplification is a Claude-only optional plugin. Frontend product work
-  selects the native Claude `frontend-design` and Codex `build-web-apps`
-  plugins; their contents intentionally differ. Optional requirements still
-  carry their explicit desired state, so absent or disabled plugins can produce
-  advisory work for owner review.
-- Browser automation selects one route per harness: the Claude official
-  Playwright plugin's `playwright` child MCP and the direct Codex `playwright`
-  MCP. Context7 and Pencil use direct MCP realizations on both harnesses.
-- Browser, Context7, and Pencil are project requirements with unmanaged
-  installation and disabled activation. Every project selecting `standard`
-  inherits that active disabled policy until its declaration deliberately
-  replaces the matching `(capabilityId, harness)` requirement.
+External requirements in `standard` are inventory records: each is optional
+with unmanaged installation and activation. Selecting an external inventory
+record does not recommend installing, enabling, disabling, or removing it.
+The records give the app stable identities for observing and explaining the
+current Claude and Codex setup. A project declaration may state a deliberate
+desired state for its own requirement when the owner wants the app to plan a
+change.
 
-MCP tool-schema deferment is not treated as an on-demand process lifecycle.
-Default-disabled candidates may remain installed, but an observed enabled state
-is advisory drift. External assessments remain report-only: they never enter
-the product Apply/Retry action list.
+External assessments remain report-only: they never enter the product
+Apply/Retry action list. Installing, enabling, disabling, updating, or removing
+an external plugin or MCP remains a separate owner-requested operation.
 
 Documented alternatives stay out of the selected catalog until they have both a
 stable harness identity and a policy reason to replace the current route.
@@ -154,8 +146,8 @@ state, or prove that a realization is compatible with an installed harness.
 
 Migration proceeds through observation, deterministic planning, explicit owner
 review where required, and only then reconciliation. Use the reconciliation
-service's Preview/Apply/Retry/Verify boundary; normal production remains
-Preview-only, and any live mutation requires its exact owner-approved local
-acceptance procedure. Preserve occupants and unknown artifacts, and review
-destructive cleanup path by path. Editing policy or reviewing a plan never
-authorizes a live Claude or Codex change.
+service's Preview/Apply/Retry/Verify boundary. Apply/Retry may reconcile only
+app-owned custom skills and guidance files; external integrations remain
+report-only. Preserve occupants and unknown artifacts, and review destructive
+cleanup path by path. Editing policy or reviewing a plan never authorizes a
+live Claude or Codex change.

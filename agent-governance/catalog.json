@@ -267,7 +267,7 @@
     {
       "id": "structured-development-workflow",
       "name": "Structured development workflow",
-      "description": "A structured development method available across harnesses but retired from the standard active toolset.",
+      "description": "A structured development method available as distinct Claude and Codex plugins.",
       "kind": "workflow",
       "realizations": [
         {
@@ -391,7 +391,7 @@
     {
       "id": "browser-automation",
       "name": "Browser automation",
-      "description": "A single selected browser-control route for each harness.",
+      "description": "Browser-control integrations available for Claude and Codex.",
       "kind": "integration",
       "realizations": [
         {
@@ -440,7 +440,7 @@
     {
       "id": "library-documentation-lookup",
       "name": "Library documentation lookup",
-      "description": "Project-selected current library documentation through Context7.",
+      "description": "Current library documentation lookup through Context7.",
       "kind": "integration",
       "realizations": [
         {
@@ -488,7 +488,7 @@
     {
       "id": "visual-design-canvas",
       "name": "Visual design canvas",
-      "description": "Project-selected visual design work through the pen.dev-managed Pencil MCP.",
+      "description": "Visual design work through the pen.dev-managed Pencil MCP.",
       "kind": "integration",
       "realizations": [
         {
@@ -538,7 +538,7 @@
     {
       "id": "standard",
       "name": "Standard",
-      "description": "Common governed workflows and conservative external defaults for Claude Code and Codex CLI.",
+      "description": "Common governed workflows plus a neutral inventory of known external capabilities for Claude Code and Codex CLI.",
       "requirements": [
         {
           "capabilityId": "frontend-component-testing",
@@ -676,22 +676,22 @@
           "capabilityId": "structured-development-workflow",
           "harness": "claude",
           "realizationId": "structured-development-workflow.claude-plugin",
-          "disposition": "disabled",
+          "disposition": "optional",
           "scope": "global",
           "desired": {
             "installation": "unmanaged",
-            "activation": "disabled"
+            "activation": "unmanaged"
           }
         },
         {
           "capabilityId": "structured-development-workflow",
           "harness": "codex",
           "realizationId": "structured-development-workflow.codex-plugin",
-          "disposition": "disabled",
+          "disposition": "optional",
           "scope": "global",
           "desired": {
             "installation": "unmanaged",
-            "activation": "disabled"
+            "activation": "unmanaged"
           }
         },
         {
@@ -701,8 +701,8 @@
           "disposition": "optional",
           "scope": "global",
           "desired": {
-            "installation": "present",
-            "activation": "enabled"
+            "installation": "unmanaged",
+            "activation": "unmanaged"
           }
         },
         {
@@ -712,8 +712,8 @@
           "disposition": "optional",
           "scope": "global",
           "desired": {
-            "installation": "present",
-            "activation": "enabled"
+            "installation": "unmanaged",
+            "activation": "unmanaged"
           }
         },
         {
@@ -723,74 +723,74 @@
           "disposition": "optional",
           "scope": "global",
           "desired": {
-            "installation": "present",
-            "activation": "enabled"
+            "installation": "unmanaged",
+            "activation": "unmanaged"
           }
         },
         {
           "capabilityId": "browser-automation",
           "harness": "claude",
           "realizationId": "browser-automation.claude-playwright-mcp",
-          "disposition": "disabled",
+          "disposition": "optional",
           "scope": "project",
           "desired": {
             "installation": "unmanaged",
-            "activation": "disabled"
+            "activation": "unmanaged"
           }
         },
         {
           "capabilityId": "browser-automation",
           "harness": "codex",
           "realizationId": "browser-automation.codex-playwright-mcp",
-          "disposition": "disabled",
+          "disposition": "optional",
           "scope": "project",
           "desired": {
             "installation": "unmanaged",
-            "activation": "disabled"
+            "activation": "unmanaged"
           }
         },
         {
           "capabilityId": "library-documentation-lookup",
           "harness": "claude",
           "realizationId": "library-documentation-lookup.claude-context7-mcp",
-          "disposition": "disabled",
+          "disposition": "optional",
           "scope": "project",
           "desired": {
             "installation": "unmanaged",
-            "activation": "disabled"
+            "activation": "unmanaged"
           }
         },
         {
           "capabilityId": "library-documentation-lookup",
           "harness": "codex",
           "realizationId": "library-documentation-lookup.codex-context7-mcp",
-          "disposition": "disabled",
+          "disposition": "optional",
           "scope": "project",
           "desired": {
             "installation": "unmanaged",
-            "activation": "disabled"
+            "activation": "unmanaged"
           }
         },
         {
           "capabilityId": "visual-design-canvas",
           "harness": "claude",
           "realizationId": "visual-design-canvas.claude-pencil-mcp",
-          "disposition": "disabled",
+          "disposition": "optional",
           "scope": "project",
           "desired": {
             "installation": "unmanaged",
-            "activation": "disabled"
+            "activation": "unmanaged"
           }
         },
         {
           "capabilityId": "visual-design-canvas",
           "harness": "codex",
           "realizationId": "visual-design-canvas.codex-pencil-mcp",
-          "disposition": "disabled",
+          "disposition": "optional",
           "scope": "project",
           "desired": {
             "installation": "unmanaged",
-            "activation": "disabled"
+            "activation": "unmanaged"
           }
         }
       ]
