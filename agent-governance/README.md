@@ -101,9 +101,13 @@ current Claude and Codex setup. A project declaration may state a deliberate
 desired state for its own requirement when the owner wants the app to plan a
 change.
 
-External assessments remain report-only: they never enter the product
-Apply/Retry action list. Installing, enabling, disabling, updating, or removing
-an external plugin or MCP remains a separate owner-requested operation.
+Current state is never inferred from the catalog. The app observes Claude and
+Codex configuration and installation locations plus the selected project
+folders on each assessment. Cache-only material is not an installed-capability
+registry, and neither SQLite nor an action receipt becomes capability state.
+Supported external changes enter Apply/Retry only through the Governance
+workflow after explicit review, and success requires fresh semantic
+re-observation of those native sources.
 
 Documented alternatives stay out of the selected catalog until they have both a
 stable harness identity and a policy reason to replace the current route.
@@ -146,8 +150,12 @@ state, or prove that a realization is compatible with an installed harness.
 
 Migration proceeds through observation, deterministic planning, explicit owner
 review where required, and only then reconciliation. Use the reconciliation
-service's Preview/Apply/Retry/Verify boundary. Apply/Retry may reconcile only
-app-owned custom skills and guidance files; external integrations remain
-report-only. Preserve occupants and unknown artifacts, and review destructive
-cleanup path by path. Editing policy or reviewing a plan never authorizes a
-live Claude or Codex change.
+service's Preview/Apply/Retry/Verify boundary. Host capability changes belong
+only to aido's `/skills/governance` surface; `/skills` remains source authoring
+and read-only physical observation. A reviewed Governance action may use a
+supported direct adapter or a tracked agent action, then must re-observe the
+native harness or project source before reporting success. Preserve occupants
+and unknown artifacts, and review destructive cleanup path by path. Do not add
+a fallback cache registry, a second configuration writer, or SQLite capability
+state. Editing policy or reviewing a plan never authorizes a live Claude or
+Codex change.
