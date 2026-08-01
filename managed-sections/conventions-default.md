@@ -1,14 +1,14 @@
 ---
 section: conventions
 stack: default
-version: 57
+version: 58
 target: CLAUDE.md
 order: 10
 ---
 ## General Conventions
 
-- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test.
-- **When asked a question, answer it — don't start coding.** Commit to a verdict instead of hedging. Explain concisely in product-owner language: standard technical knowledge, no internal codebase context, no metaphors — think from practical user impact.
+- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. When replying or reporting, do not use internal implementation jargon. 
+- **When asked a question, answer it — don't start coding.** Commit to a verdict instead of hedging. Explain concisely in product-owner language, think from practical user impact. Don't appologise, don't add any wording without clear use.
 - **After a resume or context compaction, re-establish ground truth:** working directory, branch, `git status`. Trust fresh tool output over remembered narrative.
 - **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
 - **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Declared work you don't finish stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified.
