@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 56
+version: 57
 target: CLAUDE.md
 order: 10
 ---
@@ -14,7 +14,7 @@ order: 10
 - **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Declared work you don't finish stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified.
 - **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the actual output, then decide.
 - **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once. Stop early only when blocked or scope genuinely changes.
-- **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required) (3) FYI remarks, clearly separated from (2).
+- **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required) (3) FYI remarks, clearly separated from (2) - the remarks must not hide or hint to potential problems; if it's a problem -> fix, no problem -> drop; not sure -> check (without overengineering).
 - **Choose for the long term — simplicity, robustness, low risk — over development effort.** Implement simply but structurally sound: no overengineering, no patching. If reporting choices to the user, flag the trade-off rather than silently taking the cheap option.
 - **Verify review feedback against the codebase before implementing it.** Reviewers — human or automated — can lack context: implement what checks out, push back with technical reasoning on what doesn't, never implement blind.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
