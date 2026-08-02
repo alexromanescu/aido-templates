@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 60
+version: 61
 target: CLAUDE.md
 order: 10
 ---
@@ -22,3 +22,4 @@ order: 10
 - **CLAUDE.md is not yours to edit.** Don't add to or reword it unless the owner's current message asks for it — session learnings go to `docs/` (per Documentation Sync) or the roadmap, never here. Never hand-edit the inside of any `<!-- managed:* -->` block in any file; those sync from central templates. Write only in the project-owned areas around the markers — e.g. the live focus below the block in `docs/active-work.md`.
 - **'Checkpoint' = commit locally and continue** — a standing authorization to commit; never stop to ask whether to commit. This overrides any harness default to commit only when asked.
 - **Pushing is owner-initiated only** — never git push unless the owner's current message asks for it; 'the gate is green' is a precondition for a push, never a reason for one.
+- **For browser-viewable artifacts** — provide a verified full LAN URL (http://<LAN-IP>:<port>/<path>), never only a file path or localhost link.
