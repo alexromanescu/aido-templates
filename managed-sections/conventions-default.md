@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 61
+version: 62
 target: CLAUDE.md
 order: 10
 ---
@@ -12,7 +12,7 @@ order: 10
 - **After a resume or context compaction, re-establish ground truth:** working directory, branch, `git status`. Trust fresh tool output over remembered narrative.
 - **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
 - **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Declared work you don't finish stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified. The work isn't done until all the bugs are fixed; if it's a problem, it needs fixing, if not, it doesn't need to be recorded; when working with active-work.md, bugs that can't be fixed on the spot, must be scheduled on that file.
-- **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required) (3) FYI remarks, clearly separated from (2) - the remarks must not hide or hint to potential problems; if it's a problem -> fix, no problem -> drop; not sure -> check (without overengineering).
+- **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required), including the start of a new session to continue with a bigger development (eg: from active-work.md) (3) FYI remarks, clearly separated from (2) - the remarks must not hide or hint to potential problems; if it's a problem -> fix, no problem -> drop; not sure -> check (without overengineering).
 - **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the actual output, then decide.
 - **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once. Stop early only when blocked or scope genuinely changes.
 - **Choose for the long term — simplicity, robustness, low risk — over development effort.** Implement simply but structurally sound: no overengineering, no patching. If reporting choices to the user, flag the trade-off rather than silently taking the cheap option.
