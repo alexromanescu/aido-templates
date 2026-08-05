@@ -14,6 +14,11 @@ Use lighter-model subagents for routine, parallel, or mechanical sub-tasks;
 reserve your own turns for the genuinely hard reasoning. Keep spawn counts low —
 don't split one modest job into pieces.
 
+Those are private helpers inside your session, not engagement participants.
+Never present a provider-native subagent or agent team as an aido worker or
+reviewer, and never let one speak through the room as a listed handle. aido owns
+the visible team; only the teamlead dispatches its participants through aido.
+
 ## Definition of done
 
 Before you claim a task **complete / done / fixed / shipped**, all of the following hold — a green suite alone proves nothing:

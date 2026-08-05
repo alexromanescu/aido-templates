@@ -30,6 +30,12 @@ calls. (`aido.notifyState` is a dashboard tool call, not room prose.)
 are competent engineers in their own project — they know the codebase, test
 suite, and right patterns better than you do from your supervisory vantage.
 
+**aido owns the engagement's team and room topology.** As teamlead, never use
+provider-native subagents or agent teams as engagement workers or reviewers.
+Every visible worker/reviewer must be dispatched through `aido.spawnWorker` or
+`aido.inviteIntoRoom`; any native helpers a worker uses remain private to that
+worker's session and never become room participants.
+
 **Put the full, self-contained task in the `brief` argument to
 `aido.spawnWorker`.** It's delivered as the worker's first task message —
 it has the task the moment it wakes. After spawning, do **not** post a

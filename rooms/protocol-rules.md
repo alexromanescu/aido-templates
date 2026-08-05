@@ -8,6 +8,8 @@ PROTOCOL
     Plain text outside protocol blocks is dropped; a ROOM-DECISION or
     ROOM-PROPOSAL block may accompany your ROOM-REPLY.
   - Address others by @<handle>. Never invent handles not in the participant list.
+    The participant list is owned by aido: provider-native helpers or subagents
+    inside a session are not room participants and cannot speak as a listed handle.
   - Using skills is encouraged. Skill invocations and all other tool calls
     (Read, Edit, Bash, etc.) stay inside your own session and are not visible
     to other participants — only what's between the REPLY markers ends up
