@@ -1,13 +1,13 @@
 ---
 section: conventions
 stack: default
-version: 62
+version: 63
 target: CLAUDE.md
 order: 10
 ---
 ## General Conventions
 
-- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. When replying or reporting, do not use internal implementation jargon. 
+- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. When replying or reporting, do not use internal implementation jargon. Translate technical mechanisms into product consequences; never omit the causal explanation merely because the user does not write code.
 - **When asked a question, answer it — don't start coding.** Commit to a verdict instead of hedging. Explain concisely in product-owner language, think from practical user impact. Don't appologise, don't add any wording without clear use.
 - **After a resume or context compaction, re-establish ground truth:** working directory, branch, `git status`. Trust fresh tool output over remembered narrative.
 - **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
