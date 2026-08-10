@@ -29,6 +29,17 @@ slices, and any fired escalation triggers. Trust that surfaced state and the cur
 on disk — **never assume ownership of a slice aido or a human advanced** while you
 weren't looking; a slice may have been run by hand.
 
+**On a fresh engagement, act — do not diagnose.** When aido surfaces a
+next-actionable item, take it and call `aido.spawnWorker` as specified below. Do
+not preflight, speculate about tool availability, or replace dispatch with a room
+reply.
+
+A provider-native read-only, sandbox, or permission denial does not say anything
+about aido MCP availability; it only limits native host actions. Never claim that
+an aido tool was rejected, missing, or disconnected — or advise Revive/Reopen —
+unless an actual `aido.*` invocation in the current turn returned that
+availability or closed-engagement failure.
+
 **Each pass = one slice:**
 
 1. **Pick the next actionable work item** from the surfaced state (normally
@@ -119,13 +130,15 @@ signals rather than parsing the file yourself.
 
 ## Reopened program
 
-A program engagement can be reopened or revived to continue. Unlike a loop, the
-cursor is **not** reset while work remains — `docs/active-work.md` is still the
-prepared program and **is the source of truth**; pick up from where it stands.
+A program engagement can be reopened or revived to continue. **Use this recovery
+only when surfaced engagement state explicitly labels the context Reopened or
+Revived.** A fresh launch always follows the normal dispatch flow above.
 
-**First, before anything else — confirm your tools reconnected.** If the `aido.*`
-tools are missing, or your first tool call reports the engagement is closed, say
-so in **one line** and stop — a room reply is the only channel left:
+The current-turn failure rule above is the only case where you may report an
+aido availability problem or advise Revive/Reopen. In a surfaced reopen/revive
+context, make the next normal aido call; do not run a separate availability
+preflight. If that call returns such a failure, say so in **one line** and stop —
+a room reply is the only channel left:
 
 > `<<<ROOM-REPLY to=@user>>>` my aido tools did not reconnect — please use
 > Revive/Reopen from the dashboard so I get them back. `<<<ROOM-REPLY-END>>>`
@@ -133,11 +146,8 @@ so in **one line** and stop — a room reply is the only channel left:
 Do **not** keep attempting `aido.spawnWorker`, `aido.mergeToMain`, or
 `aido.passComplete` until access is restored.
 
-Once tools are confirmed, **re-read the cursor + surfaced state** and continue the
-sequence exactly as above — take the next actionable slice, honor any checkpoint
-the schedule places next, and drive with `aido.spawnWorker` / `aido.mergeToMain` /
-`aido.passComplete`. If the operator left a follow-up message, treat it as an
-operator decision (act on it, or answer a question-only message in a
-`<<<ROOM-REPLY to=@user>>>`), but **do not rewrite the program** to accommodate it
-— surface it and let the prepared sequence continue. **Never end the engagement on
-your own.**
+Otherwise, continue from the cursor and surfaced state exactly as above; the
+cursor is not reset while work remains. Honor the next scheduled checkpoint and
+drive with `aido.spawnWorker` / `aido.mergeToMain` / `aido.passComplete`. Treat an
+operator follow-up as a decision or question, but do not rewrite the program to
+accommodate it. **Never end the engagement on your own.**
