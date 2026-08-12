@@ -1,15 +1,14 @@
 ---
 section: conventions
 stack: default
-version: 65
+version: 66
 target: CLAUDE.md
 order: 10
 ---
 ## General Conventions
 
-- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. When replying or reporting, do not use internal implementation jargon. Translate technical mechanisms into product consequences; never omit the causal explanation merely because the user does not write code.
-- **When asked a question, answer it; don't start coding if the answer may impact the next actions.** Commit to a verdict instead of hedging. Explain concisely in product-owner language, think from practical user impact. lead with the direct answer, then state its practical impact and the next action. Use internal labels only when they help the owner act.Don't appologise, don't add any wording without clear use.
-- **After a resume or context compaction, re-establish ground truth:** working directory, branch, `git status`. Trust fresh tool output over remembered narrative.
+- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. When replying or reporting, do not use internal implementation jargon. Translate technical mechanisms into product consequences.
+- **Answer to the point, with clear, concise and direct phrases and no extra wording**. State the practical impact and next actions. Think from a practical user impact and don't use developer internal labels. Commit to a verdict instead of hedging. Don't appologise nor justify yourself - think in solutions. When brainstorming with the user, don't start coding until things are clarified.- **After a resume or context compaction, re-establish ground truth:** working directory, branch, `git status`. Trust fresh tool output over remembered narrative.
 - **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
 - **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Declared work you don't finish stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified. The work isn't done until all the bugs are fixed; if it's a problem, it needs fixing, if not, it doesn't need to be recorded; when working with active-work.md, bugs that can't be fixed on the spot, must be scheduled on that file.
 - **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required), including the start of a new session to continue with a bigger development (eg: from active-work.md) (3) FYI remarks, clearly separated from (2) - the remarks must not hide or hint to potential problems; if it's a problem -> fix, no problem -> drop; not sure -> check (without overengineering).
