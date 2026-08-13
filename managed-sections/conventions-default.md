@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 66
+version: 67
 target: CLAUDE.md
 order: 10
 ---
@@ -18,6 +18,7 @@ order: 10
 - **Verify review feedback against the codebase before implementing it.** Reviewers — human or automated — can lack context: implement what checks out, push back with technical reasoning on what doesn't, never implement blind.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
 - **Except for quick fixes, develop on a worktree** (agents you launch share it). This is a standing owner instruction: it holds even when a harness or launcher configured the session to work in place, so create the worktree rather than skipping it. Trust git rev-parse --git-dir vs --git-common-dir, not the cwd label, to know if you're isolated — a worktree-style path can be labelled before the worktree exists: equal ⇒ really on the default branch (create the worktree before committing dev work); unequal ⇒ already isolated, stay there and don't nest. Finish by merging back to the default branch, then confirm git worktree list shows only the main checkout — never leave a worktree behind.
+- **Clean up everything you create, once the work is merged.** Worktrees, scratch branches, temp and backup files, generated fixtures, background servers and the ports they hold — remove them, then verify the removal (`git worktree list`, a clean `git status`, the path actually gone). Derive every scratch path from your own worktree or agent id, never a shared literal like `/tmp/w.bak` — parallel agents on one fixed path overwrite each other's files. Two exceptions only: `rm` nothing outside the paths you created, and skip a teardown a launcher explicitly says it owns (aido removes a finished session's worktree itself).
 - **CLAUDE.md is not yours to edit.** Don't add to or reword it unless the owner's current message asks for it — session learnings go to `docs/` (per Documentation Sync) or the roadmap, never here. Never hand-edit the inside of any `<!-- managed:* -->` block in any file; those sync from central templates. Write only in the project-owned areas around the markers — e.g. the live focus below the block in `docs/active-work.md`.
 - **'Checkpoint' = commit locally and continue** — a standing authorization to commit; never stop to ask whether to commit. This overrides any harness default to commit only when asked.
 - **Pushing is owner-initiated only** — never git push unless the owner's current message asks for it; 'the gate is green' is a precondition for a push, never a reason for one.

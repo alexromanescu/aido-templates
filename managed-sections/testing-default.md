@@ -1,7 +1,7 @@
 ---
 section: testing
 stack: default
-version: 25
+version: 26
 target: CLAUDE.md
 order: 70
 ---
@@ -13,6 +13,7 @@ order: 70
 - **A failing test is never left silently.** Caused by your change or related → fix before claiming done. Pre-existing and unrelated → file as a bug and flag it. Flaky = a real bug — fix, never blanket-retry. No `skip` without a referenced roadmap entry. A test that CANNOT fail — dead guard, unreachable arm, vacuous assertion, a header contradicting the shipped code — is broken code, not review debt: fix or delete it in the cycle that finds it, yours or a review's, in scope by definition and without a roadmap row; file a row only when the repair requires a production design decision. Row-less repairs still owe a class check: sweep for siblings of the same defect shape and record the command + count in the commit message; a recurring shape is a structural problem — surface it as a row naming the pattern, never spot-fix it N times.
 - **A production defect discovered mid-assignment is fixed in the same cycle** when the fix is S-sized and related small fixes sharing that context may ride the same verification round when combined risk stays low. Full discipline applies (red-first, mutation check, class sweep); never a drive-by patch. File a row instead only when the fix is bigger, outside those files, or needs a product ruling — and name which reason in the report.
 - **Don't take a subagent's word for it:** run the automated verification yourself before any done or merge claim.
+- **Fresh-eyes review before merge.** Any production change bigger than an S-sized quick fix closes with an independent review of its own diff (`residuals-review` skill where available) — reviewers with no shared context, and every finding acted on adversarially verified, verifier defaulting to REFUTED — run before the merge, while the author's context is loaded. In-area findings are fixed in the same cycle; out-of-area ones filed with the reason named. A finding shape a review reports twice becomes a permanent automated guard (structural test, measurement lane, regression arm) — never caught by review a third time.
 - **When you fix a bug**, read `docs/process/bugs.md` before writing the test and follow the regression-test procedure.
 - **When you choose a test layer or write component / structural / simulation tests**, load the matching skill: `frontend-tests`, `structural-tests`, `testing-by-simulation`.
 - Commands, inventory, isolation, design-for-testability, fixtures: `docs/tests.md`.

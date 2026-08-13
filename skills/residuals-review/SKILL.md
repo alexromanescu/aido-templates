@@ -13,6 +13,10 @@ Every test is a **proxy** for the property it's meant to enforce. A proxy is cor
 
 The discipline: **the next reviewer assumes nothing**. Every closeout claim from the prior commit is suspect until grep-verified.
 
+## Placement in the change lifecycle
+
+The highest-value placement is at the close of the authoring change, before its merge: findings land while the author's context is loaded, small ones are fixed in the same cycle, and the mainline never carries a known-defective landing.
+
 ## Target selection (what is being reviewed)
 
 The user's request determines the **target** — the body of code/claims under audit. Seven invocation shapes:
@@ -38,6 +42,11 @@ If unclear, **ask once** then proceed: "I'll review HEAD by default — or did y
 ## Mode boundary
 
 Respect the requested mode. In a read-only audit, report findings and demonstrations without editing, committing, posting comments, or changing project records. Apply red-then-green fixes only when the task authorizes changes.
+
+## Operational safety rules
+
+- **Derive every scratch, backup, and temp path from your own worktree or agent id — never a shared literal like `/tmp/W.bak`.** Two reviewers sharing one backup path restore each other's files, which has overwritten a production file with another module's contents. Parallel reviewers are the normal case, so treat any fixed path as a collision waiting to happen, and delete what you created once the cycle closes.
+- **Before trusting any mutation probe's result, assert the mutation is actually present in the source (and absent after restore).** An unapplied mutation reads as a passing verification — grep the mutated line before running the probe, and grep again after the restore to confirm the original is back.
 
 ## Single-cycle workflow
 

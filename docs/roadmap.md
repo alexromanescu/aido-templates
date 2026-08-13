@@ -1,7 +1,7 @@
 # aido-templates — Roadmap
 
 <!-- roadmap-meta
-updated: 2026-08-10
+updated: 2026-08-13
 -->
 
 **Format reference:** this file is parsed by the aido app — the exact phase-heading shape, task-table columns, statuses, and section lifecycles are defined in [docs/process/roadmap.md](process/roadmap.md). Read it before editing this file by hand; the aido `/project/:name/roadmap` page follows it for you.
@@ -32,6 +32,7 @@ updated: 2026-08-10
 | Capability-management source-of-truth contract | Templates | S | done | Aligned the Skills authoring guide and agent-governance policy with the consolidated aido surface: `/skills` authors sources and observes physical state read-only; `/skills/governance` alone manages supported host capabilities from native Claude/Codex and selected-project sources, with reviewed actions and fresh semantic re-observation; cache registries, a second config writer, and SQLite capability state are explicitly excluded. | 2026-08-01 |
 | Provider-neutral engagement supervision | Prompts | S | done | Teamlead and room guidance now keeps visible workers/reviewers exclusively in aido-owned topology for every provider; Program dispatch consumes aido's exact bounded marked assignment packages instead of making workers rediscover briefs in the full dossier. Planner, loop, approval, decision, merge, and completion contracts were audited and preserved. | 2026-08-05 |
 | BUG-712: Fresh Program launch misclassified as disconnected | Prompts | S | done | Program guidance now dispatches the surfaced next action on fresh launch; reopen recovery requires surfaced reopen/revive context plus a current-turn aido invocation failure, and provider-native read-only/sandbox denial is explicitly unrelated to aido MCP availability. | 2026-08-10 |
+| Fresh-eyes review before merge + cleanup contract | Templates | S | done | Review moved from post-merge to the close of the authoring change: testing v26 (any change bigger than an S-sized quick fix closes with an independent review of its own diff — `residuals-review` where available, no shared context, every acted-on finding adversarially verified with the verifier defaulting to REFUTED; in-area findings fixed in-cycle, out-of-area filed with the reason named; a shape reported twice becomes a permanent automated guard), active-work v10 (slice lifecycle now names the review before the merge), conventions v67 (clean up everything you create once merged — worktrees, scratch branches, temp/backup files, background servers — with removal verified, scratch paths derived from own worktree/agent id, and the launcher-owned-teardown exception). residuals-review skill gained a placement note plus two operational rules (per-reviewer backup paths; assert a mutation is really applied before trusting its probe). Propagated to aido, aido-ops, mara, q1dms, q1erp — 14 blocks, zero non-block drift. | 2026-08-13 |
 
 ## Distant Roadmap
 | Task | Area | Size | Status | Description |

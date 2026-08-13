@@ -1,7 +1,7 @@
 ---
 section: active-work
 stack: default
-version: 9
+version: 10
 target: docs/active-work.md
 order: 10
 ---
@@ -17,7 +17,7 @@ _**This file is the forward cursor, not a history tracker.** It is reloaded ever
 - **Guardrails / quality bar** — standing owner directives for this batch (quality bar, scope limits). Pin first; they govern every session and survive each rewrite.
 - **Last shipped** — what landed and was verified this block: high level, and related to the tasks that were given.
 - **Sequence** — the ordered path to the goal, one **slice** per item: as much related work as one session can take to done (group by shared context and files; split where the context a session builds stops paying off). Strike done slices in place, flag the next; cite roadmap rows / `BUG-NNN` ids rather than copying them. **Keep each item's `(S)/(M)/(L)` size marker** — aido sums them for the engagement budget, so a rewrite that drops them silently under-budgets the work. **A struck item keeps at most one short outcome clause plus a pointer** (decision-log entry, roadmap row, or commit) — the full postmortem goes to the plan/program doc or the roadmap row, never onto the struck line.
-- **A slice is one assignment.** The session that picks it up runs it end-to-end — build, verify, commit, merge back, refresh this file — then reports once: what shipped, that it's merged, and whether a next slice remains here (or the focus is done). Steps inside a slice are waypoints, not report points; pause mid-slice only for a real blocker or a scope change only the owner can rule.
+- **A slice is one assignment.** The session that picks it up runs it end-to-end — build, verify, fresh-eyes review of its own diff (before the merge), commit, merge back, refresh this file — then reports once: what shipped, that it's merged, and whether a next slice remains here (or the focus is done). Steps inside a slice are waypoints, not report points; pause mid-slice only for a real blocker or a scope change only the owner can rule.
 - **Cross-cutting bar** — constraints that apply to *every* step (design, i18n, tests, a11y); state them once here instead of per step.
 - **Run it** — the exact commands to launch and test the app against this focus, so any session verifies without rediscovering them.
 - **Resume prompt** — copy-paste resume: re-establish ground truth (branch, status, tests) → which roadmap rows → which deferred items / bugs to fold in → which skill/approach to open with → where to start. (Writing it is not an exit.)
