@@ -1,6 +1,6 @@
 ---
 name: residuals-review
-description: Use when the user says "residuals review", "fresh-eyes review", "audit this PR/branch/module", "find what's wrong before I merge", "find what was missed", or "audit for invariant decay", or after a non-trivial change to invariant-sensitive code. Runs an adversarial fresh-eyes cycle against a commit, range, PR, branch, working tree, path, or whole codebase; reports findings without mutation in read-only mode, applies red-then-green fixes only when authorized, and loops for evolving targets when a loop is requested, subject to project checkpoint policy.
+description: Use when the user says "residuals review", "fresh-eyes review", "audit this PR/branch/module", "find what's wrong before I merge", "find what was missed", or "audit for invariant decay", or after a non-trivial change to invariant-sensitive code. Read-only by default, fixes only when authorized. Change-targeted reviews cycle until one clean pass over the final state; open-ended audit loops run on explicit request only.
 ---
 
 # Residuals Review — Adversarial Fresh-Eyes Cycle
@@ -52,20 +52,9 @@ Respect the requested mode. In a read-only audit, report findings and demonstrat
 
 1. **Establish the target.** Use the table above. For commit-based targets, use `git log` and `git show --stat`. For PR-based targets, use the available GitHub integration; fall back to `gh` only when it is installed and authenticated. For branches, use `git diff <base>...HEAD`; for the working tree, `git status` plus staged/unstaged diffs. For path-based targets, read the module's structural tests and reflections to find the invariants.
 
-2. **Identify the proxies the target relies on.** Patterns to look for:
-   - **Structural-test regexes** over source code (extractors, allow-list scanners). The regex's capture set is the proxy; the invariant is whatever it's meant to enforce.
-   - **Allow-lists / classification tables** (`bump-here` / `metadata-only` / `port-adapter` / etc.). Each entry's `reason` is a claim that should be re-audited for honesty — not just "is it in the list" but "is the classification accurate today."
-   - **Convergence claims** ("all callers go through X", "single source of truth for Y"). Often overstated — there's usually a peer entry-point.
-   - **Universal-language claims** ("every", "all", "any future") in commit messages or reflections. Tend to be overstated because the writer reasons about tested cases, not future cases.
-   - **Defensive observability lost in a refactor.** When a delegation/inlining change removes a `throw new Error(...)`, an assert, a `log.warn(...)` — audit whether the new code still surfaces the failure mode. The throw was theatrical against current code but real against future regression. (Session 15's `bumpForFile` refactor lost a throw; Session 17 had to restore it.)
-   - **"No current sites; deferred" claims** without a grep citation — the deferred-fact-check error mode.
+2. **Identify the proxies the target relies on** — structural-test regexes, allow-lists / classification tables, convergence claims, universal-language claims, defensive observability lost in a refactor, and "no current sites; deferred" claims without a grep citation. Pattern catalog and worked examples: [references/proxy-patterns.md](references/proxy-patterns.md).
 
-3. **For each proxy, look for the shape one level shallower.** Common patterns (apply where relevant):
-   - **Shape-mirroring**: if PARAMS were fixed, look for RETURN TYPES. If `*` attached to keyword was fixed, look for `*` attached to name. If one entry-point got a filter, look for peer entry-points without it.
-   - **Universal-claim mirror**: every "all callers" claim has a peer the writer forgot. Grep for the construct and count.
-   - **Deferred-fact-check**: every "no current sites" claim must be re-greppped. The grep is the audit trail.
-   - **Visibility/scope**: a fix at the function level might miss the cross-module level. A fix in one package might miss the others.
-   - **Defensive observability**: every refactor that removes a throw/assert must explicitly justify it.
+3. **For each proxy, look for the shape one level shallower** — shape mirrors, peer entry points, cross-module scope, re-greps of deferred claims (same reference).
 
 4. **For each candidate finding**, classify:
    - **P0/P1 (real bug; fix when authorized)** — concrete demonstrator (grep finds a current site that exhibits the evasion). In read-only mode, report the demonstration. When changes are authorized, write a failing test against the unmodified target/base state, apply the fix, and confirm green.
@@ -80,90 +69,20 @@ Respect the requested mode. In a read-only audit, report findings and demonstrat
    - Run the broader test suite to confirm no regression.
    - **No exceptions.** A fix without a regression-guarding test is not landed.
 
-6. **When record changes are authorized, update the project's established review/reflections record if one exists.** In read-only mode, include the same facts in the report instead. Do not create a new project-specific documentation convention merely for this skill. Be honest:
-   - What proxy did the prior session bind to?
-   - What evasion did this session find?
-   - What's the discipline correction?
-   - Cite the grep that confirms claims.
+6. **When record changes are authorized, update the project's established review/reflections record if one exists.** In read-only mode, include the same facts in the report instead. Do not create a new project-specific documentation convention merely for this skill. Be honest: what proxy did the prior session bind to, what evasion did this session find, what's the discipline correction — and cite the grep that confirms claims.
 
 7. **Commit on the working branch when the task authorizes commits.** Follow the project's established commit convention; do not invent a new one for this skill. Capture finding labels, repro, fix shape, and verification in the commit or the project's review record.
 
-## Multi-cycle (auto-loop) workflow
+## Cycling until clean (change-targeted reviews)
 
-Multi-cycle is meaningful when the target **evolves between cycles** — i.e., commit-based targets (the prior cycle's fix becomes the next cycle's target). For static targets (path-based audits, PRs that aren't being modified), one cycle is the typical scope unless the user keeps editing.
+When the review closes a change that is about to merge (a commit, branch, PR, or working tree) and a cycle produced authorized fixes, the fixed state is new unreviewed code: run a fresh cycle over the post-fix state. Terminate on the first cycle that reports zero findings — the merge gate is one clean pass over what actually merges. A clean first cycle terminates immediately. This is the default behavior and needs no explicit loop request; in read-only mode the findings are simply reported and no re-cycle is owed.
 
-Default to a **single cycle**; loop only when the request or invoking context asks for it ("until clean", "keep auditing", a standing loop mandate). Never self-start a loop in a supervised engagement — there, each pass is user-triggered. Before an authorized loop, read the governing project's pause/checkpoint policy; if it defines none, use the fifth-cycle cost-control fallback below.
+## Looping (explicit request only)
 
-**An authorized loop runs autonomously between cycles** — after one cycle's review and any authorized fix/record, start the next without asking. Follow the governing project's pause policy; when it defines none, pause at the fifth-cycle fallback. Natural termination remains two consecutive zero-finding reviews.
-
-Create the recurring checklist in the harness's native task/plan tracker when one is available; otherwise keep a concise working checklist:
-- "Cycle N: read prior commit and audit"
-- "Cycle N: write failing tests for findings when authorized"
-- "Cycle N: apply fixes when authorized"
-- "Cycle N: record findings and commit when authorized"
-- "Cycle N: termination check"
-
-After each cycle:
-
-1. **Termination check**: was this cycle's findings count zero? If yes AND the previous cycle was also zero → **TERMINATE** and summarize; commit only when the task authorizes a change.
-
-2. **Project policy or fallback cost boundary**: follow the governing project's pause/checkpoint policy. If it defines none, every fifth cycle **pause and ask the user** with:
-   - Cycles completed in this run
-   - Findings tally per cycle (e.g., 5/3/2/2/0)
-   - Estimated cost so far (rough — token budget consumed)
-   - Items left deferred (for context)
-   - Ask: "Continue, pause, or terminate manually?"
-   - Wait for user response before proceeding.
-
-3. **Otherwise**: start the next cycle.
-
-## Termination is mechanical
-
-The loop ends or pauses only on: (1) two consecutive zero-finding cycles → terminate and announce; (2) a governing-project pause or, when none is defined, the fifth-cycle fallback → pause and summarize; (3) a hard infrastructure error → report and pause. Nothing else — not diminishing findings, a small commit, or token concerns — ends it early. Equally, do not manufacture findings to keep the loop alive: a clean review is a real signal.
-
-## Cost-curve awareness
-
-Findings should DECREASE across cycles. A typical trajectory: 8 → 5 → 5 → 2 → 2 → 0 → 0. As findings shrink:
-
-- **Cheap + concrete + shape-mirror**: fix in-cycle when authorized; otherwise report it.
-- **Architectural + cross-module**: defer with roadmap entry. Don't cram refactors into a residuals cycle.
-- **Speculative (no current sites)**: defer with grep citation. Don't manufacture findings to keep the cycle going.
-
-A clean review is a real signal, not a failure. Don't fight termination.
-
-## Restart conditions
-
-Once a cycle terminates, restart only when:
-1. An allow-list / classification table is modified
-2. A new mutation/pattern shape appears in the codebase (e.g., new fs import shape, new generic function form)
-3. A new structural test is added (its scaffolding needs a canary too)
-4. A real bug surfaces in production tied to one of the deferred items
-
-## Project-specific calibration
-
-Different projects have different invariant surfaces. On first use in a new project, the reviewer should read:
-- The reflections doc (or equivalent) to find prior cycles
-- The structural test files (look for `*.exhaustiveness.test.ts`, `*-coverage.test.*`, regex-over-source tests)
-- The allow-list / classification tables
-- The recent commit history for the phase/area in scope
-
-If none of these exist yet, the cycle is BOOTSTRAPPING — first session establishes the proxies, subsequent sessions audit them.
+Open-ended audit loops over evolving targets ("until clean", "keep auditing", a standing loop mandate) run only when explicitly requested — never self-started in a supervised engagement. Termination there is two consecutive zero-finding cycles, with a fifth-cycle cost checkpoint when the governing project defines no pause policy. Mechanics, cost-curve triage, and restart conditions: [references/looping.md](references/looping.md).
 
 ## What this skill is NOT
 
 - **Not a substitute for code review.** It hunts for proxy decay, not for general code quality.
 - **Not for green-field code.** It needs structural tests / invariants to audit. Empty-codebase invocation should bootstrap them first.
 - **Not for one-off bugs.** It catches systematic proxy evasions; one-off bugs need targeted debugging.
-
-## Worked examples by target
-
-- **`residuals-review` with no explicit target** (after a commit lands) — review `HEAD`, single cycle; loop under project checkpoint guidance only when asked.
-- **`audit PR #42`** — use the available GitHub integration (or authenticated `gh` fallback) to read claims and the cumulative diff; treat the PR description as the closeout claim. Apply findings only when the task authorizes branch changes. Single-cycle by default; loop only as the target evolves.
-- **`audit this branch before I merge`** — `git diff <base>...HEAD`; the divergence's claims live in the branch's commit messages. Findings get committed to the branch when authorized; loop until clean, then the user merges.
-- **`audit my uncommitted work`** — `git diff` (staged + unstaged); the user's *intended* commit message is the closeout claim. Apply findings to the working tree only when changes are authorized. Single-cycle.
-- **`audit modules/auth for invariant decay`** — bootstrap mode: read the module's structural tests and reflections; when changes are authorized and none exist, the first cycle can establish them. Subsequent cycles audit them. Long-running, can span many sessions.
-- **`audit the codebase`** — broadest sweep: walk all `*.exhaustiveness.test.ts` (or equivalent) and audit each one's allow-list for honest classifications. Multi-cycle, multi-session.
-
-## Reference trajectory
-
-One mature execution produced a **6/8/6/4/3/5/5/2/2/0/0** findings tally and terminated naturally. Treat the shape—not any particular project, path, or cycle count—as the lesson: findings can rise when a deeper proxy opens, but the long-run curve should converge to two zeros.

@@ -1,19 +1,19 @@
 ---
 section: tests
 stack: default
-version: 11
+version: 12
 target: docs/tests.md
 order: 10
 ---
 ## Test tiers
 
-Standard tiers and when each applies. The project's actual runners, commands, CI gates, and isolation setup are documented **below this managed block**, in the project-owned part of this doc — never inside it.
+Standard tiers and what each is for. The project's actual runners, commands, CI gates, and isolation setup are documented **below this managed block**, in the project-owned part of this doc — never inside it.
 
-- **Unit** — every change, during development; seconds.
-- **Integration** — when changing DB / storage / external-facing code.
-- **Simulation** — when changing concurrency, state machines, or merge logic; in-process with a controlled clock.
-- **Render / component** — every UI change (fast tier).
-- **E2E** — at milestones and before release; CI carries an E2E smoke gate (one happy path per major journey).
+- **Unit** — pure logic and narrow contracts; seconds, runs on every change.
+- **Integration** — real composition across internal boundaries (DB / storage / external-facing seams).
+- **Simulation** — deterministic state/event ordering against the real subject, in-process with a controlled clock (concurrency, state machines, merge logic).
+- **Render / component** — visible UI behavior through a stable render boundary; fast tier, every UI change.
+- **E2E** — the smallest browser/runtime seam for behavior lower layers can't faithfully prove; milestone + release gates, CI smoke (one happy path per major journey).
 - **Structural** — regex/AST invariant scans; cheap, runs with unit on every test run.
 
 **Document the project's test isolation** in the project-owned part below (separate test DB, separate filesystem root, truncation in beforeEach, fresh-image-per-suite, …) — tests sharing state with dev produce silent corruption.
@@ -37,6 +37,6 @@ If any answer is "no," redesign first. Common fixes: inject ports for clock / fs
 - Assert on observable behavior at the natural level of abstraction, not the patch's internal shape — spying on a specific call breaks on refactor; pin to what the caller sees.
 - Delete tests that stopped earning their keep — removed features, untriggerable assertions, duplicate coverage.
 
-## Maintaining the test inventory
+## Test documentation
 
-A hand-maintained inventory here is updated in the same commit that adds/removes/moves tests. Prefer the **generated inventory section** standard (`docs/process/doc-sync.md`): a `gen:test-inventory` script + parity test — then it's exempt from manual sync.
+`docs/tests.md` is the entry point — commands, layer selection, isolation, conventions — kept concise. Deep material lives under `docs/testing/` (one file per topic), linked from here. Large inventories are generated (`gen:test-inventory` + parity test per `docs/process/doc-sync.md`), never hand-maintained.

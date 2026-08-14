@@ -1,6 +1,6 @@
 ---
 name: program-prep
-description: Use when an owner hands over a roadmap, a task list, or a large feature/program and wants it prepared for slice-by-slice execution across independent sessions (different agents, no shared memory) — before any spec, plan, or code is written. Also use when asked to "set up active-work", "slice this up", or "prepare this so sessions/a teamlead can run it".
+description: Use when an owner hands over a roadmap, a task list, or a large feature/program and wants it prepared for slice-by-slice execution across independent sessions (different agents, no shared memory) — before any spec, plan, or code is written. Also use when asked to "set up active-work", "slice this up", or "prepare this so sessions/a teamlead can run it". Not for a single small task (just do it) or an already-mid-flight focus (advance it, don't re-prep).
 ---
 
 # Program Prep
@@ -8,11 +8,6 @@ description: Use when an owner hands over a roadmap, a task list, or a large fea
 ## Overview
 
 Turn scope into a sliced program carried entirely by repo files, so any future session — human-launched or launched by an orchestrator/teamlead — executes the next slice with high autonomy and consistent architecture. **The contract is files, not chat**; if a session dies, the only loss is its unmerged tail.
-
-## When NOT to use
-
-- A single small task → just do it.
-- An active focus already mid-flight → don't re-prep; advance it.
 
 ## The artifact contract (one job per file — never duplicate across them)
 

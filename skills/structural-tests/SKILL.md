@@ -1,6 +1,6 @@
 ---
 name: structural-tests
-description: Use when adding a new structural test (regex or AST scan over source), extending an existing allow-list, auditing structural-test scaffolding for decay, or deciding whether an invariant of the form "every X must also Y" deserves a structural test versus code review alone. Covers when to add (and when not to), the four-piece anatomy (mutation patterns, allow-list, verification pointers, canaries), discipline around stale reasons and universal-language claims, and the adversarial-review cycle that catches alias/wildcard import evasions.
+description: Use when adding a new structural test (regex or AST scan over source), extending an existing allow-list, auditing structural-test scaffolding for decay, or deciding whether an invariant of the form "every X must also Y" deserves a structural test versus code review alone.
 ---
 
 # Structural tests
@@ -18,10 +18,10 @@ and only when the invariant clears the bar below.
 
 ## When to add one
 
-Add a structural test when:
+Admit a structural test only when the invariant is mechanically
+expressible, behavioral tests can't cover future sites, and at least
+one of these holds:
 
-- An invariant of the form "every X must also Y" exists and is
-  currently enforced by convention only.
 - A bug has happened where someone added a new X without the Y.
 - Code review finds itself repeatedly saying "did you remember to…".
 - The cost of forgetting is high (data corruption, security, silent
@@ -74,8 +74,9 @@ imports, alternative APIs, mirror-form variants), re-read each
 allow-list reason against the file's current behavior, write failing
 tests for real findings or cite grep for deferred blindspots.
 
-The `residuals-review` skill implements this cycle and auto-terminates
-when two consecutive reviews find nothing.
+The `residuals-review` skill implements this cycle — one cycle by
+default; when a loop was explicitly requested, it terminates after two
+consecutive clean reviews.
 
 ## Common pitfalls
 

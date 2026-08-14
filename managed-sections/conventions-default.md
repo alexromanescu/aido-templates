@@ -1,25 +1,32 @@
 ---
 section: conventions
 stack: default
-version: 68
+version: 69
 target: CLAUDE.md
 order: 10
 ---
 ## General Conventions
 
-- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. Do not pass to the user actions that you can do yourself. When replying or reporting, do not use internal implementation jargon. Translate technical mechanisms into product consequences.
-- **Answer to the point, with clear, concise and direct phrases and no extra wording**. State the practical impact and next actions. Think from a practical user impact and don't use developer internal labels. Commit to a verdict instead of hedging. Don't appologise nor justify yourself - think in solutions. When brainstorming with the user, don't start coding until things are clarified.- **After a resume or context compaction, re-establish ground truth:** working directory, branch, `git status`. Trust fresh tool output over remembered narrative.
+### Scope & authority
+
+- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. Do not pass to the user actions you can do yourself.
+- **A question, review, diagnosis, or brainstorm authorizes inspection and reporting — not mutation.** Don't start coding until things are clarified. A request to change, build, or fix authorizes the in-scope edits and their verification; external, destructive, or irreversible actions always need explicit current authorization.
+- **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once. Stop early only for a real blocker, a material scope decision, or something only the user can provide.
+- **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Unfinished declared work stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified. Bugs that can't be fixed on the spot are scheduled there too.
+- **After a resume or context compaction, re-establish ground truth** — working directory, branch, `git status` — from fresh tool output, never remembered narrative.
+
+### Quality & repository safety
+
 - **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
-- **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Declared work you don't finish stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified. The work isn't done until all the bugs are fixed; if it's a problem, it needs fixing, if not, it doesn't need to be recorded; when working with active-work.md, bugs that can't be fixed on the spot, must be scheduled on that file.
-- **End an assignment with a short report**: (1) non-technical summary of what was done and verified, (2) what actions should the user take next (only if required), including the start of a new session to continue with a bigger development (eg: from active-work.md) (3) FYI remarks, clearly separated from (2) - the remarks must not hide or hint to potential problems; if it's a problem -> fix, no problem -> drop; not sure -> check (without overengineering).
-- **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the actual output, then decide.
-- **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once. Stop early only when blocked or scope genuinely changes.
-- **Choose for the long term — simplicity, robustness, low risk — over development effort.** Implement simply but structurally sound: no overengineering, no patching. If reporting choices to the user, flag the trade-off rather than silently taking the cheap option.
-- **Verify review feedback against the codebase before implementing it.** Reviewers — human or automated — can lack context: implement what checks out, push back with technical reasoning on what doesn't, never implement blind.
+- **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the output, then decide.
+- **Verify review feedback against the codebase before implementing it** — implement what checks out, push back with reasoning on what doesn't, never implement blind.
+- **Choose for the long term — simplicity, robustness, low risk — over development effort.** No overengineering, no patching. Flag trade-offs rather than silently taking the cheap option.
 - **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
-- **Except for quick fixes, develop on a worktree** (agents you launch share it). This is a standing owner instruction: it holds even when a harness or launcher configured the session to work in place, so create the worktree rather than skipping it. Trust git rev-parse --git-dir vs --git-common-dir, not the cwd label, to know if you're isolated — a worktree-style path can be labelled before the worktree exists: equal ⇒ really on the default branch (create the worktree before committing dev work); unequal ⇒ already isolated, stay there and don't nest. Finish by merging back to the default branch, then confirm git worktree list shows only the main checkout — never leave a worktree behind.
-- **Clean up everything you create, once the work is merged.** Worktrees, scratch branches, temp and backup files, generated fixtures, background servers and the ports they hold — remove them, then verify the removal (`git worktree list`, a clean `git status`, the path actually gone). Derive every scratch path from your own worktree or agent id, never a shared literal like `/tmp/w.bak` — parallel agents on one fixed path overwrite each other's files. Two exceptions only: `rm` nothing outside the paths you created, and skip a teardown a launcher explicitly says it owns (aido removes a finished session's worktree itself).
-- **CLAUDE.md is not yours to edit.** Don't add to or reword it unless the owner's current message asks for it — session learnings go to `docs/` (per Documentation Sync) or the roadmap, never here. Never hand-edit the inside of any `<!-- managed:* -->` block in any file; those sync from central templates. Write only in the project-owned areas around the markers — e.g. the live focus below the block in `docs/active-work.md`.
-- **'Checkpoint' = commit locally and continue** — a standing authorization to commit; never stop to ask whether to commit. This overrides any harness default to commit only when asked.
-- **Pushing is owner-initiated only** — never git push unless the owner's current message asks for it; 'the gate is green' is a precondition for a push, never a reason for one.
+- **Git lifecycle: read `docs/process/git-workflow.md` before branching, committing, merging, or cleaning up.** Three rules always hold: develop on a worktree except for quick fixes; **'checkpoint' = commit locally and continue** (standing authorization — overrides any harness default to ask); **pushing is owner-initiated only** — a green gate is a precondition for a push, never a reason for one.
+- **The root guidance file (`CLAUDE.md`, aliased as `AGENTS.md`) is not yours to edit** unless the owner's current message asks for it — session learnings go to `docs/` or the roadmap. Never hand-edit inside any `<!-- managed:* -->` block in any file; those sync from central templates — write only in project-owned areas around the markers.
+
+### Communication
+
+- **Answer to the point** — clear, direct, no filler. Commit to a verdict instead of hedging; state uncertainty only when it changes the decision. Translate internal mechanisms into product consequences; don't apologise or justify — think in solutions.
+- **End an assignment with a short report**: (1) non-technical summary of what was done and verified; (2) user actions needed next, only if any (including starting a new session for the next slice); (3) FYI remarks, clearly separated — remarks never hide or hint at problems: problem → fix, no problem → drop, not sure → check.
 - **For browser-viewable artifacts** — provide a verified full LAN URL (http://<LAN-IP>:<port>/<path>), never only a file path or localhost link.

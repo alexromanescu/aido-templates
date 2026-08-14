@@ -1,16 +1,17 @@
 ---
 target: docs/tests.md
-description: Project test inventory + structural section managed by aido.
+description: Project test entry point + managed discipline block.
 variables: [name]
 init: true
 ---
 # {{name}} — Tests
 
-This document is the project-specific entrypoint for testing. The managed
+This document is the project's test entry point — kept concise. The managed
 block below carries project-agnostic discipline (tier semantics, design for
 testability, fixture conventions) and is synced by aido — never edit inside
 its markers. Everything below the block is project-owned: fill in the real
-runners, commands, CI gates, isolation setup, and inventory there.
+runners, commands, CI gates, isolation setup, and links to deeper test docs
+there.
 
 <!-- managed:tests -->
 <!-- /managed:tests -->
@@ -42,9 +43,10 @@ CI gates that block merge: typecheck, lint, unit + integration + simulation + st
 
 `<How tests avoid clobbering dev data: separate test DB, separate filesystem root, truncation in beforeEach, fresh-image-per-suite, etc.>`
 
-## Test inventory
+## Test documentation
 
-<List the test files and what they cover, or — preferred at scale — adopt the
-generated inventory section standard from docs/process/doc-sync.md: a
-`gen:test-inventory` script emitting a sentinel-delimited table, guarded by a
-parity test, exempt from manual sync.>
+| Topic | Where |
+|---|---|
+| Layer selection & discipline | managed block above + matching skill |
+| <deep-dive topic, e.g. frontend harness> | `docs/testing/<topic>.md` |
+| Inventory (at scale) | `docs/testing/inventory.md`, generated: `gen:test-inventory` + parity test (`docs/process/doc-sync.md`) |

@@ -1,6 +1,6 @@
 ---
 name: testing-by-simulation
-description: Use when writing or extending an automated test for state-transition bugs, race conditions, concurrent algorithms (CRDTs, OT, three-way merges, block-level diffs, LCS), cache invalidation lifecycles, dual-authority lifecycle hooks, or any code where event ordering matters and end-to-end tests can't reliably control sub-second timing. Also use when graduating a bug fix to a permanent regression test and the underlying defect depends on event ordering or concurrent mutation. Drives the real subject in-process with a controlled clock; asserts at every transition rather than only at the end.
+description: Use when writing or extending an automated test for state-transition bugs, race conditions, concurrent algorithms (CRDTs, OT, three-way merges, block-level diffs, LCS), cache invalidation lifecycles, dual-authority lifecycle hooks, or any code where event ordering matters and end-to-end tests can't reliably control sub-second timing. Also use when graduating a bug fix to a permanent regression test and the underlying defect depends on event ordering or concurrent mutation.
 ---
 
 # Testing by simulation
@@ -30,7 +30,8 @@ Reach for **e2e** only for:
 - Cross-browser smoke tests
 - One "seam test" per major user journey
 
-Aim for ~90% simulation, ~10% e2e on state-shaped surfaces.
+Put the ordering combinations in the in-process simulation matrix; keep
+E2E to the smallest seam that proves runtime integration.
 
 ## Pattern
 

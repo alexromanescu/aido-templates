@@ -8,8 +8,9 @@ init: false
 
 Target: <where this deploys to — server, container, app store, etc.>
 
-> **Note for Claude:** Run each step in order. If any step fails, STOP
-> immediately and report what went wrong. Do not skip ahead.
+> **For the deploying agent:** Run each step in order. If a step fails, STOP —
+> don't run dependent later steps, preserve the observable state (logs,
+> partial outputs), and report the exact failed command/check and its result.
 
 ## Steps
 
@@ -24,5 +25,5 @@ Target: <where this deploys to — server, container, app store, etc.>
   - Be explicit about working directory (cd ...).
   - Use STOP/report on every step that can fail destructively.
   - For services that need to be restarted at the end, schedule the restart
-    so it survives this session — see ~/Apps/aido/docs/deploy.md for the
-    systemd-run pattern if you're deploying a systemd-managed service. -->
+    so it survives this session (e.g. the systemd-run pattern) — see this
+    project's docs/devops.md. -->

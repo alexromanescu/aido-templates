@@ -1,12 +1,14 @@
 ---
 name: debugging
-description: Use when a fix didn't work, a test fails for an unclear reason, behavior contradicts your mental model, or an error surfaces deep in a multi-component system — before proposing or applying the next fix. Covers root-cause-first discipline (reproduce, read the whole error, diff recent changes), one-hypothesis-at-a-time changes, boundary instrumentation for multi-layer failures, honest "no root cause" verdicts, and the three-failed-fixes escalation rule that turns fix-thrashing into an architecture question.
+description: Use when a fix didn't work, a test fails for an unclear reason, behavior contradicts your mental model, or an error surfaces deep in a multi-component system — before proposing or applying the next fix.
 ---
 
 # Debugging
 
-**State the root cause in one sentence — "X happens because Y" —
-before changing any code.** A fix applied to a guess is thrashing:
+**Don't patch from a guess.** Reproduce, gather the evidence, and form
+a falsifiable "X happens because Y" hypothesis before changing
+production code; record the root cause once the evidence establishes
+it. A fix applied to a guess is thrashing:
 when it fails you've learned nothing, and when it passes you don't
 know what you fixed.
 
@@ -44,7 +46,8 @@ structural rather than local: each fix surfaces a new symptom
 somewhere else; the fix keeps needing a wider refactor; you can't
 explain why the previous attempt didn't work. At that point re-derive
 the root cause from scratch or question the design itself, and report
-the situation instead of continuing to patch.
+the situation instead of continuing to patch — re-deriving is part of
+the assignment, not a reason to abandon it.
 
 ## "No root cause" verdicts
 

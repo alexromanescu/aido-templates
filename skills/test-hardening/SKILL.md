@@ -1,6 +1,6 @@
 ---
 name: test-hardening
-description: Use when adding tests for risky logic, when you need to catch false-green / tautological tests, before relying on a green suite, when asked to harden a test suite, or to catch what standard tests miss. Codifies four mechanical methods — mutation testing, branch/condition coverage gating on changed files, a11y/DOM-correctness lint promoted to hard failures, and per-test red-check discipline — that expose tests which pass without exercising the behaviour they claim to guard.
+description: Use when adding tests for risky logic, when you need to catch false-green / tautological tests, before relying on a green suite, when asked to harden a test suite, or to catch what standard tests miss.
 ---
 
 # Test hardening — catch what a green suite hides
@@ -26,7 +26,7 @@ test that does not actually exercise that behaviour.
 value the code returns regardless of the path, or never reach the branch it
 names — and still be green forever. Nothing in a normal run distinguishes "this
 test guards the behaviour" from "this test happens to pass". Mutation testing
-is the only method that measures the *guarding*, not the passing.
+directly measures the *guarding*, not the passing.
 
 **How to apply.** Run a mutation tool scoped to the changed module (a full-repo
 run is slow; scope it). Tools: **Stryker** (JS/TS), **mutmut** or

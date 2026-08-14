@@ -1,6 +1,6 @@
 ---
 target: CLAUDE.md
-description: Physical guidance authority (CLAUDE.md). Written to new projects on creation.
+description: Shared root guidance authority (CLAUDE.md; Codex reads it via the AGENTS.md alias). Written to new projects on creation.
 variables: [name, description]
 init: true
 ---
@@ -24,5 +24,8 @@ _Routing table for activity-scoped docs (shape per `docs/process/doc-sync.md`); 
 
 | When you... | Read first | Update when done |
 |---|---|---|
+| Pick up current work | `docs/active-work.md` | refresh it on the way out |
+| Branch / commit / merge / clean up | `docs/process/git-workflow.md` | — |
 | Fix a bug | `docs/process/bugs.md` | `tests/bugs/`, roadmap Bugs row |
+| Choose or run tests | `docs/tests.md` | — |
 | Edit `docs/roadmap.md` | `docs/process/roadmap.md` | — |

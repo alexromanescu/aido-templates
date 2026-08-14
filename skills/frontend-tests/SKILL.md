@@ -1,16 +1,19 @@
 ---
 name: frontend-tests
-description: Use when adding or modifying a UI component (a render test must ship in the same change), backfilling render tests for an existing frontend, standing up a render-test harness where there is none, or deciding between a render test, a pure unit test, and an end-to-end test. Covers when to reach for each layer, harness requirements (in-process DOM such as jsdom/happy-dom plus a render/interaction library like Testing Library — framework-agnostic), the two-tier run convention (fast vs full), and the risk-prioritised backfill strategy.
+description: Use when adding or modifying a UI component (a render test must ship in the same change), backfilling render tests for an existing frontend, standing up a render-test harness where there is none, or deciding between a render test, a pure unit test, and an end-to-end test.
 ---
 
 # Frontend render tests
 
-**If this project has an interactive frontend, every UI component
-ships a render test.** A render test mounts the real component in an
-in-process DOM, drives it the way a user would, and asserts what the
-user would see — rendering, effects, lifecycle, interaction, and the
-error / empty / loading states. It is the only automated check that
-exercises a real component's render path without a browser.
+**If this project has an interactive frontend, every changed visible
+behavior is exercised through the nearest stable render boundary.**
+A render test mounts the real component in an in-process DOM, drives
+it the way a user would, and asserts what the user would see —
+rendering, effects, lifecycle, interaction, and the error / empty /
+loading states. It is the only automated check that exercises a real
+component's render path without a browser. Parent-level coverage
+counts when it directly drives and observes the child's behavior;
+leaf behavior left unexercised doesn't.
 
 A render test fills the missing middle layer between a pure-logic
 unit test (a framework-free function, no DOM) and an end-to-end test
