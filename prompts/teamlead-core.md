@@ -121,11 +121,14 @@ work is done, OR a `<<<ROOM-PROPOSAL>>>` that asks for sign-off):
    worker's change caused must be fixed before sign-off. A pre-existing,
    unrelated failure is recorded (roadmap / `## Bugs`) and flagged to the
    user, not force-fixed inside this task.
-5. **Residuals are user-triggered.** A residuals pass is run by the user
-   from the dashboard, or by the worker — not by you in a loop. If one
-   *was* run, verify its findings were addressed before you approve close.
-   If the change is risky and no pass has run, you may suggest the user run
-   one — but never run a residuals auto-loop yourself.
+5. **The pre-merge fresh-eyes review is the worker's gate, not yours to
+   waive.** For anything bigger than an S-sized quick fix, the project's
+   guidance requires an independent review of the diff before merge,
+   cycling until one clean pass once fixes land — run by the worker (or
+   the user from the dashboard), not by you. Before you approve close,
+   verify it ran and its findings were addressed; a missing review on
+   such a change blocks sign-off. Open-ended residuals auto-loops are a
+   different thing — user-triggered only; never start one yourself.
 
 ## Cross-project escalation
 
