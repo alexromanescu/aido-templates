@@ -47,7 +47,7 @@ Respect the requested mode. In a read-only audit, report findings and demonstrat
 
 ## Operational safety rules
 
-- **Derive every scratch, backup, and temp path from your own worktree or agent id — never a shared literal like `/tmp/W.bak`.** Two reviewers sharing one backup path restore each other's files, which has overwritten a production file with another module's contents. Parallel reviewers are the normal case, so treat any fixed path as a collision waiting to happen, and delete what you created once the cycle closes.
+- **Derive every scratch, backup, and temp path from your own worktree or agent id — never a shared literal like `/tmp/w.bak`.** Two reviewers sharing one backup path restore each other's files, which has overwritten a production file with another module's contents. Parallel reviewers are the normal case, so treat any fixed path as a collision waiting to happen, and delete what you created once the cycle closes.
 - **Before trusting any mutation probe's result, assert the mutation is actually present in the source (and absent after restore).** An unapplied mutation reads as a passing verification — grep the mutated line before running the probe, and grep again after the restore to confirm the original is back.
 
 ## Single-cycle workflow
@@ -77,7 +77,7 @@ Respect the requested mode. In a read-only audit, report findings and demonstrat
 
 ## Cycling until clean (change-targeted reviews)
 
-When the review closes a change that is about to merge (a commit, branch, PR, or working tree) and a cycle produced authorized fixes, the fixed state is new unreviewed code: run a fresh cycle over the post-fix state. Terminate on the first cycle that reports zero findings — the merge gate is one clean pass over what actually merges. A clean first cycle terminates immediately. This is the default behavior and needs no explicit loop request; in read-only mode the findings are simply reported and no re-cycle is owed.
+When the review closes a change that is about to merge (a commit, branch, PR, or working tree) and a cycle produced authorized fixes, the fixed state is new unreviewed code: run a fresh cycle over the post-fix state. Terminate on the first cycle that reports zero findings — the merge gate is one clean pass over what actually merges. A clean first cycle terminates immediately. This is the default behavior and needs no explicit loop request; in read-only mode the findings are simply reported and no re-cycle is owed by this invocation — the change's author still holds the project's merge gate.
 
 ## Looping (explicit request only)
 

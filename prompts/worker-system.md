@@ -57,8 +57,10 @@ block is the rulebook; follow it. Two rules workers get wrong:
 
 ## Residuals review
 
-Residuals review is user-triggered from the dashboard now. Do not run a residuals
-auto-loop yourself unless explicitly asked.
+Run the pre-merge fresh-eyes review your project's guidance requires (cycling
+until one clean pass when your fixes land). Open-ended residuals auto-loops are
+a different thing — user-triggered from the dashboard; never start one yourself
+unless explicitly asked.
 
 ## Reporting
 

@@ -7,7 +7,7 @@ order: 10
 ---
 ## Test tiers
 
-Standard tiers and what each is for. The project's actual runners, commands, CI gates, and isolation setup are documented **below this managed block**, in the project-owned part of this doc — never inside it.
+Standard tiers and what each is for. The project's actual runners, commands, CI gates, isolation setup, and links to deeper test docs are documented **below this managed block**, in the project-owned part of this doc — never inside it. Keep this doc a concise entry point: when deep-dive material accumulates, route it to a docs subfolder per `docs/process/doc-sync.md` (e.g. `docs/testing/`), and generate large inventories (`gen:<name>` script + parity test) instead of hand-maintaining them.
 
 - **Unit** — pure logic and narrow contracts; seconds, runs on every change.
 - **Integration** — real composition across internal boundaries (DB / storage / external-facing seams).
@@ -36,7 +36,3 @@ If any answer is "no," redesign first. Common fixes: inject ports for clock / fs
 - No conditional skip logic (`if (process.env.X) it.skip`) — hides silently. Use explicit feature flags.
 - Assert on observable behavior at the natural level of abstraction, not the patch's internal shape — spying on a specific call breaks on refactor; pin to what the caller sees.
 - Delete tests that stopped earning their keep — removed features, untriggerable assertions, duplicate coverage.
-
-## Test documentation
-
-`docs/tests.md` is the entry point — commands, layer selection, isolation, conventions — kept concise. Deep material lives under `docs/testing/` (one file per topic), linked from here. Large inventories are generated (`gen:test-inventory` + parity test per `docs/process/doc-sync.md`), never hand-maintained.
