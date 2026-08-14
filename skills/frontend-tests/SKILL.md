@@ -1,6 +1,6 @@
 ---
 name: frontend-tests
-description: Use when adding or modifying a UI component (a render test must ship in the same change), backfilling render tests for an existing frontend, standing up a render-test harness where there is none, or deciding between a render test, a pure unit test, and an end-to-end test.
+description: Use when adding or modifying a UI component (its changed visible behavior must be exercised through a render boundary in the same change), backfilling render tests for an existing frontend, standing up a render-test harness where there is none, or deciding between a render test, a pure unit test, and an end-to-end test.
 ---
 
 # Frontend render tests
@@ -77,11 +77,11 @@ to the full tier rather than letting it erode the fast tier's budget.
 ## Keeping up
 
 The project rule — every feature, every fix ships a test — applies
-unchanged to the frontend. A new or changed component ships its
-render test in the same commit. A UI bug ships a render test that
-reproduces the user-visible symptom, fails, then passes once fixed. A
-UI change with no render test is incomplete, the same as any other
-untested change.
+unchanged to the frontend. A new or changed visible behavior ships
+render coverage through its nearest stable boundary in the same
+commit. A UI bug ships a render test that reproduces the user-visible
+symptom, fails, then passes once fixed. A UI change with no render
+coverage is incomplete, the same as any other untested change.
 
 ## Backfilling an existing project
 

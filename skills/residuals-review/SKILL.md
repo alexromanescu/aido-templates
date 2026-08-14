@@ -64,6 +64,8 @@ Respect the requested mode. In a read-only audit, report findings and demonstrat
    - **P2 architectural (defer with roadmap entry)** — multi-module move, scope creep risk. When changes are authorized, add the roadmap entry; otherwise report the proposed entry. Cite grep showing current state.
    - **P2 speculative (defer with grep citation)** — no current sites, structural blindspot only. When documentation changes are authorized, record it in the project's established location; otherwise report it. Do not fix preemptively.
 
+   Before acting on any candidate, **adversarially verify it**: an independent check — fresh context where the harness provides it — attempts to refute the finding against the actual code, with REFUTED as the default verdict. Only findings that survive with concrete evidence are acted on or reported as confirmed.
+
 5. **When changes are authorized, apply fixes with red-then-green discipline:**
    - Write the failing test FIRST. Run it against the unmodified target/base state; confirm it fails.
    - Apply the fix.

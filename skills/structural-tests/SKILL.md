@@ -18,9 +18,10 @@ and only when the invariant clears the bar below.
 
 ## When to add one
 
-Admit a structural test only when the invariant is mechanically
-expressible, behavioral tests can't cover future sites, and at least
-one of these holds:
+Admit a structural test only for an "every X must also Y" invariant
+currently enforced by convention alone, where the invariant is
+mechanically expressible, behavioral tests can't cover future sites,
+and at least one of these holds:
 
 - A bug has happened where someone added a new X without the Y.
 - Code review finds itself repeatedly saying "did you remember to…".
@@ -30,7 +31,7 @@ one of these holds:
 DON'T add one when:
 
 - The invariant has 1–2 sites total (just code-review it).
-- Behavioral tests already cover every site (no proxy needed).
+- Behavioral tests already cover every site, current and future (no proxy needed).
 - The invariant is too fuzzy to encode in regex or AST queries.
 
 ## Anatomy
