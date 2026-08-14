@@ -162,10 +162,10 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 - Keep prose compact and scannable, in complete sentences; state each rule once, at its narrowest useful scope. Managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 - **Portability boundary.** Shared content defines project facts, authorization, invariants, required evidence, success criteria, and output expectations. It never prescribes model names, effort settings, provider-native tools/channels, permission mechanics, or subagent orchestration — those live in harness configuration. Add a provider overlay only if fresh sessions in both harnesses show a repeatable contradiction that simpler shared wording cannot resolve — and then duplicate the smallest mechanism, never the policy corpus.
 
-<!-- managed:roadmap v=18 -->
+<!-- managed:roadmap v=19 -->
 ## Roadmap
 
-**All work tracking lives in `docs/roadmap.md`.** When you complete, start, file, defer, or reorganize work — including bugs and speculative ideas — read `docs/process/roadmap.md` **before editing**: the format is strictly parsed and the lifecycles are defined there.
+**`docs/roadmap.md` is the durable backlog and lifecycle record — all work tracking lives there.** When you complete, start, file, defer, or reorganize work — including bugs and speculative ideas — read `docs/process/roadmap.md` **before editing**: the format is strictly parsed and the lifecycles are defined there.
 
-If `docs/active-work.md` exists, read it at the start of a session — it's the cross-session re-entry point. If you advance that work, refresh it on the way out following the guidance block at its top.
+**`docs/active-work.md`, when it exists, is the current execution cursor, not a second backlog.** Read it at the start of a session — it's the cross-session re-entry point. If you advance that work, refresh it on the way out following the guidance block at its top.
 <!-- /managed:roadmap -->
