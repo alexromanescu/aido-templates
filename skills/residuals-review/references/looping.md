@@ -4,9 +4,9 @@ Mechanics for the explicit-request loops described in [../SKILL.md](../SKILL.md)
 
 ## When a loop is meaningful
 
-Multi-cycle is meaningful when the target **evolves between cycles** — i.e., commit-based targets (the prior cycle's fix becomes the next cycle's target). For static targets (path-based audits, PRs that aren't being modified), one cycle is the typical scope unless the user keeps editing.
+An explicit loop is for open-ended audits whose scope outlives one pass — whole-codebase sweeps, path audits under a standing mandate, or a target the user keeps editing between passes. A bounded change that picked up fixes re-cycles under the change-targeted default in [../SKILL.md](../SKILL.md) (terminate on the first clean pass) — that is not this loop. For static targets nobody is editing, one cycle is the typical scope.
 
-Loop only when the request or invoking context asks for it ("until clean", "keep auditing", a standing loop mandate). Never self-start a loop in a supervised engagement — there, each pass is user-triggered. Before an authorized loop, read the governing project's pause/checkpoint policy; if it defines none, use the fifth-cycle cost-control fallback below.
+Loop only when the request or invoking context asks for it ("keep auditing", a standing loop mandate). Never self-start a loop in a supervised engagement — there, each pass is user-triggered. Before an authorized loop, read the governing project's pause/checkpoint policy; if it defines none, use the fifth-cycle cost-control fallback below.
 
 **An authorized loop runs autonomously between cycles** — after one cycle's review and any authorized fix/record, start the next without asking. Follow the governing project's pause policy; when it defines none, pause at the fifth-cycle fallback. Natural termination is two consecutive zero-finding reviews.
 

@@ -23,7 +23,6 @@ aido-managed projects maintain a conventional set of docs under `docs/`. Update 
 | `docs/help.md` | Help system content and architecture | Help content or help infrastructure changes |
 | `docs/devops.md` | Dev setup, topology, infrastructure, ops commands (human reference) | Setup changes, new ops commands, infra changes |
 | `docs/deploy.md` | Agent-executable deploy procedure, read by the agent that deploys the app to a pre-agreed pre-production area | Deploy steps change, new pre/post-deploy checks |
-| `docs/process/git-workflow.md` | Git lifecycle: worktree, checkpoint, merge, push, cleanup | Workflow policy changes |
 | `docs/roadmap.md` | What's built, what's planned, active phases | Any feature completed, started, or reorganized (see `docs/process/roadmap.md`) |
 
 Missing files are skipped. Projects may add their own docs (e.g. `security.md`, `meta/reflections.md`, `product/prd.md`) and should list them in the non-managed area of `CLAUDE.md` (outside any `<!-- managed:* -->` block).
@@ -64,4 +63,4 @@ Projects are encouraged to keep a ~15-line routing table in the **project-owned*
 
 ## Subdirectories
 
-When a topic has multiple deep-dive docs beyond its entry point, group them under `docs/<topic>/`, entry point at top level (e.g. `docs/operations.md` + `docs/operations/<runbook>.md`). Process docs live under `docs/process/`. Entry-point docs stay concise routers; large detailed or generated material lives in the subdirectory, linked from the entry point.
+When a topic has multiple deep-dive docs beyond its entry point, group them under `docs/<topic>/`, entry point at top level (e.g. `docs/operations.md` + `docs/operations/<runbook>.md`). The directory may take the topic's natural name rather than the entry file's basename — e.g. `docs/tests.md` routes to `docs/testing/`. Process docs live under `docs/process/`. Entry-point docs stay concise routers; large detailed or generated material lives in the subdirectory, linked from the entry point.

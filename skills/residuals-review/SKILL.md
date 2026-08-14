@@ -39,6 +39,8 @@ The user's request determines the **target** — the body of code/claims under a
 
 If unclear, **ask once** then proceed: "I'll review HEAD by default — or did you mean the whole feature branch / a specific PR?"
 
+First-use calibration in a new project and worked examples per target: [references/proxy-patterns.md](references/proxy-patterns.md).
+
 ## Mode boundary
 
 Respect the requested mode. In a read-only audit, report findings and demonstrations without editing, committing, posting comments, or changing project records. Apply red-then-green fixes only when the task authorizes changes.
@@ -79,7 +81,7 @@ When the review closes a change that is about to merge (a commit, branch, PR, or
 
 ## Looping (explicit request only)
 
-Open-ended audit loops over evolving targets ("until clean", "keep auditing", a standing loop mandate) run only when explicitly requested — never self-started in a supervised engagement. Termination there is two consecutive zero-finding cycles, with a fifth-cycle cost checkpoint when the governing project defines no pause policy. Mechanics, cost-curve triage, and restart conditions: [references/looping.md](references/looping.md).
+Open-ended audit loops ("keep auditing", a standing loop mandate, whole-codebase or path audits meant to span sessions) run only when explicitly requested — never self-started in a supervised engagement. Asking for a bounded change to be reviewed "until clean" is not a loop request — that is the change-targeted default above, terminating on the first clean pass. Explicit loops terminate on two consecutive zero-finding cycles, with a fifth-cycle cost checkpoint when the governing project defines no pause policy. Mechanics, cost-curve triage, and restart conditions: [references/looping.md](references/looping.md).
 
 ## What this skill is NOT
 

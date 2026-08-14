@@ -1,6 +1,6 @@
 # Proxy patterns — what to hunt and how
 
-Detail for steps 2–3 of the single-cycle workflow in [../SKILL.md](../SKILL.md).
+Target-selection calibration, worked examples per target, and the pattern catalog for steps 2–3 of the single-cycle workflow in [../SKILL.md](../SKILL.md).
 
 ## Proxies to identify
 

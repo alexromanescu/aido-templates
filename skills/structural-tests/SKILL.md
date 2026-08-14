@@ -74,9 +74,10 @@ imports, alternative APIs, mirror-form variants), re-read each
 allow-list reason against the file's current behavior, write failing
 tests for real findings or cite grep for deferred blindspots.
 
-The `residuals-review` skill implements this cycle — one cycle by
-default; when a loop was explicitly requested, it terminates after two
-consecutive clean reviews.
+The `residuals-review` skill implements this cycle — change-targeted
+reviews re-cycle after fixes until one clean pass; open-ended audit
+loops run on explicit request and terminate after two consecutive
+clean reviews.
 
 ## Common pitfalls
 
