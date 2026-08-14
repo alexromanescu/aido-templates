@@ -18,7 +18,7 @@ aido-managed projects maintain a conventional set of docs under `docs/`. Update 
 | `docs/architecture.md` | System structure, modules, data flow, adapters | Architectural or structural changes, new modules |
 | `docs/frontend.md` | Components, routing, layouts, UI patterns, styling tokens | Any frontend structural change |
 | `docs/api-reference.md` | Backend API, procedures, data shapes, auth, error codes | Any API, entity field, or auth change |
-| `docs/tests.md` | Test policy, runners, isolation, conventions; entry point routing to `docs/testing/` | Tests added/removed/changed, testing strategy changes |
+| `docs/tests.md` | Test policy, runners, isolation, conventions; entry point routing to deeper test docs where present | Tests added/removed/changed, testing strategy changes |
 | `docs/seeding.md` | Seed script, data scenarios, reset procedure | New entities, tables, or relationships |
 | `docs/help.md` | Help system content and architecture | Help content or help infrastructure changes |
 | `docs/devops.md` | Dev setup, topology, infrastructure, ops commands (human reference) | Setup changes, new ops commands, infra changes |

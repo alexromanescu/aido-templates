@@ -1,7 +1,7 @@
 ---
 section: process-bugs
 stack: default
-version: 3
+version: 4
 target: docs/process/bugs.md
 order: 10
 ---
@@ -11,7 +11,7 @@ Bugs live in `docs/roadmap.md` → `## Bugs` as `BUG-NNN: <title>` rows (the aid
 
 ## Procedure
 
-1. **Reproduce and trace the real root cause first** — don't test against a guess. If causality stays unclear or a previous fix already failed, load the `debugging` skill before touching production code.
+1. **Reproduce and trace the real root cause first** — don't test against a guess. If causality stays unclear or a previous fix already failed, load the `debugging` skill (where available) before touching production code.
 2. **Write `tests/bugs/bug-NNN-<slug>`** at the project's regression layer and in its test language, reproducing the user-visible symptom, not the patch's code path. Its header docstring is the bug's permanent record (symptom / root cause / fix).
 3. **Run it — confirm it fails for the documented root cause**, not a typo/import/fixture error. If the failure doesn't match the report, stop and investigate before patching.
 4. **Fix the bug with the smallest durable correction.**
