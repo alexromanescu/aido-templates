@@ -1,4 +1,4 @@
-<!-- managed:process-doc-sync v=3 -->
+<!-- managed:process-doc-sync v=4 -->
 # Documentation-Sync Process
 
 **When you change code that a document describes, update the document in the same commit.** This file defines which documents exist, when each must be updated, and the conventions that keep them honest.
@@ -42,6 +42,15 @@ Hand-maintained inventories decay at scale; recommended for: API/procedure inven
 ## Optional: generated modules index
 
 For modular backends (roughly >15 modules), a generated `docs/modules-index.md` gives agents a deterministic per-module entry point (doc anchors, procedure count, test globs); build it as a generated inventory per the standard above. Adopt when module count makes hand navigation unreliable.
+
+## Subsystem maps
+
+A subsystem under sustained work — a program, a bug campaign, or one that repeatedly confuses sessions — maintains a **map**: the big-picture doc that situates a fresh session at a glance. Structurally it is just the subsystem's entry-point doc (see Subdirectories below), held to a specific bar:
+
+- **Contents:** what the subsystem supports, its boundaries, what happens at each seam on each operation, and where the pieces live.
+- **Current state, not history.** Decision logs and bug rows record deltas; the map holds what is true now. Plan files, briefs, and bug rows point to the map and never restate it. Session warnings that recur distill into the map — or into a gate test — instead of accumulating in the active-work focus.
+- **A standard doc:** update it in the same commit as the code it describes; build parts derivable from code as generated inventory sections (standard above) so they cannot rot.
+- **First read:** the routing table's row for the subsystem names the map as the read-first entry for any session working there.
 
 ## Routing table ("When to read what")
 
