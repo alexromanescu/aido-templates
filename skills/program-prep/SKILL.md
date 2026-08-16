@@ -18,6 +18,8 @@ Turn scope into a sliced program carried entirely by repo files, so any future s
 | `active-work.md` focus (or the project's equivalent cursor) | Where we are: goal, guardrails, sequence w/ S/M/L sizes, run-it commands, a blockers line, resume prompt |
 | Roadmap rows | Slice status, in the project's tracker format (read its process doc first) |
 
+When the program works one subsystem, durable *as-built* boundary knowledge lands in that subsystem's **map** (its entry-point doc, per the project's doc-sync process where it keeps one) — the decision log records deltas, the map holds current state; forward-looking cross-slice seam contracts stay in the north-star doc.
+
 ## Brief anatomy (the heart of the prep)
 
 One brief per slice, **constraint-level, not design-level**:
