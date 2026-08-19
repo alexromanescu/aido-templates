@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 69
+version: 70
 target: CLAUDE.md
 order: 10
 ---
@@ -9,9 +9,9 @@ order: 10
 
 ### Scope & authority
 
-- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. Do not pass to the user actions you can do yourself.
+- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. Do not pass to the user actions you can do yourself."Stop only if the nextstep is irreversible, spends money, or is visible outside this machine. Everything else: decide, do it, and say what you decided and why."
 - **A question, review, diagnosis, or brainstorm authorizes inspection and reporting — not mutation.** Don't start coding until things are clarified. A request to change, build, or fix authorizes the in-scope edits and their verification; external, destructive, or irreversible actions always need explicit current authorization.
-- **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once. Stop early only for a real blocker, a material scope decision, or something only the user can provide.
+- **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once.
 - **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Unfinished declared work stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified. Bugs that can't be fixed on the spot are scheduled there too.
 - **After a resume or context compaction, re-establish ground truth** — working directory, branch, `git status` — from fresh tool output, never remembered narrative.
 
