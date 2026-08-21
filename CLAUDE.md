@@ -163,13 +163,12 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 - Keep prose compact and scannable, in complete sentences; state each rule once, at its narrowest useful scope. Managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 - **Portability boundary.** Shared content defines project facts, authorization, invariants, required evidence, success criteria, and output expectations. It never prescribes model names, effort settings, provider-native tools/channels, permission mechanics, or subagent orchestration — those live in harness configuration. Add a provider overlay only if fresh sessions in both harnesses show a repeatable contradiction that simpler shared wording cannot resolve — and then duplicate the smallest mechanism, never the policy corpus.
 
-<!-- managed:conventions v=70 -->
+<!-- managed:conventions v=71 -->
 ## General Conventions
 
 ### Scope & authority
 
-- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. Do not pass to the user actions you can do yourself."Stop only if the nextstep is irreversible, spends money, or is visible outside this machine. Everything else: decide, do it, and say what you decided and why."
-- **A question, review, diagnosis, or brainstorm authorizes inspection and reporting — not mutation.** Don't start coding until things are clarified. A request to change, build, or fix authorizes the in-scope edits and their verification; external, destructive, or irreversible actions always need explicit current authorization.
+- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. Do not pass to the user actions you can do yourself.Stop only if the nextstep is irreversible, spends money, or is visible outside this machine. Everything else: decide, do it, and say what you decided and why.
 - **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once.
 - **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Unfinished declared work stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified. Bugs that can't be fixed on the spot are scheduled there too.
 - **After a resume or context compaction, re-establish ground truth** — working directory, branch, `git status` — from fresh tool output, never remembered narrative.
