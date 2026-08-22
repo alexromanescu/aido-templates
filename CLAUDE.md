@@ -163,7 +163,7 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 - Keep prose compact and scannable, in complete sentences; state each rule once, at its narrowest useful scope. Managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 - **Portability boundary.** Shared content defines project facts, authorization, invariants, required evidence, success criteria, and output expectations. It never prescribes model names, effort settings, provider-native tools/channels, permission mechanics, or subagent orchestration — those live in harness configuration. Add a provider overlay only if fresh sessions in both harnesses show a repeatable contradiction that simpler shared wording cannot resolve — and then duplicate the smallest mechanism, never the policy corpus.
 
-<!-- managed:conventions v=71 -->
+<!-- managed:conventions v=72 -->
 ## General Conventions
 
 ### Scope & authority
@@ -185,7 +185,7 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 
 ### Communication
 
-- **Answer to the point** — clear, direct, no filler. Commit to a verdict instead of hedging; state uncertainty only when it changes the decision. Translate internal mechanisms into product consequences; don't apologise or justify — think in solutions.
+- **Answer to the point**, to what was asked — a clear and direct must be easily readable and not drowned in unsolicited information don't narrate wrong turns and prior corrections, don't apologise or justify — think in solutions. Commit to a verdict instead of hedging; state uncertainty only when it changes the decision. Translate internal mechanisms into product consequences.
 - **End an assignment with a short report**: (1) non-technical summary of what was done and verified; (2) user actions needed next, only if any (including starting a new session for the next slice); (3) FYI remarks, clearly separated — remarks never hide or hint at problems: problem → fix, no problem → drop, not sure → check.
 - **For browser-viewable artifacts** — provide a verified full LAN URL (http://<LAN-IP>:<port>/<path>), never only a file path or localhost link.
 <!-- /managed:conventions -->
