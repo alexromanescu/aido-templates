@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 71
+version: 72
 target: CLAUDE.md
 order: 10
 ---
@@ -26,6 +26,6 @@ order: 10
 
 ### Communication
 
-- **Answer to the point** — clear, direct, no filler. Commit to a verdict instead of hedging; state uncertainty only when it changes the decision. Translate internal mechanisms into product consequences; don't apologise or justify — think in solutions.
+- **Answer to the point**, to what was asked — a clear and direct must be easily readable and not drowned in unsolicited information don't narrate wrong turns and prior corrections, don't apologise or justify — think in solutions. Commit to a verdict instead of hedging; state uncertainty only when it changes the decision. Translate internal mechanisms into product consequences.
 - **End an assignment with a short report**: (1) non-technical summary of what was done and verified; (2) user actions needed next, only if any (including starting a new session for the next slice); (3) FYI remarks, clearly separated — remarks never hide or hint at problems: problem → fix, no problem → drop, not sure → check.
 - **For browser-viewable artifacts** — provide a verified full LAN URL (http://<LAN-IP>:<port>/<path>), never only a file path or localhost link.
