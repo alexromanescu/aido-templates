@@ -1,7 +1,7 @@
 ---
 section: active-work
 stack: default
-version: 12
+version: 13
 target: docs/active-work.md
 order: 10
 ---
@@ -16,7 +16,7 @@ _**This file is the forward cursor, not a history tracker.** It is reloaded ever
 - **Goal (north star)** — the durable outcome this batch drives toward.
 - **Guardrails / quality bar** — standing owner directives for this batch (quality bar, scope limits). Pin first; they govern every session and survive each rewrite.
 - **Last shipped** — what landed and was verified this block: high level, and related to the tasks that were given.
-- **Sequence** — the ordered path to the goal, one **slice** per item: as much related work as one session can take to done (group by shared context and files; split where the context a session builds stops paying off). Strike done slices in place, flag the next; cite roadmap rows / `BUG-NNN` ids rather than copying them. **Keep each item's `(S)/(M)/(L)` size marker** — aido sums them for the engagement budget, so a rewrite that drops them silently under-budgets the work. A long sequence stays one line per slice (id + size) — the detail moves to the plan/program doc, the sized line never does. **A struck item keeps at most one short outcome clause plus a pointer** (decision-log entry, roadmap row, or commit) — the full postmortem goes to the plan/program doc or the roadmap row, never onto the struck line.
+- **Sequence** — the ordered path to the goal, one **slice** per item: as much related work as one session can take to done (group by shared context and files; split where the context a session builds stops paying off). Strike done slices in place, flag the next; cite roadmap rows / `BUG-NNN` ids rather than copying them. **Keep each item's `(S)/(M)/(L)` size marker** — aido sums them for the engagement budget, so a rewrite that drops them silently under-budgets the work. A focus that will be executed in Program mode also keeps each item's `<!-- aido:work-item … -->` marker and its single gated completion checkpoint — rewriting the focus without them makes it unlaunchable. A long sequence stays one line per slice (id + size) — the detail moves to the plan/program doc, the sized line never does. **A struck item keeps at most one short outcome clause plus a pointer** (decision-log entry, roadmap row, or commit) — the full postmortem goes to the plan/program doc or the roadmap row, never onto the struck line.
 - **A slice is one assignment.** The session that picks it up runs it end-to-end to done — verified, reviewed, and merged per the project's conventions — then refreshes this file and reports once. Steps inside a slice are waypoints, not report points.
 - **Cross-cutting bar** — constraints that apply to *every* step (design, i18n, tests, a11y); state them once here instead of per step.
 - **Run it** — the exact commands to launch and test the app against this focus, so any session verifies without rediscovering them.

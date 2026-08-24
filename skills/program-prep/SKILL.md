@@ -38,6 +38,69 @@ One brief per slice, **constraint-level, not design-level**:
 - Every sequence item is one executable slice with a size marker — no opaque "Phase N (5 tasks)" lines. Size a slice to one session: as much as a single session can spec, build, verify, and merge — batch steps that share context (same subsystem/files); split where shared context stops paying for itself or the diff outgrows one review.
 - Owner touchpoints: only direction picks, scope changes, irreversibles. List them explicitly; everything else is decided and logged.
 
+## Machine-legible sequence (when aido runs the program)
+
+Where the project executes its programs through aido, the cursor is **parsed as well as read** — a sequence that reads perfectly but carries no markers is refused at launch. What a preparer must hit:
+
+- **Annotate every sequence item** with an `<!-- aido:work-item … -->` marker on the *same physical line* as the item, and bind each brief in the program doc with `<!-- aido:brief {"version":1,"briefRef":"<id>"} -->` immediately before its heading.
+- **`workItemId` is the stable identity** — dispatch, attempts, and strikes hang off it, so they survive renumbering and retitling. **`briefRef`** binds the item to its brief. **`dependencies`** order the work; each entry's `gate` is `completed`, `merged`, or `artifact`.
+- **Completion is never inferred from prose.** Write ONE final item declaring `"gates":{"review":"required","acceptance":"required","owner":"none"}`, with a visible `Checkpoint <n>` in its title; **at most one** item may carry a review/acceptance verdict gate. Every other non-deferred item must be a transitive dependency of that item, or launch is refused.
+- **The focus still needs** exactly one `## Goal` section, exactly one `## Guardrails` section, and exactly one `(S|M|L)` size marker per item.
+- **Keep the `Blockers for <name>: none` line** this skill already teaches. It is a convention, not a launch requirement — a cursor without one launches fine. What it buys is the other direction: a *live* blocker written on that line does block launch, so a worker who hits a design-level surprise mid-slice has somewhere to park it instead of improvising.
+
+Anything past this minimum — the tolerant parse rules, how slice titles are read, the checkpoint outcome forms — is aido's contract, written up in its `docs/programs.md`. Go there for the detail, and **if that page and this section ever disagree, that page wins.**
+
+Worked example — the same text aido launches through its own Program gate:
+
+```md
+<!-- managed:active-work -->
+# Active Work
+
+_The managed guidance block, synced by aido and elided here. Every managed block
+is stripped before the focus is parsed, so nothing inside one is part of the
+program cursor._
+<!-- /managed:active-work -->
+
+## Goal
+Ship the export pipeline end to end: an operator schedules an export, watches it
+run, and downloads the result. Program doc (briefs + decision log):
+`docs/programs/2026-09-01-export-pipeline.md`.
+
+## Guardrails
+- Owner touchpoints: the archive format (slice 2) and the retention default
+  (slice 4). Everything else is decided in-slice and appended to the decision log.
+- Quality bar per slice: red-first regression test, fresh-eyes review before
+  merge, docs synced, roadmap row ticked.
+- Worktree per slice; checkpoint = commit locally; never push.
+
+## Sequence
+1. Export job model + durable queue (M) <!-- aido:work-item {"version":1,"workItemId":"job-model","briefRef":"job-model"} -->
+2. Format writers behind one port (M) <!-- aido:work-item {"version":1,"workItemId":"format-writers","briefRef":"format-writers","dependencies":[{"workItemId":"job-model","gate":"merged"}]} -->
+3. Progress + download UI (M) <!-- aido:work-item {"version":1,"workItemId":"progress-ui","briefRef":"progress-ui","dependencies":[{"workItemId":"job-model","gate":"merged"}]} -->
+4. Retention sweep for expired exports (S) <!-- aido:work-item {"version":1,"workItemId":"retention-sweep","briefRef":"retention-sweep","dependencies":[{"workItemId":"format-writers","gate":"merged"}]} -->
+5. Checkpoint 1 — acceptance review of the whole program (S) [role:specialist] <!-- aido:work-item {"version":1,"workItemId":"acceptance-checkpoint","briefRef":"acceptance-checkpoint","role":"specialist","dependencies":[{"workItemId":"format-writers","gate":"merged"},{"workItemId":"progress-ui","gate":"merged"},{"workItemId":"retention-sweep","gate":"merged"}],"gates":{"review":"required","acceptance":"required","owner":"none"}} -->
+
+Blockers for specialist: none
+
+## Cross-cutting bar
+Zod at every new boundary; no `any` without a comment; a render test for every
+visible UI change; no secret ever written to an export artifact.
+
+## Run it
+`npm run dev` · `npm test` · focused: `npm test -- export`
+
+## Resume prompt
+Re-establish ground truth (`pwd`, branch, `git status`, worktree) → read your
+slice's brief in the program doc first → brainstorm → spec → plan (independent
+tasks, each with a test scenario + verification command) → execute red-first →
+verify → fresh-eyes review → merge → tick the roadmap row, rewrite this cursor
+(strike the slice, flag the next), append to the decision log.
+
+## Key references
+`docs/programs/2026-09-01-export-pipeline.md` (briefs + decision log) ·
+`docs/architecture.md` · the export subsystem map.
+```
+
 ## Review layers (encode conditionally, by what's available)
 
 1. **In-slice adversarial/whole-branch review** — always; the slice session's own gate before merge.
@@ -64,3 +127,4 @@ Specialist reviews append findings to the decision log and refresh remaining bri
 | Cursor duplicates program-doc content | One job per file; the cursor cites, never copies |
 | Phase-level opaque sequence lines | One line per executable slice, sized |
 | No review structure | Encode the three layers, conditionally on availability |
+| Unannotated sequence | aido refuses to launch it; annotate every item and declare one gated completion checkpoint |
