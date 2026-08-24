@@ -1,7 +1,7 @@
 # aido-templates — Roadmap
 
 <!-- roadmap-meta
-updated: 2026-08-13
+updated: 2026-08-24
 -->
 
 **Format reference:** this file is parsed by the aido app — the exact phase-heading shape, task-table columns, statuses, and section lifecycles are defined in [docs/process/roadmap.md](process/roadmap.md). Read it before editing this file by hand; the aido `/project/:name/roadmap` page follows it for you.
@@ -9,6 +9,7 @@ updated: 2026-08-13
 ## Quick Updates
 | Task | Area | Size | Status | Description |
 |------|------|------|--------|-------------|
+| Guard the program-prep worked example against fixture drift | Templates | S | next | `skills/program-prep/SKILL.md` embeds aido's `tests/fixtures/program-cursors/program-prep-example-cursor.md` byte-for-byte, but nothing enforces the copy: aido's `tests/integration/program-prep-launchable-cursor.test.ts` reads only the fixture and never opens the skill, so the equality was checked once by hand at authoring time. When the launch contract next gains a required field, aido stays green while the skill silently teaches an unlaunchable form — the exact failure this change fixed, re-armed on a delay. Fix: a structural test in the **aido** repo (it already resolves this repo via `resolveTemplatesRoot()` in the agent-governance suites) asserting the skill's single ```md block equals the fixture. Out-of-area for the templates change that found it — the guard cannot live in this repo. |
 
 ## Bugs
 | Task | Area | Size | Status | Description |
