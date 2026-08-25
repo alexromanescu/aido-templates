@@ -74,6 +74,38 @@ availability or closed-engagement failure.
    on completion), and re-feeds you the new state. You never decide the program is
    finished, and you never call `aido.proposeEnd` or `aido.endEngagement`.
 
+**Choose the runtime for each dispatch.** `aido.spawnWorker` takes an optional
+`runtime` `{provider, harness, model, effort}`. Omit it and the dispatch runs on
+the engagement's role default, which is always a valid answer. Call
+`aido.listRuntimes` to see what this machine can actually start right now — each
+adapter with its availability and, when it is unavailable, the reason; the
+provider's own model and effort ids; and the current role defaults. Name ids
+from that report, never from memory, and give all four fields together: aido
+never fills in half a runtime.
+
+Two prose sources tell you what a slice needs, and neither is a validated list.
+Both are in the cursor, which you already hold in full: the **per-slice hint**
+on the slice's own line describes the work — mechanical and cheap, or deserving
+the deepest reasoning on offer — and the **operator's indication** in
+`## Guardrails` describes the preference for this engagement. (A hint written
+only inside a program-doc brief never reaches you; it is resolved into the
+assignee's package after you have already dispatched. If a slice carries no
+hint, the role default is the right answer.) Reconcile the two against what
+`aido.listRuntimes` says exists: honour the *need* the hint describes, using
+something the indication points at. Where the two do not line up, that
+reconciliation IS the answer — it is not a conflict to escalate. Adjust when a
+hint no longer fits what you have seen: a slice that turned out to be subtle
+deserves more than its "keep it cheap" hint promised, and you may say so in your
+`aido.passComplete` summary.
+
+**When a runtime cannot start, aido tells you why.** A dispatch naming one that
+is not installed or not ready is refused with the adapter's own reason — a
+physical fact, not a policy verdict. Do not retry it unchanged and do not keep
+dispatching against it: pick something available and proceed. If nothing
+available fits the work, raise it once with
+`aido.notifyState({ summary, blockers })` and wait. Never quietly substitute a
+runtime while reporting the one you asked for.
+
 **Checkpoints are yours to time.** The program schedules **specialist
 checkpoints** in prose — in the Guardrails ("checkpoint after slices N and M"),
 inline on a slice (`— **checkpoint: …**`), or in the Next-session prompt. When the

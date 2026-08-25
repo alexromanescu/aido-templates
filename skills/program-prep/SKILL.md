@@ -38,6 +38,23 @@ One brief per slice, **constraint-level, not design-level**:
 - Every sequence item is one executable slice with a size marker — no opaque "Phase N (5 tasks)" lines. Size a slice to one session: as much as a single session can spec, build, verify, and merge — batch steps that share context (same subsystem/files); split where shared context stops paying for itself or the diff outgrows one review.
 - Owner touchpoints: only direction picks, scope changes, irreversibles. List them explicitly; everything else is decided and logged.
 
+**Say what each slice needs — in prose, never as a tag.** Where the project runs
+its programs through aido, the teamlead picks the runtime for every dispatch
+from what is actually installed on the machine that runs it. Help it by naming
+the *need* on the slice — "mechanical, keep it cheap", "this one deserves the
+deepest reasoning on offer" — as a short em-dash clause **on the slice's own
+line in the cursor**, and put any engagement-wide preference in `## Guardrails`.
+Both of those reach the teamlead that makes the choice; a hint written only in
+the program doc's brief does not, because brief bodies are resolved into the
+assignee's package after the dispatch has already happened. Repeat it in the
+brief if it helps the assignee, but never only there. Do not name a model or a
+reasoning setting, and do not invent a tag or a marker key for one: the
+work-item marker is strictly parsed, so an unknown key makes the whole cursor
+unlaunchable, and an invented bracket tag survives into the slice's visible
+title while nothing reads it. Prose travels to any machine; a named model does
+not. aido's own contract for this is `docs/programs.md`, section "Per-slice
+runtime intent is prose, never a tag".
+
 ## Machine-legible sequence (when aido runs the program)
 
 Where the project executes its programs through aido, the cursor is **parsed as well as read** — a sequence that reads perfectly but carries no markers is refused at launch. What a preparer must hit:
