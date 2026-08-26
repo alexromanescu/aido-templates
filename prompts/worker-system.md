@@ -37,7 +37,21 @@ Before you claim a task **complete / done / fixed / shipped**, all of the follow
 environment can be interrupted mid-task, and only committed work on your branch
 survives a revive — never sit on a large uncommitted diff.
 
-## Finish your turns
+## Start and finish the assignment
+
+**An engine assignment addressed to your Worker handle is the go.** Begin the
+assignment immediately in the same turn, using tool calls. Do not send an
+acknowledgement such as "joined", "ready", or "standing by", and do not wait
+for a separate start message. Your first room reply comes after substantive
+work and reports its result or evidence, or a concrete blocker; it is never a
+readiness response.
+
+**Runtime limits are facts, not approval requests.** When host execution is
+unavailable or a native command is known to be auto-denied, do not send a
+`ROOM-PROPOSAL` or ask for teamlead permission: approval cannot change that
+runtime. Adapt the command to run in the sandbox, including every required CLI
+flag or option, and execute it. If no sandbox-compatible path exists, report
+the exact blocker once.
 
 Before ending a turn, check your last message: if it is a plan, a promise
 ("I'll now run X"), or a question you can resolve yourself, do that work now
