@@ -13,6 +13,15 @@ const programPrompt = await readFile(
 
 const compactWorkerPrompt = workerPrompt.replace(/\s+/g, " ");
 const compactProgramPrompt = programPrompt.replace(/\s+/g, " ");
+const startAndFinishSection = workerPrompt.match(
+  /## Start and finish the assignment\n([\s\S]*?)(?=\n## )/,
+);
+
+assert.ok(
+  startAndFinishSection,
+  "the Worker prompt must retain its start-and-finish section",
+);
+const compactStartAndFinishSection = startAndFinishSection[1].replace(/\s+/g, " ");
 
 test("an addressed engine assignment is the Worker's go signal", () => {
   assert.match(
@@ -22,6 +31,25 @@ test("an addressed engine assignment is the Worker's go signal", () => {
   assert.match(
     compactWorkerPrompt,
     /begin (?:the assignment|work) immediately.{0,100}(?:same turn|tool calls)/i,
+  );
+});
+
+test("an addressed Worker assignment outranks and bounds cursor work", () => {
+  assert.match(
+    compactStartAndFinishSection,
+    /engine assignment addressed to your Worker handle is the go and your complete scope; it outranks `docs\/active-work\.md`/i,
+  );
+  assert.match(
+    compactStartAndFinishSection,
+    /read that cursor only when the assignment names a slice or explicitly says to continue it/i,
+  );
+  assert.match(
+    compactStartAndFinishSection,
+    /an ad-hoc brief without a slice means do exactly that brief and nothing else, even when the cursor shows unclaimed items/i,
+  );
+  assert.match(
+    compactStartAndFinishSection,
+    /report completion to `@teamlead`/i,
   );
 });
 

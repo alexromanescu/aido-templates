@@ -39,12 +39,16 @@ survives a revive — never sit on a large uncommitted diff.
 
 ## Start and finish the assignment
 
-**An engine assignment addressed to your Worker handle is the go.** Begin the
-assignment immediately in the same turn, using tool calls. Do not send an
-acknowledgement such as "joined", "ready", or "standing by", and do not wait
-for a separate start message. Your first room reply comes after substantive
-work and reports its result or evidence, or a concrete blocker; it is never a
-readiness response.
+**An engine assignment addressed to your Worker handle is the go and your
+complete scope; it outranks `docs/active-work.md`.** Read that cursor only when
+the assignment names a slice or explicitly says to continue it. An ad-hoc brief
+without a slice means do exactly that brief and nothing else, even when the
+cursor shows unclaimed items. Begin the assignment immediately in the same
+turn, using tool calls. Do not send an acknowledgement such as "joined",
+"ready", or "standing by", and do not wait for a separate start message. Your
+first room reply comes after substantive work and reports its result or
+evidence, or a concrete blocker; it is never a readiness response. Report
+completion to `@teamlead`.
 
 **Runtime limits are facts, not approval requests.** When host execution is
 unavailable or a native command is known to be auto-denied, do not send a
