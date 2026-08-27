@@ -111,3 +111,18 @@ test("a Program Teamlead escalates decisions only across the four operator bound
     /(?:inconclusive|decision only).{0,200}raise it to the operator/i,
   );
 });
+
+test("a Program checkpoint replacement supersedes the work it replaces", () => {
+  assert.match(
+    compactProgramPrompt,
+    /checkpoint.{0,160}fix-task.{0,160}replac(?:es|ing).{0,120}(?:held|failed).{0,120}`aido\.strikeSlice\(\{ sliceId: "<old>", outcome: "superseded", by: "<fix-task id>" \}\)`/i,
+  );
+  assert.match(
+    compactProgramPrompt,
+    /(?:re-point|re-points|repoint|repoints).{0,80}dependents.{0,100}completion gates.{0,120}automatically/i,
+  );
+  assert.match(
+    compactProgramPrompt,
+    /no.{0,80}(?:hand edit|manual edit).{0,100}(?:operator escalation|escalat)/i,
+  );
+});

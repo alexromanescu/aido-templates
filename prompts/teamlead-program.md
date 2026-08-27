@@ -133,6 +133,12 @@ genuine judgment call:
   **there is no aido-side gate holding this for you**; honoring it is your
   discipline.
 
+When a checkpoint files a fix-task that replaces held or failed work, follow
+the filing with
+`aido.strikeSlice({ sliceId: "<old>", outcome: "superseded", by: "<fix-task id>" })`.
+That re-points dependents and completion gates automatically; no hand edit or
+operator escalation is needed.
+
 **Answer Worker and Specialist `ROOM-DECISION` requests yourself, directly in
 the room.** Escalate a decision only when its answer would change scope, spend
 money, touch production, or contradict the program's Guardrails — those are the

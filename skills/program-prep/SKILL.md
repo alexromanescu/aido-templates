@@ -49,19 +49,21 @@ the program doc's brief does not, because brief bodies are resolved into the
 assignee's package after the dispatch has already happened. Repeat it in the
 brief if it helps the assignee, but never only there. Do not name a model or a
 reasoning setting, and do not invent a tag or a marker key for one: the
-work-item marker is strictly parsed, so an unknown key makes the whole cursor
-unlaunchable, and an invented bracket tag survives into the slice's visible
-title while nothing reads it. Prose travels to any machine; a named model does
-not. aido's own contract for this is `docs/programs.md`, section "Per-slice
-runtime intent is prose, never a tag".
+validator warns on unknown marker keys and marker-version drift rather than
+making the cursor unlaunchable, but nothing reads an invented key; an invented
+bracket tag likewise survives into the slice's visible title while nothing
+reads it. Prose travels to any machine; a named model does not. aido's own
+contract for this is `docs/programs.md`, section "Per-slice runtime intent is
+prose, never a tag".
 
 ## Machine-legible sequence (when aido runs the program)
 
 Where the project executes its programs through aido, the cursor is **parsed as well as read** — a sequence that reads perfectly but carries no markers is refused at launch. What a preparer must hit:
 
 - **Annotate every sequence item** with an `<!-- aido:work-item … -->` marker on the *same physical line* as the item, and bind each brief in the program doc with `<!-- aido:brief {"version":1,"briefRef":"<id>"} -->` immediately before its heading.
-- **`workItemId` is the stable identity** — dispatch, attempts, and strikes hang off it, so they survive renumbering and retitling. **`briefRef`** binds the item to its brief. **`dependencies`** order the work; each entry's `gate` is `completed`, `merged`, or `artifact`.
-- **Completion is never inferred from prose.** Write ONE final item declaring `"gates":{"review":"required","acceptance":"required","owner":"none"}`, with a visible `Checkpoint <n>` in its title; **at most one** item may carry a review/acceptance verdict gate. Every other non-deferred item must be a transitive dependency of that item, or launch is refused.
+- **`workItemId` is the stable identity** — dispatch, attempts, and strikes hang off it, so they survive renumbering and retitling. **`briefRef`** binds the item to its brief. Valid known identity remains required: every `workItemId` is unique and every `briefRef` resolves unambiguously to a bound brief. **`dependencies`** order the work; each entry's `gate` is `completed`, `merged`, or `artifact`.
+- **Completion is never inferred from prose.** At least one completion gate is required: declare `"gates":{"review":"required","acceptance":"required","owner":"none"}` on a visible `Checkpoint <n>` item. Connect the work that checkpoint covers through dependencies. Uncovered completion-gate chains are advisory warnings rather than launch refusal.
+- **Compatibility drift warns, it does not disable dispatch.** Unknown marker keys and marker-version drift produce warnings rather than blocking launch. Keep markers minimal anyway: tolerated metadata is not consumed authority.
 - **The focus still needs** exactly one `## Goal` section, exactly one `## Guardrails` section, and exactly one `(S|M|L)` size marker per item.
 - **Keep the `Blockers for <name>: none` line** this skill already teaches. It is a convention, not a launch requirement — a cursor without one launches fine. What it buys is the other direction: a *live* blocker written on that line does block launch, so a worker who hits a design-level surprise mid-slice has somewhere to park it instead of improvising.
 
@@ -144,4 +146,4 @@ Specialist reviews append findings to the decision log and refresh remaining bri
 | Cursor duplicates program-doc content | One job per file; the cursor cites, never copies |
 | Phase-level opaque sequence lines | One line per executable slice, sized |
 | No review structure | Encode the three layers, conditionally on availability |
-| Unannotated sequence | aido refuses to launch it; annotate every item and declare one gated completion checkpoint |
+| Unannotated sequence | aido refuses to launch it; annotate every item, keep identities valid and known, and declare at least one completion gate |
