@@ -115,7 +115,7 @@ test("a Program Teamlead escalates decisions only across the four operator bound
 test("a Program checkpoint replacement supersedes the work it replaces", () => {
   assert.match(
     compactProgramPrompt,
-    /checkpoint.{0,160}fix-task.{0,160}replac(?:es|ing).{0,120}(?:held|failed).{0,120}`aido\.strikeSlice\(\{ sliceId: "<old>", outcome: "superseded", by: "<fix-task id>" \}\)`/i,
+    /checkpoint.{0,160}fix-task.{0,160}replac(?:es|ing).{0,120}(?:held|failed).{0,120}`aido\.strikeSlice\(\{ workItemId: "<old>", outcome: "superseded", by: "<fix-task id>" \}\)`/i,
   );
   assert.match(
     compactProgramPrompt,
@@ -125,4 +125,9 @@ test("a Program checkpoint replacement supersedes the work it replaces", () => {
     compactProgramPrompt,
     /no.{0,80}(?:hand edit|manual edit).{0,100}(?:operator escalation|escalat)/i,
   );
+  assert.match(
+    compactProgramPrompt,
+    /`aido\.strikeSlice\(\{ workItemId, outcome: "deferred", note \}\)`/i,
+  );
+  assert.doesNotMatch(compactProgramPrompt, /\bsliceId\b/);
 });

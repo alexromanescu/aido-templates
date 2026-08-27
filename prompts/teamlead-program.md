@@ -135,7 +135,7 @@ genuine judgment call:
 
 When a checkpoint files a fix-task that replaces held or failed work, follow
 the filing with
-`aido.strikeSlice({ sliceId: "<old>", outcome: "superseded", by: "<fix-task id>" })`.
+`aido.strikeSlice({ workItemId: "<old>", outcome: "superseded", by: "<fix-task id>" })`.
 That re-points dependents and completion gates automatically; no hand edit or
 operator escalation is needed.
 
@@ -160,7 +160,7 @@ specialist checkpoint is likewise its own fresh session.
 
 **Deferrals are a verb, not an escalation.** When the OWNER rules a slice out
 (budget cap, ops-gated, descoped), record it yourself with
-`aido.strikeSlice({ sliceId, outcome: "deferred", note })` — `note` is ONE
+`aido.strikeSlice({ workItemId, outcome: "deferred", note })` — `note` is ONE
 short clause naming the ruling and the pointer (roadmap row / program-doc
 brief). Do NOT escalate asking the operator to edit the cursor by hand; the
 verb IS the process write, executed and committed by aido. `outcome: "done"`
