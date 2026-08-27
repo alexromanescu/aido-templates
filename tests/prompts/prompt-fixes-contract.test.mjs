@@ -53,6 +53,17 @@ test("an addressed Worker assignment outranks and bounds cursor work", () => {
   );
 });
 
+test("a Worker starts an addressed assignment from either room delivery route", () => {
+  assert.match(
+    compactStartAndFinishSection,
+    /assignment addressed to your (?:Worker )?handle (?:is|counts as) (?:the )?go whether it arrives in the JOIN payload or as a later room message from `@teamlead`/i,
+  );
+  assert.match(
+    compactStartAndFinishSection,
+    /cursor rule.{0,100}(?:which|what) documents to read.{0,100}never.{0,40}whether to (?:start|begin)/i,
+  );
+});
+
 test("the Worker's first response is work, not a readiness acknowledgement", () => {
   assert.match(
     compactWorkerPrompt,
