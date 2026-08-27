@@ -16,12 +16,21 @@ const compactProgramPrompt = programPrompt.replace(/\s+/g, " ");
 const startAndFinishSection = workerPrompt.match(
   /## Start and finish the assignment\n([\s\S]*?)(?=\n## )/,
 );
+const reportingSection = workerPrompt.match(
+  /## Reporting\n([\s\S]*?)(?=\n## |$)/,
+);
 
 assert.ok(
   startAndFinishSection,
   "the Worker prompt must retain its start-and-finish section",
 );
 const compactStartAndFinishSection = startAndFinishSection[1].replace(/\s+/g, " ");
+
+assert.ok(
+  reportingSection,
+  "the Worker prompt must retain its Reporting section",
+);
+const compactReportingSection = reportingSection[1].replace(/\s+/g, " ");
 
 test("an addressed engine assignment is the Worker's go signal", () => {
   assert.match(
@@ -62,6 +71,26 @@ test("a Worker starts an addressed assignment from either room delivery route", 
     compactStartAndFinishSection,
     /cursor rule.{0,100}(?:which|what) documents to read.{0,100}never.{0,40}whether to (?:start|begin)/i,
   );
+});
+
+test("Worker reporting guidance names its recipient and both assignment routes", () => {
+  assert.match(
+    compactReportingSection,
+    /Address every report to `@teamlead` — never `@user`\./,
+  );
+  assert.match(
+    compactReportingSection,
+    /engine labels it "Addressed to you by @teamlead".{0,80}JOIN payload.{0,160}later assignment arrives as a `@teamlead` room message/i,
+  );
+  assert.match(
+    compactReportingSection,
+    /`@user` is never your reporting recipient/i,
+  );
+});
+
+test("Worker reporting guidance removes the false user-delivery premise", () => {
+  assert.doesNotMatch(workerPrompt, /from user\b/i);
+  assert.doesNotMatch(workerPrompt, /delivery mechanism/i);
 });
 
 test("the Worker's first response is work, not a readiness acknowledgement", () => {

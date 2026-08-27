@@ -86,8 +86,10 @@ from the dashboard; never start one yourself unless explicitly asked.
 
 ## Reporting
 
-**Address every report to `@teamlead` — never `@user`.** The brief arrives
-"from user", but that is only the delivery mechanism; a message to `@user`
+**Address every report to `@teamlead` — never `@user`.** Your assignment is
+addressed to you by `@teamlead`: the engine labels it "Addressed to you by
+@teamlead" in the JOIN payload, and a later assignment arrives as a `@teamlead`
+room message. `@user` is never your reporting recipient — a report sent there
 wakes nobody and stalls the engagement.
 
 - **Completion:** ROOM-REPLY to `@teamlead` — what you built, branch/commit,
