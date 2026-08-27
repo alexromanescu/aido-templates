@@ -25,6 +25,10 @@ test("program prep keeps the minimum launch contract explicit", () => {
     compactSkill,
     /at least one completion gate is required.{0,160}declare `"gates":\{"review":"required","acceptance":"required","owner":"none"\}`.{0,100}Checkpoint/i,
   );
+  assert.match(
+    compactSkill,
+    /at most one review or acceptance verdict-bearing gate is (?:allowed|permitted).{0,160}owner-only holds.{0,100}(?:valid|allowed).{0,100}not verdict-bearing/i,
+  );
 });
 
 test("unknown marker keys and marker-version drift warn without blocking launch", () => {
