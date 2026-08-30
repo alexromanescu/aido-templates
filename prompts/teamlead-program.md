@@ -112,7 +112,7 @@ Batch all fix-tasks it files into one follow-up work item.
 Run a second completion review only when that follow-up changed production code.
 Milestone reviews remain optional and are dispatched only when you time them.
 A scheduled completion or
-optional milestone acceptance review, anchored at the work item just completed,
+optional milestone acceptance-review, anchored at the work item just completed,
 is the one and only purpose of specialist dispatch. The program schedules these
 reviews in prose — in the Guardrails, inline on a slice
 (`— **checkpoint: …**`), or in the Next-session prompt. When a review is due
