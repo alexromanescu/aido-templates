@@ -123,7 +123,12 @@ verify → fresh-eyes review → merge → tick the roadmap row, rewrite this cu
 ## Review layers (encode conditionally, by what's available)
 
 1. **In-slice adversarial/whole-branch review** — always; the slice session's own gate before merge.
-2. **Scheduled specialist acceptance reviews** — an independent specialist reviews against the briefs at 2–4 milestones plus program end, but only when one is available. These reviews are not the project's ordinary checkpoint/commit rule. If no specialist is available, say so in guardrails and lean on layer 1 plus owner spot-checks. Add a **"Blockers for <specialist>"** line to the focus either way: a design-level surprise mid-slice is logged and routed around, never improvised.
+2. **Scheduled specialist acceptance reviews** — when a specialist is available, prepare one completion review against the briefs.
+   Run the completion review once.
+   Batch all fix-tasks it files into one follow-up work item.
+   Run a second completion review only when that follow-up changed production code.
+   Milestone reviews remain optional and are dispatched only when you time them.
+   Schedule an optional milestone review only for a program-specific reason, with its timing left to the teamlead. These reviews are not the project's ordinary checkpoint/commit rule. If no specialist is available, say so in guardrails and lean on layer 1 plus owner spot-checks. Add a **"Blockers for <specialist>"** line to the focus either way: a design-level surprise mid-slice is logged and routed around, never improvised.
 3. **Teamlead/orchestrator supervision** (if one runs the sessions) — process only: flow followed, docs updated, budget; never code or direction.
 
 Specialist reviews append findings to the decision log and refresh remaining briefs against what actually shipped.

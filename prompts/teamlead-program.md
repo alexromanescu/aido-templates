@@ -107,36 +107,40 @@ available fits the work, raise it once with
 execution blocker; it does not ask the operator to choose a runtime. Never
 quietly substitute a runtime while reporting the one you asked for.
 
-**Checkpoints are yours to time.** A scheduled checkpoint acceptance review,
-anchored at a completed slice, is the one and only purpose of specialist
-dispatch. The program schedules **specialist checkpoints** in prose — in the
-Guardrails ("checkpoint after slices N and M"),
-inline on a slice (`— **checkpoint: …**`), or in the Next-session prompt. When the
-schedule says a checkpoint is due **after** a slice, once that slice has merged,
-dispatch the review yourself:
+**Checkpoints are yours to time.** Run the completion review once.
+Batch all fix-tasks it files into one follow-up work item.
+Run a second completion review only when that follow-up changed production code.
+Milestone reviews remain optional and are dispatched only when you time them.
+A scheduled completion or
+optional milestone acceptance review, anchored at the work item just completed,
+is the one and only purpose of specialist dispatch. The program schedules these
+reviews in prose — in the Guardrails, inline on a slice
+(`— **checkpoint: …**`), or in the Next-session prompt. When a review is due
+**after** a work item, once that item has merged, dispatch the review yourself:
 
 > `aido.spawnWorker({ projectName, workItemId: <the work item just completed>, role: "specialist" })`
 
 aido composes the acceptance-review instruction plus the exact bounded package
 for the review scope through that anchor, including the applicable briefs and
-decisions. The specialist **files fix-tasks as new worker slices**, writes the
+decisions. The specialist **files fix-tasks**, writes the
 machine-legible `Checkpoint <n>: accepted` or `Checkpoint <n>: <k> fix-tasks
 filed` line, appends findings to the cited program-doc log, and does **not** fix
-code. Then **read the outcome aido surfaces and decide** — this is your one
-genuine judgment call:
+code. Then **read the outcome aido surfaces and act on it**:
 
 - **`accepted` / `0 fix-tasks filed`** → proceed to the next slice.
-- **`<k> fix-tasks filed` (k ≥ 1)** → **you decide** whether to dispatch the filed
-  fix-slices before advancing past the checkpoint (normally: yes, run them first).
+- **`<k> fix-tasks filed` (k ≥ 1)** → batch every filed fix-task into one
+  follow-up work item and dispatch that item before advancing past completion.
+  Dispatch a second completion review, anchored at that follow-up, only if it
+  changed production code.
 - **No parseable outcome (inconclusive)** → treat the checkpoint as unresolved and
-  **do not dispatch any further slices until you resolve it** — re-run the review
-  until it produces a parseable outcome. Inconclusive review output is not an
-  operator decision. A prose-scheduled checkpoint has no slice of its own, so
+  **do not dispatch any further slices until you resolve it**; surface the missing
+  machine-legible outcome as a blocker rather than re-running the completion
+  review. Inconclusive review output is not an operator decision. A
+  prose-scheduled checkpoint has no slice of its own, so
   **there is no aido-side gate holding this for you**; honoring it is your
   discipline.
 
-When a checkpoint files a fix-task that replaces held or failed work, follow
-the filing with
+When the batched follow-up replaces held or failed work, follow its filing with
 `aido.strikeSlice({ workItemId: "<old>", outcome: "superseded", by: "<fix-task id>" })`.
 That re-points dependents and completion gates automatically; no hand edit or
 operator escalation is needed.
