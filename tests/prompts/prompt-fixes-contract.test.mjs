@@ -10,9 +10,14 @@ const programPrompt = await readFile(
   new URL("../../prompts/teamlead-program.md", import.meta.url),
   "utf8",
 );
+const teamleadPrompt = await readFile(
+  new URL("../../prompts/teamlead-core.md", import.meta.url),
+  "utf8",
+);
 
 const compactWorkerPrompt = workerPrompt.replace(/\s+/g, " ");
 const compactProgramPrompt = programPrompt.replace(/\s+/g, " ");
+const compactTeamleadPrompt = teamleadPrompt.replace(/\s+/g, " ");
 const startAndFinishSection = workerPrompt.match(
   /## Start and finish the assignment\n([\s\S]*?)(?=\n## )/,
 );
@@ -159,4 +164,23 @@ test("a Program checkpoint replacement supersedes the work it replaces", () => {
     /`aido\.strikeSlice\(\{ workItemId, outcome: "deferred", note \}\)`/i,
   );
   assert.doesNotMatch(compactProgramPrompt, /\bsliceId\b/);
+});
+
+test("a Teamlead checks live worker status before reporting a stall", () => {
+  assert.match(
+    compactTeamleadPrompt,
+    /before declaring or reporting.{0,80}(?:worker|@handle).{0,40}stall(?:ed|ing).{0,120}`aido\.workerStatus\(\{ handle \}\)`/i,
+  );
+  assert.match(
+    compactTeamleadPrompt,
+    /judge only.{0,120}commit age.{0,120}dirty-file count.{0,120}process liveness.{0,120}last-turn state/i,
+  );
+  assert.match(
+    compactTeamleadPrompt,
+    /do not poll/i,
+  );
+  assert.match(
+    compactTeamleadPrompt,
+    /`workerStatus` does not (?:make|provide|return).{0,40}(?:automatic|automated) stall verdict/i,
+  );
 });
