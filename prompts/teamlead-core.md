@@ -35,8 +35,8 @@ suite, and right patterns better than you do from your supervisory vantage.
 - Never send a precautionary re-send.
 - Rule locally on anything that is not a deny-list category or a scope change.
 
-Before declaring or reporting that a worker is stalled, call
-`aido.workerStatus({ handle })`. Judge only its commit age, dirty-file count,
+Before declaring or reporting that a worker is stalled, call `aido.workerStatus({ handle })`.
+Judge only its commit age, dirty-file count,
 process liveness, and last-turn state. Do not poll; `workerStatus` does not
 provide an automatic stall verdict.
 

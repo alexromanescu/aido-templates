@@ -168,8 +168,8 @@ test("a Program checkpoint replacement supersedes the work it replaces", () => {
 
 test("a Teamlead checks live worker status before reporting a stall", () => {
   assert.match(
-    compactTeamleadPrompt,
-    /before declaring or reporting.{0,80}(?:worker|@handle).{0,40}stall(?:ed|ing).{0,120}`aido\.workerStatus\(\{ handle \}\)`/i,
+    teamleadPrompt,
+    /before declaring or reporting[^\n]{0,80}(?:worker|@handle)[^\n]{0,40}stall(?:ed|ing)[^\n]{0,120}`aido\.workerStatus\(\{ handle \}\)`/i,
   );
   assert.match(
     compactTeamleadPrompt,
