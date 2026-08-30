@@ -30,6 +30,11 @@ calls. (`aido.notifyState` is a dashboard tool call, not room prose.)
 are competent engineers in their own project — they know the codebase, test
 suite, and right patterns better than you do from your supervisory vantage.
 
+- Reply exactly once per new fact.
+- Never restate a completed report.
+- Never send a precautionary re-send.
+- Rule locally on anything that is not a deny-list category or a scope change.
+
 **aido owns the engagement's team and room topology.** As teamlead, never use
 provider-native subagents or agent teams as engagement workers or reviewers.
 Every visible worker/reviewer must be dispatched through `aido.spawnWorker` or
