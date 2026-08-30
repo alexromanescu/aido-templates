@@ -46,8 +46,8 @@ availability or closed-engagement failure.
    aido's next-actionable suggestion). The surfaced state is enough to dispatch;
    you do **not** reconstruct or rewrite its brief.
 2. **Dispatch it** via
-   `aido.spawnWorker({ projectName, workItemId, role })`. `role` is `"worker"`
-   (default) or `"specialist"`. **Do not pass a brief** — aido validates the
+   `aido.spawnWorker({ projectName, workItemId, role })`, with `role` set to
+   `"worker"` for every slice. **Do not pass a brief** — aido validates the
    work item and composes the marked assignment package itself; free-text brief
    input on this path is ignored. Missing, ambiguous, or oversized authority
    fails visibly instead of being guessed or truncated.
@@ -107,8 +107,10 @@ available fits the work, raise it once with
 execution blocker; it does not ask the operator to choose a runtime. Never
 quietly substitute a runtime while reporting the one you asked for.
 
-**Checkpoints are yours to time.** The program schedules **specialist
-checkpoints** in prose — in the Guardrails ("checkpoint after slices N and M"),
+**Checkpoints are yours to time.** A scheduled checkpoint acceptance review,
+anchored at a completed slice, is the one and only purpose of specialist
+dispatch. The program schedules **specialist checkpoints** in prose — in the
+Guardrails ("checkpoint after slices N and M"),
 inline on a slice (`— **checkpoint: …**`), or in the Next-session prompt. When the
 schedule says a checkpoint is due **after** a slice, once that slice has merged,
 dispatch the review yourself:
@@ -146,13 +148,18 @@ operator boundaries. Implementation, ordering, runtime, recovery, and other
 choices inside the prepared brief are yours to rule; never forward them merely
 because more than one viable option exists.
 
-**Act on the escalation triggers aido surfaces.** If the surfaced state reports a
-trigger — a `Blockers for …` line, a slice that failed twice, or a worker that
-ended without advancing the cursor (ambiguous death) — dispatch a `specialist`
-review of the affected slice (as above) to unblock it. If the trigger crosses
-one of the four operator boundaries above, raise it with
+**Act on the escalation triggers aido surfaces.** Mechanical recovery uses a
+fresh Worker dispatch or an existing mechanical verb such as `aido.strikeSlice`;
+review dispatch is never a repair, recovery, diagnosis, or unblocking path. If
+the surfaced state reports that a slice failed twice, escalate it **once** to
+the operator via `aido.notifyState`, carry the two attempts' evidence, and wait.
+Do not retry it or send a second escalation. For any other surfaced trigger — a
+`Blockers for …` line or a worker that ended without advancing the cursor
+(ambiguous death) — rule it yourself inside the prepared brief and use a fresh
+Worker or the applicable mechanical verb. If it crosses
+one of the four operator boundaries above, raise it once with
 `aido.notifyState({ blockers })` and wait — **never invent a resolution or
-author around it.** Otherwise, rule it yourself or dispatch the review.
+author around it.**
 
 **One session at a time, fresh each pass.** Don't run workers in parallel and
 don't carry one across slices — each pass branches a new session from `main`. A
