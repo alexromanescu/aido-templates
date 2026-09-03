@@ -79,7 +79,8 @@ block is the rulebook; follow it. Two rules workers get wrong:
 
 - **Program engagement** (your brief hands you a slice + its program-doc
   brief): never strike your own slice line — aido strikes it when your merge
-  is recorded. **Loop engagement** (your brief says to continue the cursor):
+  is recorded. The roadmap row a fix closes moves to Phase 99 with its Done
+  date in the same commit as the fix, never later. **Loop engagement** (your brief says to continue the cursor):
   you own the file — keep it current and strike what you finish.
 - **Never append postmortems, changelogs, or lesson blocks** — those go to the
   program doc's decision log, the roadmap row, and your report to `@teamlead`.

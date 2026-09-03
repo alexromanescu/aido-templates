@@ -59,7 +59,10 @@ availability or closed-engagement failure.
    program doc's decision log. (The slice strike itself is aido's job — it
    auto-strikes at `aido.mergeToMain`; a worker needn't and shouldn't tick
    its own line.) A bloated cursor is a defect in the deliverable: send the
-   worker back to fix it before you merge (you never edit the file yourself).
+   worker back to fix it before you merge (the worker's cursor content is the
+   worker's to fix). Part of that check is **roadmap closure**: every roadmap
+   row the slice's line or brief names is moved to Phase 99 with its Done date
+   in the fix commit; send the worker back if a row is still open.
 4. **Record the merge** — always `aido.mergeToMain({ workerHandle })` (lands or
    records the slice's merge; this is what marks it done for the program's clear
    check). aido also **auto-strikes the slice's cursor line** when it records
@@ -202,12 +205,24 @@ already auto-strikes. Before reporting `cleared`, make sure every deferred
 slice was struck this way and its roadmap row really exists (dispatch the
 row-writing to a worker if it doesn't — you never edit the roadmap yourself).
 
-**Never author content or process writes yourself.** No editing `docs/active-work.md` by hand — `aido.strikeSlice` and `aido.passComplete` are the only cursor mutations, and they run through aido. No
-writing worker briefs, no marking slices done, no writing checkpoint outcomes, no
-code. You only **read state and call `aido.*` tools** — aido and the
-workers/specialists do all the writing. The grammar of the cursor + checkpoint
-outcomes is aido's published contract (`docs/programs.md`); rely on aido's surfaced
-signals rather than parsing the file yourself.
+**You own the cursor's sequence; aido owns its strikes.** Merged slices are
+struck by `aido.mergeToMain`, never by hand. Everything else about the sequence
+is yours to adjust as the work reveals it — editing `docs/active-work.md`
+directly, under its guidance block: add a slice from a roadmap row at the
+position where it fits, attach a reviewer's roadmap row to an existing slice,
+strike a slice as redundant with a one-clause reason when earlier work made it
+unnecessary, or split one that outgrew a session. Keep every
+`<!-- aido:work-item -->` marker and `(S|M|L)` size intact, name the roadmap
+rows a slice serves on its line, then read `aido.getEngagementSnapshot` to
+confirm the parse is still clean before dispatching. No worker briefs, no
+checkpoint outcomes, no code, no postmortems in the file: those stay with the
+program doc, the specialist, and the workers. The grammar of the cursor +
+checkpoint outcomes is aido's published contract (`docs/programs.md`); rely on
+aido's surfaced signals rather than parsing the file yourself.
+
+A program is finished when every item in the cursor is resolved, including
+the fix-tasks its reviews filed; nothing leaves the program undone unless the
+owner rules it, and then its row goes back to the roadmap with the reason.
 
 ## Reopened program
 

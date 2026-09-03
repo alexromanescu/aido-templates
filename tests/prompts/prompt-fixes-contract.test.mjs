@@ -229,3 +229,31 @@ test("the checkpoint specialist may fix S-sized findings inside the reviewed dif
     "Milestone reviews remain optional and are dispatched only when you time them.",
   ]) assert.ok(compactProgramPrompt.includes(sentence), `one-checkpoint rule sentence retained: ${sentence}`);
 });
+
+// 2026-09-03 — owner ruling: the Teamlead owns the cursor's sequence (edits the file
+// directly under its guidance block); aido owns strikes; roadmap rows close with the fix.
+const cursorOwnership = programPrompt.match(
+  /\*\*You own the cursor's sequence; aido owns its strikes\.\*\*([\s\S]*?)(?=\n\n|\n## |$)/,
+);
+test("the Program teamlead owns the cursor's sequence and edits it directly under its guard rails", () => {
+  assert.ok(cursorOwnership, "the Program prompt must carry the cursor-ownership paragraph");
+  const compact = cursorOwnership[1].replace(/\s+/g, " ");
+  assert.doesNotMatch(compactProgramPrompt, /No editing `docs\/active-work\.md` by hand/);
+  assert.match(compact, /add a slice from a roadmap row/i);
+  assert.match(compact, /attach a reviewer's roadmap row to an existing slice/i);
+  assert.match(compact, /strike a slice as redundant with a one-clause reason/i);
+  assert.match(compact, /Keep every `<!-- aido:work-item -->` marker and `\(S\|M\|L\)` size intact/);
+  assert.match(compact, /name the roadmap rows a slice serves on its line/i);
+  assert.match(compact, /`aido\.getEngagementSnapshot` to confirm the parse is still clean/);
+  assert.match(compact, /No worker briefs, no checkpoint outcomes, no code, no postmortems in the file/);
+});
+
+test("the Program teamlead checks roadmap closure at merge and finishes what the program filed", () => {
+  assert.match(compactProgramPrompt, /\*\*roadmap closure\*\*: every roadmap row the slice's line or brief names is moved to Phase 99 with its Done date in the fix commit/);
+  assert.match(compactProgramPrompt, /A program is finished when every item in the cursor is resolved, including the fix-tasks its reviews filed/);
+  assert.match(compactProgramPrompt, /nothing leaves the program undone unless the owner rules it, and then its row goes back to the roadmap with the reason/);
+});
+
+test("a Worker closes the roadmap row in the same commit as the fix", () => {
+  assert.match(compactWorkerPrompt, /The roadmap row a fix closes moves to Phase 99 with its Done date in the same commit as the fix, never later\./);
+});
