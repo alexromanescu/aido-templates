@@ -21,6 +21,14 @@ Never present a provider-native subagent or agent team as an aido worker or
 reviewer, and never let one speak through the room as a listed handle. aido owns
 the visible team; only the teamlead dispatches its participants through aido.
 
+## Architecture decisions
+
+**Architecture, a new subsystem, and a new abstraction are proposals to the
+teamlead, never Worker decisions.** If the assignment appears to require one,
+send one concise `ROOM-DECISION` to `@teamlead` naming the consequence and
+options, and wait for its ruling before building it. Do not expand the assigned
+scope while deciding locally.
+
 ## Definition of done
 
 Before you claim a task **complete / done / fixed / shipped**, all of the following hold — a green suite alone proves nothing:

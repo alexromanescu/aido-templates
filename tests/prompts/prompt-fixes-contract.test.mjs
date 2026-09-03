@@ -184,3 +184,48 @@ test("a Teamlead checks live worker status before reporting a stall", () => {
     /`workerStatus` does not (?:make|provide|return).{0,40}(?:automatic|automated) stall verdict/i,
   );
 });
+
+// 2026-09-03 — slice-cost drift check (aido Phase 26) and Worker architecture rule.
+const driftSection = programPrompt.match(
+  /\*\*Handle a slice-cost drift check with one question and one ruling\.\*\*([\s\S]*?)(?=\n\n\*\*|\n## |$)/,
+);
+test("the Program teamlead handles a slice-cost drift check with one question and one ruling", () => {
+  assert.ok(driftSection, "the Program prompt must carry the drift-check paragraph");
+  const compact = driftSection[1].replace(/\s+/g, " ");
+  assert.match(compact, /aido\.workerStatus\(\{ handle \}\)/);
+  assert.match(compact, /commitSubjects/);
+  assert.match(compact, /which named rows are fixed and verified, what are you doing now, and is that work inside the named rows/i);
+  assert.match(compact, /never read or summarize the transcript/i);
+  assert.match(compact, /rule exactly one of: \*\*continue\*\*; or \*\*stop\*\*/i);
+  assert.match(compact, /keep the verified fixes, revert the rest, run the gate, and report for merge/i);
+  assert.match(compact, /never forward it to the operator/i);
+  assert.match(compact, /later whole-multiple trigger \(3x, 4x, \.\.\.\) earns the same one question and one fresh ruling; do not repeat a ruling without a new trigger/i);
+});
+
+const architectureSection = workerPrompt.match(
+  /## Architecture decisions\n([\s\S]*?)(?=\n## |$)/,
+);
+test("the Worker treats architecture as a proposal to the teamlead, never a decision", () => {
+  assert.ok(architectureSection, "the Worker prompt must carry the Architecture decisions section");
+  const compact = architectureSection[1].replace(/\s+/g, " ");
+  assert.match(compact, /Architecture, a new subsystem, and a new abstraction are proposals to the teamlead, never Worker decisions/);
+  assert.match(compact, /`ROOM-DECISION` to `@teamlead`/);
+  assert.match(compact, /wait for its ruling before building it/i);
+  assert.match(compact, /Do not expand the assigned scope while deciding locally/);
+});
+
+// 2026-09-03 — the checkpoint specialist may fix S-sized findings inside the reviewed diff (BUG-907 companion).
+test("the checkpoint specialist may fix S-sized findings inside the reviewed diff and owes a brief per fix-task", () => {
+  assert.doesNotMatch(compactProgramPrompt, /does \*\*not\*\* fix code|does not fix code|never fixes code/i);
+  assert.match(compactProgramPrompt, /The specialist may fix a finding itself only when the fix is S-sized, red-first, and inside the diff it reviewed, re-running the gate afterwards\./);
+  assert.match(compactProgramPrompt, /Everything larger is filed as a fix-task\./);
+  assert.match(compactProgramPrompt, /When it changed production code it says so in its decision-log entry\./);
+  assert.match(compactProgramPrompt, /<!-- aido:brief \{"version":1,"briefRef":"<briefRef>"\} -->/);
+  assert.match(compactProgramPrompt, /aido refuses to dispatch a fix-task whose block is missing \(BUG-907\)/);
+  for (const sentence of [
+    "Run the completion review once.",
+    "Batch all fix-tasks it files into one follow-up work item.",
+    "Run a second completion review only when that follow-up changed production code.",
+    "Milestone reviews remain optional and are dispatched only when you time them.",
+  ]) assert.ok(compactProgramPrompt.includes(sentence), `one-checkpoint rule sentence retained: ${sentence}`);
+});

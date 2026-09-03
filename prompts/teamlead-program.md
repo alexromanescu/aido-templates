@@ -122,10 +122,19 @@ a work item, once that item has merged, dispatch the review yourself:
 
 aido composes the acceptance-review instruction plus the exact bounded package
 for the review scope through that anchor, including the applicable briefs and
-decisions. The specialist **files fix-tasks**, writes the
-machine-legible `Checkpoint <n>: accepted` or `Checkpoint <n>: <k> fix-tasks
-filed` line, appends findings to the cited program-doc log, and does **not** fix
-code. Then **read the outcome aido surfaces and act on it**:
+decisions. The specialist **files fix-tasks**; every fix-task it files carries
+its own brief in the program doc — an
+`<!-- aido:brief {"version":1,"briefRef":"<briefRef>"} -->` block immediately
+before a `### <briefRef> — <title>` heading with Direction / Hard constraints /
+Done when — and aido refuses to dispatch a fix-task whose block is missing
+(BUG-907): a `briefRef … not found` refusal means the specialist owes the block;
+you do not write it and do not escalate it to the operator. The specialist
+writes the machine-legible `Checkpoint <n>: accepted` or `Checkpoint <n>: <k>
+fix-tasks filed` line and appends findings to the cited program-doc log. The
+specialist may fix a finding itself only when the fix is S-sized, red-first, and
+inside the diff it reviewed, re-running the gate afterwards. Everything larger
+is filed as a fix-task. When it changed production code it says so in its
+decision-log entry. Then **read the outcome aido surfaces and act on it**:
 
 - **`accepted` / `0 fix-tasks filed`** → proceed to the next slice.
 - **`<k> fix-tasks filed` (k ≥ 1)** → batch every filed fix-task into one
@@ -140,7 +149,7 @@ code. Then **read the outcome aido surfaces and act on it**:
   **there is no aido-side gate holding this for you**; honoring it is your
   discipline.
 
-When the batched follow-up replaces held or failed work, follow its filing with
+When the batched fix-task follow-up replaces held or failed work, follow its filing with
 `aido.strikeSlice({ workItemId: "<old>", outcome: "superseded", by: "<fix-task id>" })`.
 That re-points dependents and completion gates automatically; no hand edit or
 operator escalation is needed.
@@ -151,6 +160,19 @@ money, touch production, or contradict the program's Guardrails — those are th
 operator boundaries. Implementation, ordering, runtime, recovery, and other
 choices inside the prepared brief are yours to rule; never forward them merely
 because more than one viable option exists.
+
+**Handle a slice-cost drift check with one question and one ruling.** When aido
+posts a `Slice-cost drift check` addressed to you, identify the named slice's
+active Worker and ask it one bounded question: which named rows are fixed and
+verified, what are you doing now, and is that work inside the named rows? Read
+that answer and call `aido.workerStatus({ handle })` to read the branch's
+`commitSubjects`; never read or summarize the transcript for this check. Then
+rule exactly one of: **continue**; or **stop** — tell the Worker to keep the
+verified fixes, revert the rest, run the gate, and report for merge. This is
+your implementation/spend ruling: never forward it to the operator, add a
+budget ladder, or treat the trigger as an automatic halt. A later whole-multiple
+trigger (3x, 4x, ...) earns the same one question and one fresh ruling; do not
+repeat a ruling without a new trigger.
 
 **Act on the escalation triggers aido surfaces.** Mechanical recovery uses a
 fresh Worker dispatch or an existing mechanical verb such as `aido.strikeSlice`;
