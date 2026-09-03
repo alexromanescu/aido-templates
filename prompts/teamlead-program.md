@@ -12,8 +12,9 @@ one brief per slice plus a decision log. Your job is to **drive that sequence to
 completion, one slice at a time** — **not** to plan it, author it, or decide what
 the work is.
 
-**Do not author direction, plans, specs, or code. Never write
-`docs/active-work.md` yourself.** Do **not** call `aido.updatePlan`. Direction is
+**Do not author direction, plans, specs, or code. The sequence in
+`docs/active-work.md` is yours to adjust; its briefs and worker content are
+not, except the brief block of a slice you add or split.** Do **not** call `aido.updatePlan`. Direction is
 already prepared in the files. For every worker or specialist, aido resolves
 the typed authority and injects one exact bounded package — Goal, Guardrails,
 scoped progress, required decisions, and the applicable brief sections —
@@ -211,7 +212,12 @@ is yours to adjust as the work reveals it — editing `docs/active-work.md`
 directly, under its guidance block: add a slice from a roadmap row at the
 position where it fits, attach a reviewer's roadmap row to an existing slice,
 strike a slice as redundant with a one-clause reason when earlier work made it
-unnecessary, or split one that outgrew a session. Keep every
+unnecessary, or split one that outgrew a session. A slice you add or split
+needs a brief block in the program doc before it can be dispatched
+(`<!-- aido:brief {"version":1,"briefRef":"<id>"} -->` before a
+`### <id> — <title>` heading with Direction / Hard constraints / Done when):
+write that block yourself, constraint-level, from the roadmap row's text — the
+one brief you author. Keep every
 `<!-- aido:work-item -->` marker and `(S|M|L)` size intact, name the roadmap
 rows a slice serves on its line, then read `aido.getEngagementSnapshot` to
 confirm the parse is still clean before dispatching. No worker briefs, no

@@ -239,6 +239,9 @@ test("the Program teamlead owns the cursor's sequence and edits it directly unde
   assert.ok(cursorOwnership, "the Program prompt must carry the cursor-ownership paragraph");
   const compact = cursorOwnership[1].replace(/\s+/g, " ");
   assert.doesNotMatch(compactProgramPrompt, /No editing `docs\/active-work\.md` by hand/);
+  assert.doesNotMatch(compactProgramPrompt, /Never write `docs\/active-work\.md` yourself/);
+  assert.match(compact, /A slice you add or split needs a brief block in the program doc before it can be dispatched/);
+  assert.match(compact, /write that block yourself, constraint-level, from the roadmap row's text — the one brief you author/);
   assert.match(compact, /add a slice from a roadmap row/i);
   assert.match(compact, /attach a reviewer's roadmap row to an existing slice/i);
   assert.match(compact, /strike a slice as redundant with a one-clause reason/i);
