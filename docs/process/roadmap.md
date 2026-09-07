@@ -1,4 +1,4 @@
-<!-- managed:process-roadmap v=7 -->
+<!-- managed:process-roadmap v=8 -->
 # Roadmap Process
 
 How aido-managed projects track work in `docs/roadmap.md`. The file is parsed by the aido app — the format below is strict; follow it exactly when editing by hand (the aido `/project/:name/roadmap` page does it for you). Phases or rows that don't match the expected shape are silently dropped from the parsed roadmap.
@@ -60,11 +60,11 @@ A newly-filed bug is `next`, `doing` while being fixed, `blocked` if waiting on 
 
 ### Deferred work
 
-Record every deferred item in the roadmap. If a deferred item is genuinely needed for the current change to be correct and complete and isn't gated by other work, do it as part of the change; otherwise record it with a resume prompt for the next agent to pick up the work.
+Complete work needed for the agreed outcome when it can be done now. Do not replace execution with a deferred row or resume prompt. If a real dependency or missing authorization blocks it, record the blocker and next action in the roadmap and keep the unfinished work visible in the active focus. Record unrelated findings separately without expanding the assignment.
 
 ### Potential improvements
 
-**Before filing, ask: is this part of the current active focus?** If yes it is not a Potential Improvement — it stays in the focus as the next step; filing a row for active-item work is deferral wearing the costume of record-keeping.
+Required work stays in the active focus until complete or explicitly removed from scope by the owner; do not reclassify it as a Potential Improvement.
 
 `## Potential Improvements` holds speculative ideas deliberately **not** acted on now — distinct from deferred work (needed, with a resume prompt) and from `## Distant Roadmap` (intended, just later). Rows default to `Status: postponed`. Each row's `Description` must let a future reader prioritize without re-deriving the analysis: the benefit, the honest impact (who's affected, how often, correctness vs polish — say plainly when it's small, latent, or cosmetic), the cost (`Size`), and why it wasn't done then. Promote an idea by moving its row to `## Distant Roadmap` or a phase with an active status.
 
