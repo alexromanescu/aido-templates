@@ -36,12 +36,12 @@ DON'T add one when:
 
 ## Anatomy
 
-Every structural test has four pieces:
+Use only the pieces the invariant needs:
 
 1. **Mutation patterns** — regex or AST queries that find every site of
    the "X" half of the invariant. Example: `\bgit\.commit\(` finds
    every git commit call.
-2. **An allow-list / classification table** — explicit entries that
+2. **An allow-list / classification table, when exceptions are needed** — explicit entries that
    classify each `(file, category)` pair the patterns find. New site
    not in the list = test fails.
 3. **Verification pointers** — `verifiedByTests: ["..."]` per
@@ -55,9 +55,9 @@ Every structural test has four pieces:
 
 - **Every allow-list `reason` is a re-auditable claim.** Stale reasons
   are decay. Re-audit periodically.
-- **`verifiedByTests` is required for the active classifications.**
-  The integration test pins the claim; removing the claim breaks the
-  test first.
+- **Behavioral claims in classifications need verification pointers.**
+  Use `verifiedByTests` when a behavioral test supports the exception;
+  do not invent an integration test for a purely structural fact.
 - **Scaffolding is software too.** Extractors, regex helpers, AST
   walkers — add unit tests covering canonical hard-case inputs.
 - **Universal-language claims are suspect.** "Every caller does X" /
@@ -69,16 +69,16 @@ Every structural test has four pieces:
 
 Each closeout claim ("we've added the structural test for X") is a
 proxy for the invariant. Proxies decay. Run a fresh-eyes review
-periodically: list the proxies the target relies on, grep for shapes
+when a changed scanner or observed gap warrants it: list the proxies the target relies on, grep for shapes
 that match the invariant but evade the regex (alias imports, wildcard
 imports, alternative APIs, mirror-form variants), re-read each
 allow-list reason against the file's current behavior, write failing
 tests for real findings or cite grep for deferred blindspots.
 
-The `residuals-review` skill implements this cycle — change-targeted
-reviews re-cycle after fixes until one clean pass; open-ended audit
-loops run on explicit request and terminate after two consecutive
-clean reviews.
+Use `residuals-review` for a specialized invariant audit when needed.
+After fixes, check the affected behavior and interactions. Continuing
+audit loops require an explicit request; ordinary structural testing
+does not require repeated reviews.
 
 ## Common pitfalls
 

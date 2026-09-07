@@ -1,22 +1,17 @@
 ---
 section: process-help-sync
 stack: default
-version: 2
+version: 3
 target: docs/process/help-sync.md
 order: 10
 ---
 # Help-Sync Checklist
 
-Run this checklist before declaring any user-facing change complete; update the help content in the same commit as the change.
+When changed behavior affects existing help, update the affected content in the same commit:
 
-## Checklist
+- Field meaning or requirements: contextual help, placeholders, and explanations.
+- Empty states: the message and suggested action.
+- Workflows covered by tours: steps and required hooks or events.
+- Renamed or removed routes: tours, deep links, breadcrumbs, and copy.
 
-- **Form fields added or semantics changed?** Update contextual help (info text, placeholders, learn-more).
-- **Empty list or collection?** Update empty-state content.
-- **New user workflow?** Consider a tour chapter or step.
-- **New UI elements / events your tour system needs?** Wire the hooks/events your system requires.
-- **Page/route renamed or removed?** Update the route references everywhere they appear (tours, deep-links, breadcrumbs, copy).
-
-## Reference
-
-See `docs/help.md` for the project's help architecture, content schemas, and tone guidelines.
+For a new workflow, add help where users need guidance. Follow `docs/help.md` when present for architecture, schemas, and tone.

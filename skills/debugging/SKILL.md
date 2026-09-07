@@ -45,9 +45,10 @@ the same mental model will fail the same way. Signals the problem is
 structural rather than local: each fix surfaces a new symptom
 somewhere else; the fix keeps needing a wider refactor; you can't
 explain why the previous attempt didn't work. At that point re-derive
-the root cause from scratch or question the design itself, and report
-the situation instead of continuing to patch — re-deriving is part of
-the assignment, not a reason to abandon it.
+the root cause from scratch or question the design itself. Continue
+the investigation within scope; ask the user only if a decision or
+missing input is needed. Re-deriving is part of the assignment, not a
+reason to abandon it or hand debugging to the user.
 
 ## "No root cause" verdicts
 
@@ -58,6 +59,7 @@ investigation. If it genuinely is external: handle it explicitly
 
 ## Exit
 
-The fix ships with a regression test that fails for the documented
-root cause and passes with the fix. If your project has
-`docs/process/bugs.md`, follow its procedure and lifecycle.
+Verify the fix with a regression test that fails for the documented
+root cause and passes with the fix. If automation is impractical,
+record the concrete constraint and run the strongest repeatable substitute.
+If your project has `docs/process/bugs.md`, follow its procedure and lifecycle.

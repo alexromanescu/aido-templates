@@ -1,13 +1,12 @@
 ---
 section: conventions-stack
 stack: node
-version: 2
+version: 3
 target: CLAUDE.md
 order: 20
 ---
-## Stack-specific conventions
+## Shared Stack Conventions
 
-- **No dead code.** Delete commented-out blocks, unused imports, unused types, orphan helpers.
-- **Zod at API boundaries** (user input, external API responses, untrusted data); trust internal calls.
-- **No `any` without a comment.** Prefer `unknown` when the type is genuinely unknown.
-- **kebab-case filenames, named exports, types co-located with their module** (no global `types.ts` dump).
+- Follow the project's established validator, naming, exports, and type organization. Remove code made unused by your change.
+- Validate untrusted data at system boundaries; rely on established internal contracts. Prefer `unknown` to `any` for unknown values, and explain unavoidable type escapes.
+- For new code without established conventions, prefer kebab-case filenames, named exports, and module-local types. Use the existing validation library; introducing one is a project decision, not a consequence of Node detection.

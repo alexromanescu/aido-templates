@@ -22,16 +22,17 @@ Default to **simulation** when the code under test is:
   e2e tests can't reliably control ordering at sub-second resolution
 - A lifecycle hook that interacts with shared state
 
-Reach for **e2e** only for:
+Use **E2E** when the behavior requires a real browser or runtime, for example:
 
 - DOM / browser concerns: focus, contenteditable, drag-and-drop, CSS,
   keyboard chords, accessibility, visual regression
 - Routing and history API
 - Cross-browser smoke tests
-- One "seam test" per major user journey
+- Runtime integration scenarios that lower layers cannot faithfully prove
 
-Put the ordering combinations in the in-process simulation matrix; keep
-E2E to the smallest seam that proves runtime integration.
+Put ordering combinations in the in-process simulation matrix. Use the
+smallest set of E2E scenarios that proves the concrete runtime risks;
+there is no fixed test count per journey.
 
 ## Pattern
 

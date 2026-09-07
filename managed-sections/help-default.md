@@ -1,10 +1,10 @@
 ---
 section: help
 stack: default
-version: 5
+version: 6
 target: CLAUDE.md
 order: 50
 ---
 ## Help System Sync
 
-If the project has an in-app help system (contextual help, empty states, guided tours): **help content is part of every user-facing change, updated in the same commit.** Before declaring such a change complete, run the checklist in `docs/process/help-sync.md`; architecture, content schemas, and tone live in `docs/help.md`.
+If the project has in-app help, update it when changed behavior makes its instructions or explanations inaccurate. Use `docs/process/help-sync.md` for the checklist and `docs/help.md`, when present, for project conventions.

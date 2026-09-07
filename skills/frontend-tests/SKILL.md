@@ -1,101 +1,27 @@
 ---
 name: frontend-tests
-description: Use when adding or modifying a UI component (its changed visible behavior must be exercised through a render boundary in the same change), backfilling render tests for an existing frontend, standing up a render-test harness where there is none, or deciding between a render test, a pure unit test, and an end-to-end test.
+description: Use when choosing or adding tests for interactive UI behavior, setting up a component-render harness, or explicitly backfilling frontend coverage. Use real browser tests for layout and other browser-specific behavior.
 ---
 
-# Frontend render tests
+# Frontend Tests
 
-**If this project has an interactive frontend, every changed visible
-behavior is exercised through the nearest stable render boundary.**
-A render test mounts the real component in an in-process DOM, drives
-it the way a user would, and asserts what the user would see —
-rendering, effects, lifecycle, interaction, and the error / empty /
-loading states. It is the only automated check that exercises a real
-component's render path without a browser. Parent-level coverage
-counts when it directly drives and observes the child's behavior;
-leaf behavior left unexercised doesn't.
+Exercise changed interactive behavior through the nearest stable render boundary. Existing parent-level coverage counts when it directly drives and observes the changed child behavior. Add or extend tests where coverage is missing; do not add tests that only pin cosmetic wording or duplicate existing assertions.
 
-A render test fills the missing middle layer between a pure-logic
-unit test (a framework-free function, no DOM) and an end-to-end test
-(a whole user journey in a real browser). An in-process DOM test runs
-in milliseconds, so it belongs in the fast tier and comprehensive
-coverage stays cheap. If this project has no interactive frontend,
-this skill is inert — there is nothing to render-test.
+## Choose the boundary
 
-## When to reach for one
+- **Render/component tests:** conditional rendering, events, effects, cleanup, focus intent, and accessible state. Mount the real component, drive user actions, and assert observable results. Mock dependencies rather than the component under test.
+- **Unit tests:** framework-independent logic. Test it directly when a render boundary adds no relevant evidence.
+- **Browser tests:** real layout, navigation, browser focus behavior, cross-tab interaction, and journeys requiring actual browser composition. Use the smallest scenario that proves the risk; do not impose a fixed maximum number of E2E tests.
+- **Simulation:** controlled event ordering or state transitions. Use `testing-by-simulation` when that is the source of risk; retain UI coverage if wiring is also changing.
 
-Reach for a **render test** when the subject is one component and the
-risk is in how it renders: effects firing and cleaning up,
-conditional branches (`error` / `empty` / `loading` / populated),
-event handlers, prop-driven output, focus and ARIA state.
+## Harness setup
 
-Reach for something else when:
+Use the project's framework and test runner. A DOM environment and render library should be scoped to component tests through per-file opt-in or a separate runner project. Do not put unrelated pure-logic tests in a heavier environment.
 
-- **The logic is framework-free.** Extract it to a pure function and
-  unit-test it directly. A render test written only to reach buried
-  logic is testing the wrong layer — pull the logic out.
-- **The concern spans a whole journey,** several routes, or real
-  browser behavior (true layout, navigation history, cross-tab) —
-  that is an **end-to-end** test. Keep E2E to one smoke test per
-  major journey; don't spend slow E2E on what a render test covers
-  in-process.
-- **The concern is a state machine or interleaving** — use the
-  `testing-by-simulation` skill.
+Test browser-specific behavior in a browser rather than assuming a simulated DOM proves it. Keep fixtures isolated from live data. Record the project's commands and required gates in its test docs.
 
-## Harness requirements
+## Existing projects
 
-A render-test harness is two parts: an **in-process DOM environment**
-and a **render/interaction library** for the project's UI framework.
-Both are the project's choice — jsdom or happy-dom for the DOM;
-Testing Library (its React / Vue / Svelte / Angular bindings) or the
-framework's own test utilities for render and interaction. Pick what
-fits the stack; the discipline below is framework-agnostic.
+If a harness is needed for the assigned behavior, add the smallest suitable setup and cover that behavior. Broader backfilling requires an assignment that includes it; prioritize complex state, effects, subscriptions, and user-critical paths. Test runtime alone does not authorize expanding coverage to every component.
 
-**Hard constraint — the harness must not slow or re-environment the
-project's existing fast suite.** A DOM environment is heavier than a
-plain Node test, so making it global would tax every pure-logic test.
-Scope it instead:
-
-- Per-file opt-in — an environment pragma / docblock at the top of
-  each render-test file; or
-- A separate test-runner project / config that owns the DOM
-  environment and globs only the render tests.
-
-Either way, pure unit tests keep running in a plain environment at
-their current speed. Which of the two to use is a per-project call
-against the test runner.
-
-## The two-tier run convention
-
-Render tests join the **fast tier** — run on every change alongside
-unit, integration, simulation, and structural tests, all in-process,
-all seconds or less. The **full tier** adds end-to-end tests and runs
-at milestones and before release. A render test that is deliberately
-slow (heavy fixture, large component tree) is the exception: move it
-to the full tier rather than letting it erode the fast tier's budget.
-
-## Keeping up
-
-The project rule — every feature, every fix ships a test — applies
-unchanged to the frontend. A new or changed visible behavior ships
-render coverage through its nearest stable boundary in the same
-commit. A UI bug ships a render test that reproduces the user-visible
-symptom, fails, then passes once fixed. A UI change with no render
-coverage is incomplete, the same as any other untested change.
-
-## Backfilling an existing project
-
-Standing the harness up where there is none: add it scoped as above,
-then backfill render tests for the components that already exist.
-
-- **Comprehensive is the target** — every component — when that
-  coverage stays inside the fast tier's runtime budget. Fast DOM
-  tests are cheap, so it usually does.
-- **Risk-prioritised when it would not.** Cover the components with
-  effects, subscriptions / sockets, timers, or complex state first —
-  that is where render bugs hide — then work down to the simple
-  presentational ones.
-- A render suite genuinely too slow for the fast tier moves to the
-  full tier as a deliberately-slow subset; it is never dropped.
-  Dropping coverage to save time is the one outcome this guidance
-  forbids.
+For a UI bug, demonstrate that its regression test fails for the reported symptom before the fix and passes afterwards. If verification exposes an unrelated coverage gap, record it without turning the current change into a frontend-wide campaign.

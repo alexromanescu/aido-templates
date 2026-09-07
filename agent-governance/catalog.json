@@ -5,7 +5,7 @@
     {
       "id": "root-cause-debugging",
       "name": "Root-cause debugging",
-      "description": "Root-cause-first debugging with explicit hypotheses, boundary instrumentation, and escalation after repeated failed fixes.",
+      "description": "Root-cause-first debugging with explicit hypotheses, boundary instrumentation, and reassessment after repeated failed fixes.",
       "kind": "workflow",
       "realizations": [
         {
@@ -139,7 +139,7 @@
     {
       "id": "test-hardening",
       "name": "Test hardening",
-      "description": "Mechanical red-check and mutation discipline for load-bearing tests.",
+      "description": "Targeted checks for ineffective tests and critical invariants using red-checks, mutation, coverage, or render diagnostics.",
       "kind": "workflow",
       "realizations": [
         {

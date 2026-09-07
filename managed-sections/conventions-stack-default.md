@@ -1,11 +1,11 @@
 ---
 section: conventions-stack
 stack: default
-version: 1
+version: 2
 target: CLAUDE.md
 order: 20
 ---
-## Stack-specific conventions
+## Shared Stack Conventions
 
-- **No dead code.** Delete commented-out blocks, unused imports, orphan helpers.
-- **Validate at boundaries.** Check user input, external API responses, and untrusted data at the edges. Trust internal code.
+- Follow the project's established conventions. Remove code made unused by your change.
+- Validate untrusted data at system boundaries; rely on established internal contracts.

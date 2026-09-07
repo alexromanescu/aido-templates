@@ -20,24 +20,16 @@ there.
 
 | Tier | Runner |
 |------|--------|
-| Unit | <runner> |
-| Integration | <runner> |
-| Simulation | <runner> |
-| Render / component | <runner> |
-| E2E | <runner> |
-| Structural | <runner> |
-| CI gates | <CI> |
+| <tier used by this project> | <runner> |
 
 ```
-<command for all tests>                # full suite
-<command for one package>              # filter to a package
-<command for one file>                 # filter to a file
-<command for E2E>                      # E2E suite
+<command for required checks>
+<command for focused tests>
 ```
 
 Prerequisites: `<test DB created/migrated, docker compose up, etc.>`
 
-CI gates that block merge: typecheck, lint, unit + integration + simulation + structural, E2E smoke, `<project-specific gates>`.
+CI gates that block merge: `<actual project gates; include only configured checks>`.
 
 ## Test isolation
 

@@ -1,13 +1,13 @@
 ---
 name: program-prep
-description: Use when an owner hands over a roadmap, a task list, or a large feature/program and wants it prepared for slice-by-slice execution across independent sessions (different agents, no shared memory) — before any spec, plan, or code is written. Also use when asked to "set up active-work", "slice this up", or "prepare this so sessions/a teamlead can run it". Not for a single small task (just do it) or an already-mid-flight focus (advance it, don't re-prep).
+description: Use when asked to prepare a roadmap or large program for execution across independent sessions, "set up active-work", or "slice this up". Not for a small task or continuing an already prepared focus.
 ---
 
 # Program Prep
 
 ## Overview
 
-Turn scope into a sliced program carried entirely by repo files, so any future session — human-launched or launched by an orchestrator/teamlead — executes the next slice with high autonomy and consistent architecture. **The contract is files, not chat**; if a session dies, the only loss is its unmerged tail.
+Prepare bounded assignments and durable references so independent sessions can continue without reconstructing decisions from chat. Reuse existing project documents; create only what the program needs.
 
 ## The artifact contract (one job per file — never duplicate across them)
 
@@ -28,14 +28,14 @@ One brief per slice, **constraint-level, not design-level**:
 - **Pitfalls + YAGNI line** — what tempts overbuild; where the slice stops.
 - **Done when** — observable exit criteria incl. the test layers.
 
-**The JIT rule:** briefs are written up-front because constraints are stable; **specs and plans are NOT pre-written** — each slice session writes its own against the *current* code, because every slice reshapes the ground the next one specs against. State this rule inside the program doc so slice sessions see it.
+Write briefs against known constraints. Leave implementation planning to the executing session against current code, and require a separate spec or plan only when complexity or unresolved decisions warrant it. Do not prescribe a brainstorm/spec/plan sequence for every slice.
 
 **The ground-truth rule:** never pre-decide implementation choices (libraries, data-model mechanics, thresholds) the slice session can only validate against real code. Pin the invariant; leave the mechanism to the slice. If prep is tempted to write "the first session must confirm this guess" — delete the guess, write the constraint.
 
 ## Structure the sequence
 
-- Dependency-ordered; foundational/design-language slices first (later surfaces built once, in the final language); the riskiest cross-cutting slice **last** and checkpointed.
-- Every sequence item is one executable slice with a size marker — no opaque "Phase N (5 tasks)" lines. Size a slice to one session: as much as a single session can spec, build, verify, and merge — batch steps that share context (same subsystem/files); split where shared context stops paying for itself or the diff outgrows one review.
+- Order by dependencies and uncertainty. Resolve consequential unknowns early enough to inform dependent work; do not automatically leave the riskiest slice until last.
+- Every sequence item is one executable slice with a size marker. Group related work a session can implement, verify, and finish; split when shared context no longer helps or the change outgrows one review.
 - Owner touchpoints: only direction picks, scope changes, irreversibles. List them explicitly; everything else is decided and logged.
 
 **Say what each slice needs — in prose, never as a tag.** Where the project runs
@@ -69,7 +69,7 @@ Where the project executes its programs through aido, the cursor is **parsed as 
 
 Anything past this minimum — the tolerant parse rules, how slice titles are read, the checkpoint outcome forms — is aido's contract, written up in its `docs/programs.md`. Go there for the detail, and **if that page and this section ever disagree, that page wins.**
 
-Worked example — the same text aido launches through its own Program gate:
+Worked example — the machine markers illustrate the aido launch contract; project choices and prose are examples, not additional global rules:
 
 ```md
 <!-- managed:active-work -->
@@ -88,8 +88,8 @@ run, and downloads the result. Program doc (briefs + decision log):
 ## Guardrails
 - Owner touchpoints: the archive format (slice 2) and the retention default
   (slice 4). Everything else is decided in-slice and appended to the decision log.
-- Quality bar per slice: red-first regression test, fresh-eyes review before
-  merge, docs synced, roadmap row ticked.
+- Quality bar: the project's relevant checks and review gates, documentation
+  kept accurate, and roadmap rows closed with the work.
 - Worktree per slice; checkpoint = commit locally; never push.
 
 ## Sequence
@@ -101,44 +101,35 @@ run, and downloads the result. Program doc (briefs + decision log):
 
 Blockers for specialist: none
 
-## Cross-cutting bar
-Zod at every new boundary; no `any` without a comment; a render test for every
-visible UI change; no secret ever written to an export artifact.
+## Export constraints
+No secret is written to an export artifact. Use the project's established
+validation and UI testing conventions.
 
 ## Run it
 `npm run dev` · `npm test` · focused: `npm test -- export`
 
 ## Resume prompt
-Re-establish ground truth (`pwd`, branch, `git status`, worktree) → read your
-slice's brief in the program doc first → brainstorm → spec → plan (independent
-tasks, each with a test scenario + verification command) → execute red-first →
-verify → fresh-eyes review → merge → tick the roadmap row, rewrite this cursor
-(strike the slice, flag the next), append to the decision log.
+Read the assigned brief and inspect current code. Complete and verify the slice
+under the project's review and merge rules. Record its result and next action;
+follow the program runtime's ownership rules for cursor changes.
 
 ## Key references
 `docs/programs/2026-09-01-export-pipeline.md` (briefs + decision log) ·
 `docs/architecture.md` · the export subsystem map.
 ```
 
-## Review layers (encode conditionally, by what's available)
+## Review and completion
 
-1. **In-slice adversarial/whole-branch review** — always; the slice session's own gate before merge.
-2. **Scheduled specialist acceptance reviews** — when a specialist is available, prepare one completion review against the briefs.
-   Run the completion review once.
-   Batch all fix-tasks it files into one follow-up work item.
-   Run a second completion review only when that follow-up changed production code.
-   Milestone reviews remain optional and are dispatched only when you time them.
-   Schedule an optional milestone review only for a program-specific reason, with its timing left to the teamlead. These reviews are not the project's ordinary checkpoint/commit rule. If no specialist is available, say so in guardrails and lean on layer 1 plus owner spot-checks. Add a **"Blockers for <specialist>"** line to the focus either way: a design-level surprise mid-slice is logged and routed around, never improvised.
-3. **Teamlead/orchestrator supervision** (if one runs the sessions) — process only: flow followed, docs updated, budget; never code or direction.
+Use the project's review gate for each slice; do not add another review layer automatically. For aido Program execution, preserve the required completion checkpoint described above and follow the runtime's specialist dispatch and outcome contract. Additional milestone checks need a program-specific reason.
 
-Specialist reviews append findings to the decision log and refresh remaining briefs against what actually shipped.
+Include the verification needed to establish that the whole program meets its briefs. The agent performs acceptance checks; do not make the user the tester. Record findings in the decision log and complete required fixes before declaring the program complete. Where review capabilities are unavailable, record the limitation and use the strongest available verification consistent with the project's required gates.
 
 ## Process
 
-1. Ground truth: read the project's cursor/roadmap/process docs; survey what exists (delegate a codebase inventory if large).
+1. Read the current cursor, roadmap, and relevant project docs; inspect the existing implementation.
 2. Decompose into slices; get the owner's touchpoint decisions (direction/scope) — nothing else.
 3. Write the artifacts per the contract above; commit.
-4. End state: the cursor's resume prompt says exactly: *read your slice's brief first, then brainstorm → spec → plan (independent tasks, each with test scenario + verification command) → execute → verify → tick roadmap, rewrite cursor, append decisions to the log.*
+4. Leave a concrete next action and the references needed to execute it. The next session should complete the assigned slice, not restart program preparation.
 
 ## Common mistakes
 
@@ -150,5 +141,5 @@ Specialist reviews append findings to the decision log and refresh remaining bri
 | No decision log | Owner delegation only works if decisions are findable; append-only log in the program doc |
 | Cursor duplicates program-doc content | One job per file; the cursor cites, never copies |
 | Phase-level opaque sequence lines | One line per executable slice, sized |
-| No review structure | Encode the three layers, conditionally on availability |
+| No completion evidence | Define acceptance checks and required project/runtime review gates |
 | Unannotated sequence | aido refuses to launch it; annotate every item, keep identities valid and known, and declare at least one completion gate |

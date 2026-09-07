@@ -1,19 +1,17 @@
 ---
 section: process-git-workflow
 stack: default
-version: 2
+version: 3
 target: docs/process/git-workflow.md
 order: 10
 ---
 # Git Workflow
 
-Read this before branching, committing, merging, pushing, or cleaning up.
-
-1. **Establish ground truth.** `pwd`, current branch, `git status`, and `git rev-parse --git-dir` vs `--git-common-dir`. Equal ⇒ the main checkout — create a worktree before committing dev work; unequal ⇒ already isolated — stay there, don't nest. Trust this over the cwd label: a worktree-style path can exist before the worktree does.
-2. **Choose isolation.** Non-trivial development happens on a worktree — a standing owner instruction that holds even when a harness or launcher configured the session to work in place. Exceptions: quick low-risk fixes, and launchers that explicitly own isolation (aido sessions already run in aido-owned worktrees).
-3. **Protect existing work.** Pre-existing modifications and untracked files are user-owned: never reset, overwrite, stage, or clean them unless the user names them as disposable.
-4. **Create safely.** Derive branch names, worktree paths, scratch paths, and ports from your own task/session identity — never a shared literal like `/tmp/w.bak`; parallel agents on one fixed path overwrite each other's files.
-5. **Checkpoint = commit locally and continue.** Standing authorization — never stop to ask whether to commit. Commit only coherent, verified work; don't mix unrelated user changes in.
-6. **Finish locally.** After verification and any required review, merge back to the default branch and confirm the resulting status and graph.
-7. **Push only when the owner's current message asks for it.** A green gate is a precondition, never a reason. Where the project declares a shipping command, use it — never a raw push that would bypass deployment.
-8. **Clean up what you created, once merged** — your worktree, scratch branch, temp/backup files, generated fixtures, background servers and the ports they held — then verify the removal: your worktree is gone from `git worktree list`, your branch deleted, your paths actually gone, your processes stopped. Verify only what you own: other worktrees, branches, and pre-existing user changes are not yours to touch or to count as failures. `rm` nothing outside the paths you created; skip only teardowns a launcher explicitly owns (aido removes a finished session's worktree itself).
+1. **Check the working context.** Inspect the working directory, branch, status, and Git worktree metadata. Stay in an existing isolated worktree; do not create a nested one.
+2. **Isolate substantial work.** Use a worktree except for quick low-risk fixes or isolation already owned by the launcher. A configured working directory alone does not establish isolation.
+3. **Protect existing work.** Never reset, overwrite, stage, or clean pre-existing modifications or untracked files without explicit authorization. Commit only assignment-owned changes.
+4. **Create safely.** Derive branch names, worktree paths, scratch paths, and ports from your own task/session identity, never a shared literal. Track what you create so cleanup cannot affect another session.
+5. **Checkpoint locally.** A checkpoint is an authorized local commit followed by continued work. Commit coherent changes after relevant verification passes.
+6. **Finish locally.** After verification and required review, merge to the default branch unless the assignment or launcher owns a different merge process. Confirm the resulting status and graph; verify integration changes such as conflict resolutions.
+7. **Push only on an owner request.** The request remains valid for its agreed scope across follow-up turns. Passing checks does not authorize a push. Use the project's declared shipping command when one exists.
+8. **Clean up after merging.** Remove only the worktree, scratch branch, temporary files, fixtures, and processes you created, then verify their removal. Respect launcher-owned teardown. Keep a preview server needed for the user's review available until that review is finished; record its ownership and cleanup command in the project's handoff record if it must outlive the session.

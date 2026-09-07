@@ -1,6 +1,6 @@
 # Proxy patterns — what to hunt and how
 
-Target-selection calibration, worked examples per target, and the pattern catalog for steps 2–3 of the single-cycle workflow in [../SKILL.md](../SKILL.md).
+Patterns and examples for the review procedure in [../SKILL.md](../SKILL.md).
 
 ## Proxies to identify
 
@@ -14,7 +14,7 @@ Target-selection calibration, worked examples per target, and the pattern catalo
 ## The shape one level shallower
 
 - **Shape-mirroring**: if PARAMS were fixed, look for RETURN TYPES. If `*` attached to keyword was fixed, look for `*` attached to name. If one entry-point got a filter, look for peer entry-points without it.
-- **Universal-claim mirror**: every "all callers" claim has a peer the writer forgot. Grep for the construct and count.
+- **Universal-claim mirror**: an "all callers" claim may miss a peer entry point. Search for the construct and inspect the results.
 - **Deferred-fact-check**: every "no current sites" claim must be re-grepped. The grep is the audit trail.
 - **Visibility/scope**: a fix at the function level might miss the cross-module level. A fix in one package might miss the others.
 - **Defensive observability**: every refactor that removes a throw/assert must explicitly justify it.
@@ -28,13 +28,13 @@ Different projects have different invariant surfaces. On first use in a new proj
 - The allow-list / classification tables
 - The recent commit history for the phase/area in scope
 
-If none of these exist yet, the cycle is BOOTSTRAPPING — first session establishes the proxies, subsequent sessions audit them.
+If these do not exist, inspect the in-scope implementation for relevant invariants. Do not create new audit infrastructure merely to have something to review.
 
 ## Worked examples by target
 
-- **`residuals-review` with no explicit target** (after a commit lands) — review `HEAD`; cycle until clean when fixes land, per the workflow.
+- **`residuals-review` with no explicit target** (after a commit lands) — review `HEAD` if that is the active change; follow the skill's completion rule after authorized fixes.
 - **`audit PR #42`** — use the available GitHub integration (or authenticated `gh` fallback) to read claims and the cumulative diff; treat the PR description as the closeout claim. Apply findings only when the task authorizes branch changes.
-- **`audit this branch before I merge`** — `git diff <base>...HEAD`; the divergence's claims live in the branch's commit messages. Findings get committed to the branch when authorized; cycle until one clean pass, then the user merges.
+- **`audit this branch before I merge`** — `git diff <base>...HEAD`; the divergence's claims live in the branch's commit messages. Apply findings only when authorized; follow the assignment's merge ownership.
 - **`audit my uncommitted work`** — `git diff` (staged + unstaged); the user's *intended* commit message is the closeout claim. Apply findings to the working tree only when changes are authorized.
-- **`audit modules/auth for invariant decay`** — bootstrap mode: read the module's structural tests and reflections; when changes are authorized and none exist, the first cycle can establish them. Subsequent cycles audit them. Long-running, can span many sessions.
-- **`audit the codebase`** — broadest sweep: walk all `*.exhaustiveness.test.ts` (or equivalent) and audit each one's allow-list for honest classifications. Multi-cycle, multi-session — an explicit-loop engagement.
+- **`audit modules/auth for invariant decay`** — inspect the module's implementation and relevant existing checks in one bounded pass. Missing tests alone do not authorize new infrastructure.
+- **`audit the codebase`** — inspect relevant structural checks and classifications across the requested codebase. This is a bounded audit; continued loops require an explicit request.
