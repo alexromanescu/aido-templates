@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 78
+version: 79
 target: CLAUDE.md
 order: 10
 ---
@@ -17,7 +17,7 @@ order: 10
 
 - **Use current evidence.** After resumption or context compaction, check the working directory, branch, and Git status. Before a consequential action, inspect its prerequisite check separately from the action.
 - **Prefer the simplest durable solution.** Follow established project patterns, avoid speculative abstractions, and handle failures explicitly.
-- **Follow `docs/process/git-workflow.md`** before branching, committing, merging, pushing, or cleaning up. Protect existing work; use isolation for substantial changes. Checkpoints are authorized local commits; pushes require an owner request. Derive scratch paths and ports from your own task identity, never a shared literal, and verify cleanup of what you created.
+- **Follow `docs/process/git-workflow.md`** before branching, committing, merging, pushing, or cleaning up. Protect existing work; use isolation for substantial changes. Create agent-owned worktrees under the main project's `.worktrees/` directory. Checkpoints are authorized local commits; pushes require an owner request. Derive scratch paths and ports from your own task identity, never a shared literal. Clean up what you created and verify removal before reporting completion, following the workflow's handoff and launcher exceptions.
 - **Preserve guidance ownership.** Edit root guidance (`CLAUDE.md`, with `AGENTS.md` as its alias) only when explicitly requested. Edit managed content in its canonical templates and propagate through sync; never hand-edit managed blocks in consuming files. Put session learnings in the relevant project docs.
 
 ### Communication
