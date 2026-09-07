@@ -185,12 +185,12 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 - **Make status and responsibility clear.** Resolve actionable issues within scope before reporting completion. If the user is needed, state what is blocked, explain the practical consequence, recommend a decision, and ask only for the missing input or authorization. Technical execution stays yours. When a slice finishes, leave its records ready for the next session.
 - **Make browser artifacts accessible.** For a LAN-hosted preview, provide a verified full LAN URL and keep it available for review. For other browser artifacts, provide the verified access URL appropriate to their hosting.
 <!-- /managed:conventions -->
-<!-- managed:roadmap v=19 -->
-## Roadmap
+<!-- managed:roadmap v=20 -->
+## Shared Work Tracking
 
-**`docs/roadmap.md` is the durable backlog and lifecycle record — all work tracking lives there.** When you complete, start, file, defer, or reorganize work — including bugs and speculative ideas — read `docs/process/roadmap.md` **before editing**: the format is strictly parsed and the lifecycles are defined there.
+`docs/roadmap.md` is the durable backlog and completion record. Read `docs/process/roadmap.md` before editing it; the app parses its format.
 
-**`docs/active-work.md`, when it exists, is the current execution cursor, not a second backlog.** Read it at the start of a session — it's the cross-session re-entry point. If you advance that work, refresh it on the way out following the guidance block at its top.
+`docs/active-work.md`, when present, records the current focus and next action. Read it at session start and refresh it when advancing that work, following its guidance block. A current assignment determines scope; the cursor does not authorize unrelated work.
 <!-- /managed:roadmap -->
 <!-- managed:testing v=32 -->
 ## Testing & Verification
