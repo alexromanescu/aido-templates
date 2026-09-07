@@ -1,70 +1,51 @@
-<!-- managed:process-doc-sync v=4 -->
+<!-- managed:process-doc-sync v=6 -->
 # Documentation-Sync Process
 
-**When you change code that a document describes, update the document in the same commit.** This file defines which documents exist, when each must be updated, and the conventions that keep them honest.
+Before committing, keep affected documentation accurate and complete for the behavior it covers. Document new capabilities, changed requirements, and limitations even when no existing sentence becomes false. An internal refactor needs no prose edit if the documented behavior, structure, and operating instructions remain unchanged.
 
-## Standard documents
+## Find affected docs
 
-aido-managed projects maintain a conventional set of docs under `docs/`. Update any that exist and that your change affects:
+| File | Check for changes or omissions in... |
+|---|---|
+| `docs/architecture.md` | System structure, boundaries, or data flow |
+| `docs/frontend.md` | UI structure, routing, or shared patterns |
+| `docs/api-reference.md` | API contracts, data shapes, auth, or errors |
+| `docs/tests.md` | Test commands, required gates, isolation, or strategy |
+| `docs/seeding.md` | Seed commands or required data scenarios |
+| `docs/help.md` | Help content conventions or infrastructure |
+| `docs/devops.md` | Development setup, infrastructure, or operations |
+| `docs/deploy.md` | Deployment procedure or checks |
+| `docs/roadmap.md` | Work status; follow `docs/process/roadmap.md` |
 
-| File | Covers | Update when... |
-|------|--------|----------------|
-| `docs/architecture.md` | System structure, modules, data flow, adapters | Architectural or structural changes, new modules |
-| `docs/frontend.md` | Components, routing, layouts, UI patterns, styling tokens | Any frontend structural change |
-| `docs/api-reference.md` | Backend API, procedures, data shapes, auth, error codes | Any API, entity field, or auth change |
-| `docs/tests.md` | Test policy, runners, isolation, conventions; entry point routing to deeper test docs where present | Tests added/removed/changed, testing strategy changes |
-| `docs/seeding.md` | Seed script, data scenarios, reset procedure | New entities, tables, or relationships |
-| `docs/help.md` | Help system content and architecture | Help content or help infrastructure changes |
-| `docs/devops.md` | Dev setup, topology, infrastructure, ops commands (human reference) | Setup changes, new ops commands, infra changes |
-| `docs/deploy.md` | Agent-executable deploy procedure, read by the agent that deploys the app to a pre-agreed pre-production area | Deploy steps change, new pre/post-deploy checks |
-| `docs/roadmap.md` | What's built, what's planned, active phases | Any feature completed, started, or reorganized (see `docs/process/roadmap.md`) |
+Use relevant existing project docs and subsystem entry points. Create a document only when the change needs durable instructions and no existing doc is a suitable home; a missing file in this table alone is not a reason to create it.
 
-Missing files are skipped. Projects may add their own docs (e.g. `security.md`, `meta/reflections.md`, `product/prd.md`) and should list them in the non-managed area of `CLAUDE.md` (outside any `<!-- managed:* -->` block).
+## Generated inventories
 
-## Generated inventory sections
-
-An **inventory section** is a sentinel-delimited, generator-owned region inside an otherwise hand-written doc:
+Generator-owned regions use these sentinels:
 
 ```
 <!-- generated:NAME -->
-...generator output — never edit by hand...
+...generator output...
 <!-- /generated:NAME -->
 ```
 
-Three pieces make it trustworthy:
+Regenerate affected regions with the documented command rather than editing them by hand. Include a committed parity check in the project's required verification so drift fails the check and reports the regeneration command. Merely printing a warning does not satisfy this requirement.
 
-1. A `gen:<name>` package script that regenerates the region from the code itself.
-2. A committed **parity test** that regenerates and diffs — the build fails on drift with the message "run `gen:<name>`".
-3. The exemption: generated regions need **no manual sync** — when the parity test fails, run the printed command; never hand-edit inside the sentinels.
+Use generated inventories when a repeated list can be derived reliably from code and manual maintenance is causing drift. A `gen:<name>` package script is the Node convention; other stacks use their own command system. Do not build a generator solely because a project reaches an arbitrary module count.
 
-Hand-maintained inventories decay at scale; recommended for: API/procedure inventories, test inventories, module indexes. Reference shape: a `gen:<name>` package script plus a `<name>-parity.test` guard.
+## Current subsystem knowledge
 
-## Optional: generated modules index
+For sustained subsystem work, use its existing entry-point doc to explain supported behavior, boundaries, important interactions, and code locations. Keep current facts there and decisions/history in the program log or roadmap. Create a dedicated map only when existing docs cannot provide a clear entry point.
 
-For modular backends (roughly >15 modules), a generated `docs/modules-index.md` gives agents a deterministic per-module entry point (doc anchors, procedure count, test globs); build it as a generated inventory per the standard above. Adopt when module count makes hand navigation unreliable.
+## Routes and organization
 
-## Subsystem maps
+Keep project-specific activity routes in an existing documentation index or, when root-guidance edits are explicitly authorized, its project-owned routing table. Shared managed sections already route common activities; do not repeat them.
 
-A subsystem under sustained work — a program, a bug campaign, or one that repeatedly confuses sessions — maintains a **map**: the big-picture doc that situates a fresh session at a glance. Structurally it is just the subsystem's entry-point doc (see Subdirectories below), held to a specific bar:
+For example:
 
-- **Contents:** what the subsystem supports, its boundaries, what happens at each seam on each operation, and where the pieces live.
-- **Current state, not history.** Decision logs and bug rows record deltas; the map holds what is true now. Plan files, briefs, and bug rows point to the map and never restate it. Session warnings that recur distill into the map — or into a gate test — instead of accumulating in the active-work focus.
-- **A standard doc:** update it in the same commit as the code it describes; build parts derivable from code as generated inventory sections (standard above) so they cannot rot.
-- **First read:** the routing table's row for the subsystem names the map as the read-first entry for any session working there.
-
-## Routing table ("When to read what")
-
-Projects are encouraged to keep a ~15-line routing table in the **project-owned** area of `CLAUDE.md`: one row per activity → which doc/skill to load **before starting** → what to update on the way out. aido standardizes the existence and shape, not the contents. Example shape:
-
-```
 | When you... | Read first | Update when done |
 |---|---|---|
-| Fix a bug | docs/process/bugs.md | tests/bugs/, roadmap Bugs row |
-| Change an API procedure | docs/api-reference.md | run gen:api-reference |
-| Touch the seed or schema | docs/seeding.md | seed script + docs/seeding.md |
-```
+| Change export formats | `docs/exports.md` | Export contract and supported formats |
 
-## Subdirectories
-
-When a topic has multiple deep-dive docs beyond its entry point, group them under `docs/<topic>/`, entry point at top level (e.g. `docs/operations.md` + `docs/operations/<runbook>.md`). The directory may take the topic's natural name rather than the entry file's basename — e.g. `docs/tests.md` routes to `docs/testing/`. Process docs live under `docs/process/`. Entry-point docs stay concise routers; large detailed or generated material lives in the subdirectory, linked from the entry point.
+Keep entry-point docs concise. Group detailed material under a topic directory, such as `docs/testing/` linked from `docs/tests.md`. Process docs live under `docs/process/`.
 <!-- /managed:process-doc-sync -->
