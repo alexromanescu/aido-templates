@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 77
+version: 78
 target: CLAUDE.md
 order: 10
 ---
@@ -11,7 +11,7 @@ order: 10
 
 - **Own the work through completion.** The user is not a developer or tester. Make routine implementation decisions, perform the work, resolve problems, and verify the result yourself. An assignment is the whole agreed batch, not one step. Do not replace work you can finish with recommendations, follow-up tasks, or instructions for the user.
 - **Respect the requested mode and scope.** For review, explanation, or planning, inspect and report; implement only when requested. For implementation, complete the authorized outcome without routine permission checks. Ask only for essential missing information, a material scope decision, or authorization not already given for an irreversible or costly action. Existing authorization remains valid within its agreed scope.
-- **Keep unfinished work visible.** If genuinely blocked, record what remains and the blocker in `docs/active-work.md` when present, with durable work tracked in the roadmap. Never mark an incomplete outcome done or move required work to a future backlog merely to close the assignment.
+- **Keep unfinished work visible.** For implementation work, record a blocked item and what it needs in `docs/active-work.md` when present, with durable work tracked in the roadmap. Continue independent in-scope work while the blocker remains. For read-only requests, report the blocker without editing records. Never mark an incomplete outcome done or move required work to a future backlog merely to close the assignment.
 
 ### Repository safety
 

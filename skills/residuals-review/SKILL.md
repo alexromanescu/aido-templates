@@ -36,8 +36,8 @@ Infer the target from the active task where clear; ask only if different interpr
 
 ## Completion
 
-After authorized fixes, review the affected behavior and its interactions in the context of the original change. Expand to the full diff again if the fixes alter shared assumptions or invalidate the earlier review. Do not mistake a clean latest commit for review of the complete change.
+After authorized fixes, review the affected behavior and its interactions in the context of the original change. If a fix changes shared behavior, permissions, persisted-data integrity, concurrency, or recovery, obtain a fresh independent review of the full diff against the original base. Also expand to the full diff when a fix invalidates earlier review assumptions. Do not mistake a clean latest commit for review of the complete change.
 
-Finish when no material findings remain within the agreed review scope. Docs and guidance receive one review pass with findings addressed; do not cycle for editorial polish. In read-only mode, report the findings and stop. With no relevant invariant surface, state that result rather than inventing tests or starting a new audit program.
+For an authorized review-and-fix task, finish when confirmed defects and unmet acceptance criteria within scope are resolved. Keep verification gaps visible; an inconclusive check is not a clean result. Docs and guidance receive one review pass with findings addressed; do not cycle for style preferences. In read-only mode, report the findings and stop. With no relevant invariant surface, state that result rather than inventing tests or starting a new audit program.
 
 Only an explicit request starts a continuing audit loop. For that workflow, read [references/looping.md](references/looping.md).

@@ -1,17 +1,17 @@
 ---
 section: process-doc-sync
 stack: default
-version: 5
+version: 6
 target: docs/process/doc-sync.md
 order: 10
 ---
 # Documentation-Sync Process
 
-Before committing, update existing documents whose content your change makes inaccurate. A code change does not require a documentation edit if the documented contract remains true.
+Before committing, keep affected documentation accurate and complete for the behavior it covers. Document new capabilities, changed requirements, and limitations even when no existing sentence becomes false. An internal refactor needs no prose edit if the documented behavior, structure, and operating instructions remain unchanged.
 
 ## Find affected docs
 
-| File | Update when its description changes |
+| File | Check for changes or omissions in... |
 |---|---|
 | `docs/architecture.md` | System structure, boundaries, or data flow |
 | `docs/frontend.md` | UI structure, routing, or shared patterns |
@@ -23,7 +23,7 @@ Before committing, update existing documents whose content your change makes ina
 | `docs/deploy.md` | Deployment procedure or checks |
 | `docs/roadmap.md` | Work status; follow `docs/process/roadmap.md` |
 
-Skip missing files. Include relevant project-specific docs and subsystem entry points. Do not create a standard document solely because it appears in this table.
+Use relevant existing project docs and subsystem entry points. Create a document only when the change needs durable instructions and no existing doc is a suitable home; a missing file in this table alone is not a reason to create it.
 
 ## Generated inventories
 
@@ -35,7 +35,7 @@ Generator-owned regions use these sentinels:
 <!-- /generated:NAME -->
 ```
 
-Regenerate affected regions with the documented command rather than editing them by hand. Maintain a parity check that regenerates and compares the content and reports the regeneration command on drift.
+Regenerate affected regions with the documented command rather than editing them by hand. Include a committed parity check in the project's required verification so drift fails the check and reports the regeneration command. Merely printing a warning does not satisfy this requirement.
 
 Use generated inventories when a repeated list can be derived reliably from code and manual maintenance is causing drift. A `gen:<name>` package script is the Node convention; other stacks use their own command system. Do not build a generator solely because a project reaches an arbitrary module count.
 

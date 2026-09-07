@@ -1,11 +1,13 @@
 ---
 name: test-hardening
-description: Use when tests may pass without exercising the intended behavior, when validating critical invariants, or when asked to harden a test suite. Not a prerequisite for every passing test run.
+description: Use when tests may pass without exercising the intended behavior; when validating safeguards for permissions, persisted-data integrity, concurrency, recovery, or other critical invariants; or when asked to harden a test suite. Not a prerequisite for every passing test run.
 ---
 
 # Test Hardening
 
 Choose a targeted technique for the suspected gap. These are alternatives or complements, not a mandatory checklist for every change.
+
+For behavior changes involving permissions, persisted-data integrity, concurrency, or recovery, identify the affected safeguards and their failure scenarios before choosing checks. Examples include denied access, partial writes, overlapping updates, and interrupted work followed by recovery. Exercise the scenarios relevant to the change, using existing coverage where it proves them. Keep this evidence in the test or project record; a small diff does not make these risks routine.
 
 ## Demonstrate a useful failure
 
