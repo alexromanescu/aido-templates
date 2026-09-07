@@ -1,7 +1,7 @@
 # aido-templates — Roadmap
 
 <!-- roadmap-meta
-updated: 2026-09-07
+updated: 2026-09-08
 -->
 
 **Format reference:** this file is parsed by the aido app — the exact phase-heading shape, task-table columns, statuses, and section lifecycles are defined in [docs/process/roadmap.md](process/roadmap.md). Read it before editing this file by hand; the aido `/project/:name/roadmap` page follows it for you.
@@ -20,6 +20,7 @@ updated: 2026-09-07
 ### Features
 | Task | Area | Size | Status | Description | Done |
 |------|------|------|--------|-------------|------|
+| Guidance drift prevention rules | Templates | S | done | process-doc-sync v7 keeps root guidance focused on durable facts, rules, and links and checks companion instructions in the existing documentation pass while preserving explicit constraints. Automated managed-block, guidance-link, and alias checks recorded as a planned aido roadmap task. Verified section metadata, repository checks, roadmap format, and one independent wording review. | 2026-09-08 |
 | Consistent worktree placement and verified cleanup | Templates | S | done | New agent-owned worktrees stay under the main project's ignored .worktrees directory; no sibling or arbitrary temporary worktree folders. Completion requires verified directory, registration, branch, and temporary-resource cleanup, with explicit handoff for retained work and launcher ownership preserved. Confirmed aido's existing placement matches; section metadata, repository checks, and one independent wording review passed. | 2026-09-07 |
 | Guidance safeguards and clarity follow-up | Templates | S | done | Preserved owner constraints and Program handoff structure; made documentation completeness, generated parity failures, critical test scenarios, review scope, and completion evidence explicit. Clarified read-only handling and agent ownership of blocked work. Verified repository checks, skill formats, section versions and links, actual aido Program preflight and focus clearing, and one independent semantic review. No prompts, rooms, installed skills, or consuming managed blocks changed. | 2026-09-07 |
 | Shared guidance simplification | Templates | M | done | Outcome-level reporting, agent-owned completion, proportionate testing and review, and consistent supporting skills; root guidance reduced from 1,537 to 887 words. Prompts and rooms unchanged. Verified repository checks, source formats, catalog/schema compatibility, real program preflight, and one independent review; no wording-pinning tests added because they would not verify agent behavior. | 2026-09-07 |

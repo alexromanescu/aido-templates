@@ -1,7 +1,7 @@
 ---
 section: process-doc-sync
 stack: default
-version: 6
+version: 7
 target: docs/process/doc-sync.md
 order: 10
 ---
@@ -25,6 +25,8 @@ Before committing, keep affected documentation accurate and complete for the beh
 
 Use relevant existing project docs and subsystem entry points. Create a document only when the change needs durable instructions and no existing doc is a suitable home; a missing file in this table alone is not a reason to create it.
 
+When changing an instruction, check related guidance for conflicting or repeated directions in the same documentation pass. Preserve explicitly agreed project and program constraints.
+
 ## Generated inventories
 
 Generator-owned regions use these sentinels:
@@ -44,6 +46,8 @@ Use generated inventories when a repeated list can be derived reliably from code
 For sustained subsystem work, use its existing entry-point doc to explain supported behavior, boundaries, important interactions, and code locations. Keep current facts there and decisions/history in the program log or roadmap. Create a dedicated map only when existing docs cannot provide a clear entry point.
 
 ## Routes and organization
+
+Keep root guidance focused on durable project facts, rules, and links. Put detailed procedures, inventories, and dated evidence in the appropriate reference documents.
 
 Keep project-specific activity routes in an existing documentation index or, when root-guidance edits are explicitly authorized, its project-owned routing table. Shared managed sections already route common activities; do not repeat them.
 
