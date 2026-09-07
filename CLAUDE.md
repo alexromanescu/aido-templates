@@ -163,7 +163,7 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 - Keep prose compact and scannable, in complete sentences; state each rule once, at its narrowest useful scope. Managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 - **Portability boundary.** Shared content defines project facts, authorization, invariants, required evidence, success criteria, and output expectations. It never prescribes model names, effort settings, provider-native tools/channels, permission mechanics, or subagent orchestration — those live in harness configuration. Add a provider overlay only if fresh sessions in both harnesses show a repeatable contradiction that simpler shared wording cannot resolve — and then duplicate the smallest mechanism, never the policy corpus.
 
-<!-- managed:conventions v=78 -->
+<!-- managed:conventions v=79 -->
 ## General Conventions
 
 ### Ownership & scope
@@ -176,7 +176,7 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 
 - **Use current evidence.** After resumption or context compaction, check the working directory, branch, and Git status. Before a consequential action, inspect its prerequisite check separately from the action.
 - **Prefer the simplest durable solution.** Follow established project patterns, avoid speculative abstractions, and handle failures explicitly.
-- **Follow `docs/process/git-workflow.md`** before branching, committing, merging, pushing, or cleaning up. Protect existing work; use isolation for substantial changes. Checkpoints are authorized local commits; pushes require an owner request. Derive scratch paths and ports from your own task identity, never a shared literal, and verify cleanup of what you created.
+- **Follow `docs/process/git-workflow.md`** before branching, committing, merging, pushing, or cleaning up. Protect existing work; use isolation for substantial changes. Create agent-owned worktrees under the main project's `.worktrees/` directory. Checkpoints are authorized local commits; pushes require an owner request. Derive scratch paths and ports from your own task identity, never a shared literal. Clean up what you created and verify removal before reporting completion, following the workflow's handoff and launcher exceptions.
 - **Preserve guidance ownership.** Edit root guidance (`CLAUDE.md`, with `AGENTS.md` as its alias) only when explicitly requested. Edit managed content in its canonical templates and propagate through sync; never hand-edit managed blocks in consuming files. Put session learnings in the relevant project docs.
 
 ### Communication
