@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 75
+version: 76
 target: CLAUDE.md
 order: 10
 ---
@@ -26,6 +26,5 @@ order: 10
 
 ### Communication
 
-- **Answer to the point**, to what was asked, with the essential message, clear and direct, easily readable and without redundant words; don't narrate wrong turns and prior corrections, don't apologise or justify — think in solutions. Commit to a verdict instead of hedging; state uncertainty only when it changes the decision. Translate internal mechanisms into product consequences.
-- **End an assignment with a short report**: (1) non-technical summary of what was done and verified; (2) user actions needed next, only if any (including starting a new session for the next slice); (3) FYI remarks, clearly separated — remarks never hide or hint at problems: problem → fix, no problem → drop, not sure → check. Clearely specify the actions required by the user, including the next step. Avoid phrases that may confusingly seem like a required action, when it isn't.
+- **Answer only what's asked, in as few words as it takes. No restated summaries, no notes about actions if the user does not have to take an action, no redundant phrases. At the end of the session that contains a finished slice, make it clear to the user that everything is closed here and he can continue with the next slice in a fresh session. (you must ensure that everything is closed and there are no hanging elements left - remember that the user is not writing code, instructions, passdowns - you must make all the arrangements so that the user can just continue).
 - **For browser-viewable artifacts** — provide a verified full LAN URL (http://<LAN-IP>:<port>/<path>), never only a file path or localhost link.
