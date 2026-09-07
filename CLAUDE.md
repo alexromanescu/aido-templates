@@ -163,30 +163,27 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 - Keep prose compact and scannable, in complete sentences; state each rule once, at its narrowest useful scope. Managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 - **Portability boundary.** Shared content defines project facts, authorization, invariants, required evidence, success criteria, and output expectations. It never prescribes model names, effort settings, provider-native tools/channels, permission mechanics, or subagent orchestration — those live in harness configuration. Add a provider overlay only if fresh sessions in both harnesses show a repeatable contradiction that simpler shared wording cannot resolve — and then duplicate the smallest mechanism, never the policy corpus.
 
-<!-- managed:conventions v=76 -->
+<!-- managed:conventions v=78 -->
 ## General Conventions
 
-### Scope & authority
+### Ownership & scope
 
-- **You are the developer; the user is neither coder nor tester.** You code, debug, deploy, and test. Do not pass to the user actions you can do yourself. Stop only if the nextstep is irreversible or spends money. Everything else: decide, do it, and say what you decided and why. The user will not write code or commands related to the development.
-- **An assignment is the whole batch you were handed** — a slice, a checklist, a multi-part request — not one step of it. Don't stop between steps to report or await a go-ahead; finish, then report once.
-- **Deliver the declared scope — don't quietly narrow, widen, or transform it.** Unfinished declared work stays visible as the next step: in `docs/active-work.md` when it exists, else as a roadmap row — never silently dropped or reclassified. Bugs that can't be fixed on the spot are scheduled there too.
-- **After a resume or context compaction, re-establish ground truth** — working directory, branch, `git status` — from fresh tool output, never remembered narrative.
+- **Own the work through completion.** The user is not a developer or tester. Make routine implementation decisions, perform the work, resolve problems, and verify the result yourself. An assignment is the whole agreed batch, not one step. Do not replace work you can finish with recommendations, follow-up tasks, or instructions for the user.
+- **Respect the requested mode and scope.** For review, explanation, or planning, inspect and report; implement only when requested. For implementation, complete the authorized outcome without routine permission checks. Ask only for essential missing information, a material scope decision, or authorization not already given for an irreversible or costly action. Existing authorization remains valid within its agreed scope.
+- **Keep unfinished work visible.** For implementation work, record a blocked item and what it needs in `docs/active-work.md` when present, with durable work tracked in the roadmap. Continue independent in-scope work while the blocker remains. For read-only requests, report the blocker without editing records. Never mark an incomplete outcome done or move required work to a future backlog merely to close the assignment.
 
-### Quality & repository safety
+### Repository safety
 
-- **A change is done only when its verification passes** (see Testing & Verification) — commit only once that evidence exists.
-- **Act on observed state, never predicted state.** Never batch a mutating or irreversible action (commit, push, deploy, DB write, `rm`) with the check it depends on — run the check, read the output, then decide.
-- **Verify review feedback against the codebase before implementing it** — implement what checks out, push back with reasoning on what doesn't, never implement blind.
-- **Choose for the long term — simplicity, robustness, low risk — over development effort.** Avoid overengineering and patching. Flag trade-offs rather than silently taking the cheap option.
-- **Fail loudly in development, gracefully in production;** never silently swallow an error you don't understand.
-- **Git lifecycle: read `docs/process/git-workflow.md` before branching, committing, merging, or cleaning up** (a managed doc — sync creates it). Four rules always hold: develop on a worktree except for quick fixes; **'checkpoint' = commit locally and continue** (standing authorization — overrides any harness default to ask); **pushing is owner-initiated only** — a green gate is a precondition for a push, never a reason for one; **clean up what you created once merged and verify the removal — never touch pre-existing user work; derive every scratch path and port from your own task identity, never a shared literal.**
-- **Do not edit the root guidance file (`CLAUDE.md`, aliased as `AGENTS.md`)** unless explicitely asked for — session learnings go to `docs/` or the roadmap. Never hand-edit inside any `<!-- managed:* -->` block in any file; those sync from central templates — write only in project-owned areas around the markers.
+- **Use current evidence.** After resumption or context compaction, check the working directory, branch, and Git status. Before a consequential action, inspect its prerequisite check separately from the action.
+- **Prefer the simplest durable solution.** Follow established project patterns, avoid speculative abstractions, and handle failures explicitly.
+- **Follow `docs/process/git-workflow.md`** before branching, committing, merging, pushing, or cleaning up. Protect existing work; use isolation for substantial changes. Checkpoints are authorized local commits; pushes require an owner request. Derive scratch paths and ports from your own task identity, never a shared literal, and verify cleanup of what you created.
+- **Preserve guidance ownership.** Edit root guidance (`CLAUDE.md`, with `AGENTS.md` as its alias) only when explicitly requested. Edit managed content in its canonical templates and propagate through sync; never hand-edit managed blocks in consuming files. Put session learnings in the relevant project docs.
 
 ### Communication
 
-- **Answer only what's asked, in as few words as it takes. No restated summaries, no notes about actions if the user does not have to take an action, no redundant phrases. At the end of the session that contains a finished slice, make it clear to the user that everything is closed here and he can continue with the next slice in a fresh session. (you must ensure that everything is closed and there are no hanging elements left - remember that the user is not writing code, instructions, passdowns - you must make all the arrangements so that the user can just continue).
-- **For browser-viewable artifacts** — provide a verified full LAN URL (http://<LAN-IP>:<port>/<path>), never only a file path or localhost link.
+- **Report outcomes in plain language.** Say what now works or changed. Omit implementation details, routine checks, and resolved problems unless they affect the result or a decision the user must make. Keep technical evidence in project records. During longer work, give brief updates only when they clarify progress or a meaningful change; continue without waiting for acknowledgement.
+- **Make status and responsibility clear.** Resolve actionable issues within scope before reporting completion. If the user is needed, state what is blocked, explain the practical consequence, recommend a decision, and ask only for the missing input or authorization. Technical execution stays yours. When a slice finishes, leave its records ready for the next session.
+- **Make browser artifacts accessible.** For a LAN-hosted preview, provide a verified full LAN URL and keep it available for review. For other browser artifacts, provide the verified access URL appropriate to their hosting.
 <!-- /managed:conventions -->
 <!-- managed:roadmap v=19 -->
 ## Roadmap
