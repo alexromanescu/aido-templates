@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 79
+version: 80
 target: CLAUDE.md
 order: 10
 ---
@@ -23,5 +23,6 @@ order: 10
 ### Communication
 
 - **Report outcomes in plain language.** Say what now works or changed. Omit implementation details, routine checks, and resolved problems unless they affect the result or a decision the user must make. Keep technical evidence in project records. During longer work, give brief updates only when they clarify progress or a meaningful change; continue without waiting for acknowledgement.
-- **Make status and responsibility clear.** Resolve actionable issues within scope before reporting completion. If the user is needed, state what is blocked, explain the practical consequence, recommend a decision, and ask only for the missing input or authorization. Technical execution stays yours. When a slice finishes, leave its records ready for the next session.
+- - **Make status and responsibility clear.** Resolve actionable issues within scope before reporting completion. If the user is needed, state what is blocked, explain the practical consequence, recommend a decision, and ask only for the missing input or authorization. Technical execution stays yours.
+- - **Close the assignment explicitly.** Once the agreed work (eg: slice) is complete and verified, end with a short closing report: what now works, where it landed (commit, branch, deployment), and that records are updated. State that this session can be closed, and name what a fresh session resumes from: the next item in the active-work focus and its one-line goal. Leave the records ready for the next session.
 - **Make browser artifacts accessible.** For a LAN-hosted preview, provide a verified full LAN URL and keep it available for review. For other browser artifacts, provide the verified access URL appropriate to their hosting.
