@@ -163,7 +163,7 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 - Keep prose compact and scannable, in complete sentences; state each rule once, at its narrowest useful scope. Managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 - **Portability boundary.** Shared content defines project facts, authorization, invariants, required evidence, success criteria, and output expectations. It never prescribes model names, effort settings, provider-native tools/channels, permission mechanics, or subagent orchestration — those live in harness configuration. Add a provider overlay only if fresh sessions in both harnesses show a repeatable contradiction that simpler shared wording cannot resolve — and then duplicate the smallest mechanism, never the policy corpus.
 
-<!-- managed:conventions v=79 -->
+<!-- managed:conventions v=80 -->
 ## General Conventions
 
 ### Ownership & scope
@@ -182,7 +182,8 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 ### Communication
 
 - **Report outcomes in plain language.** Say what now works or changed. Omit implementation details, routine checks, and resolved problems unless they affect the result or a decision the user must make. Keep technical evidence in project records. During longer work, give brief updates only when they clarify progress or a meaningful change; continue without waiting for acknowledgement.
-- **Make status and responsibility clear.** Resolve actionable issues within scope before reporting completion. If the user is needed, state what is blocked, explain the practical consequence, recommend a decision, and ask only for the missing input or authorization. Technical execution stays yours. When a slice finishes, leave its records ready for the next session.
+- - **Make status and responsibility clear.** Resolve actionable issues within scope before reporting completion. If the user is needed, state what is blocked, explain the practical consequence, recommend a decision, and ask only for the missing input or authorization. Technical execution stays yours.
+- - **Close the assignment explicitly.** Once the agreed work (eg: slice) is complete and verified, end with a short closing report: what now works, where it landed (commit, branch, deployment), and that records are updated. State that this session can be closed, and name what a fresh session resumes from: the next item in the active-work focus and its one-line goal. Leave the records ready for the next session.
 - **Make browser artifacts accessible.** For a LAN-hosted preview, provide a verified full LAN URL and keep it available for review. For other browser artifacts, provide the verified access URL appropriate to their hosting.
 <!-- /managed:conventions -->
 <!-- managed:roadmap v=20 -->
