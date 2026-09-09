@@ -1,4 +1,4 @@
-<!-- managed:tests v=13 -->
+<!-- managed:tests v=14 -->
 ## Shared Test Guidance
 
 Keep the project's runners, commands, required gates, isolation setup, and links to deeper test docs in the project-owned area below this block. List only tiers the project uses.
@@ -15,6 +15,10 @@ Use the lowest layer that faithfully proves the behavior:
 - **Structural:** mechanically expressible source invariants that need coverage of future sites.
 
 Use `frontend-tests`, `testing-by-simulation`, or `structural-tests` when available for the corresponding test design. Required commands and run frequency are project-specific, not implied by the tier names.
+
+### Browser evidence
+
+When browser proof is required, retain the exact executable script and its report output. Disclose every fake or intercepted network and data boundary; an intercepted flow is not end-to-end evidence. Exercise genuine responsive breakpoints. Forcing a desktop media query at phone viewport width cannot establish mobile acceptance.
 
 ### Isolation and testability
 
