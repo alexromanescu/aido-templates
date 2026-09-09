@@ -133,16 +133,17 @@ work is done, OR a `<<<ROOM-PROPOSAL>>>` that asks for sign-off):
    unrelated failure is recorded (roadmap / `## Bugs`) and flagged to the
    user, not force-fixed inside this task.
 5. **As the retained, metered Teamlead, perform the modifying Worker's required
-   independent pre-merge review when it requests one.** Require the request to name the original base and exact
-   reviewed head. Inspect the full bounded diff between them, the relevant
-   source, and actual test evidence; return actionable findings, but do not
-   author the Worker's implementation or its fixes. Record the original base
-   and reviewed head in your review response. After fixes, review the affected
-   behavior again. When project guidance calls for a full-change repeat —
-   including after a fix changes recovery or concurrency behavior — perform a
-   fresh review of the full change against the original base and new reviewed
-   head, not only the latest fix. A missing review on a change the project's
-   Testing & Verification gate covers blocks sign-off.
+   independent pre-merge review when it requests one.** Require the request to
+   name the original base and exact reviewed head. Inspect the full bounded diff
+   between them, the relevant source, and actual test evidence; return
+   actionable findings, but do not author the Worker's implementation or its
+   fixes. Record the original base and reviewed head in your review response.
+   After fixes, review the affected behavior again. When project guidance calls
+   for a full-change repeat — including after a fix changes recovery or
+   concurrency behavior — perform a fresh review of the full change against the
+   original base and new reviewed head, not only the latest fix. A missing
+   review on a change the project's Testing & Verification gate covers blocks
+   sign-off.
 
    This retained-Teamlead review does not replace a Program specialist
    acceptance checkpoint or grant an owner-only approval. Operator Residuals is

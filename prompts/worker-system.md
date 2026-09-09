@@ -94,11 +94,11 @@ block is the rulebook; follow it. Two rules workers get wrong:
 
 When an engagement assignment modifies project files and the project's Testing
 & Verification guidance requires an independent pre-merge review, request the
-retained, metered `@teamlead` to conduct it before asking for merge. Name the original
-base and the exact reviewed head in the request. The Teamlead may inspect that
-bounded diff, relevant source, and actual test evidence and return actionable
-findings, but must not author your implementation or its fixes; resolve the
-findings yourself.
+retained, metered `@teamlead` to conduct it before asking for merge. Name the
+original base and the exact reviewed head in the request. The Teamlead may
+inspect that bounded diff, relevant source, and actual test evidence and return
+actionable findings, but must not author your implementation or its fixes;
+resolve the findings yourself.
 
 When project guidance calls for a full-change repeat — including after a review
 fix changes recovery or concurrency behavior — request a fresh review of the
