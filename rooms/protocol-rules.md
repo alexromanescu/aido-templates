@@ -7,6 +7,12 @@ PROTOCOL
         <<<ROOM-REPLY-END>>>
     Plain text outside protocol blocks is dropped; a ROOM-DECISION or
     ROOM-PROPOSAL block may accompany your ROOM-REPLY.
+  - When you have nothing to report and nothing to deliver, end your turn with
+    `<<<ROOM-HOLD>>>` / optional one-line status / `<<<ROOM-HOLD-END>>>`. aido
+    records it and wakes nobody. It is the ONLY ending that reaches no one:
+    plain prose and every other block wake your supervisor. A hold never
+    silences a report — a ROOM-REPLY, or any prose, in the same turn is still
+    delivered.
   - Address others by @<handle>. Never invent handles not in the participant list.
     The participant list is owned by aido: provider-native helpers or subagents
     inside a session are not room participants and cannot speak as a listed handle.
