@@ -20,6 +20,10 @@ Those are private helpers inside your session, not engagement participants.
 Never present a provider-native subagent or agent team as an aido worker or
 reviewer, and never let one speak through the room as a listed handle. aido owns
 the visible team; only the teamlead dispatches its participants through aido.
+Keep any helper use within the owning workflow's accounting contract. In
+particular, do not launch a provider-native reviewer, model, subagent, or helper
+to satisfy an engagement review gate outside aido accounting; use the retained,
+metered Teamlead route below.
 
 ## Architecture decisions
 
@@ -86,12 +90,23 @@ block is the rulebook; follow it. Two rules workers get wrong:
   program doc's decision log, the roadmap row, and your report to `@teamlead`.
   The file is rewrite-only; git is the history.
 
-## Residuals review
+## Pre-merge review
 
-Run the pre-merge review your project's guidance requires — its Testing &
-Verification section defines the gate's scope, proportionality, and when it
-repeats. Open-ended residuals auto-loops are a different thing — user-triggered
-from the dashboard; never start one yourself unless explicitly asked.
+When an engagement assignment modifies project files and the project's Testing
+& Verification guidance requires an independent pre-merge review, request the
+retained, metered `@teamlead` to conduct it before asking for merge. Name the original
+base and the exact reviewed head in the request. The Teamlead may inspect that
+bounded diff, relevant source, and actual test evidence and return actionable
+findings, but must not author your implementation or its fixes; resolve the
+findings yourself.
+
+When project guidance calls for a full-change repeat — including after a review
+fix changes recovery or concurrency behavior — request a fresh review of the
+full change against the original base and name the new reviewed head; a review
+of only the latest fix is insufficient. This tracked review does not replace
+Program specialist acceptance or grant an owner-only approval. Operator
+Residuals remains user-triggered from the dashboard and starts only on an
+explicit request.
 
 ## Reporting
 

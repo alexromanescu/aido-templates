@@ -1,7 +1,7 @@
 ---
 section: tests
 stack: default
-version: 13
+version: 14
 target: docs/tests.md
 order: 10
 ---
@@ -21,6 +21,10 @@ Use the lowest layer that faithfully proves the behavior:
 - **Structural:** mechanically expressible source invariants that need coverage of future sites.
 
 Use `frontend-tests`, `testing-by-simulation`, or `structural-tests` when available for the corresponding test design. Required commands and run frequency are project-specific, not implied by the tier names.
+
+### Browser evidence
+
+When browser proof is required, retain the exact executable script and its report output. Disclose every fake or intercepted network and data boundary; an intercepted flow is not end-to-end evidence. Exercise genuine responsive breakpoints. Forcing a desktop media query at phone viewport width cannot establish mobile acceptance.
 
 ### Isolation and testability
 
