@@ -6,12 +6,10 @@ init: true
 ---
 # {{name}} — Tests
 
-This document is the project's test entry point — kept concise. The managed
-block below carries project-agnostic discipline (tier semantics, design for
-testability, fixture conventions) and is synced by aido — never edit inside
-its markers. Everything below the block is project-owned: fill in the real
-runners, commands, CI gates, isolation setup, and links to deeper test docs
-there.
+This document is the project's test entry point. The managed block below is
+synced by aido; never edit inside its markers. Everything below the block is
+project-owned: the real runners, commands, CI gates, isolation setup, and links
+to deeper test docs.
 
 <!-- managed:tests -->
 <!-- /managed:tests -->
@@ -39,6 +37,4 @@ CI gates that block merge: `<actual project gates; include only configured check
 
 | Topic | Where |
 |---|---|
-| Layer selection & discipline | managed block above + matching skill |
 | <deep-dive topic, e.g. frontend harness> | `docs/testing/<topic>.md` |
-| Inventory (at scale) | `docs/testing/inventory.md`, generated: `gen:test-inventory` + parity test (`docs/process/doc-sync.md`) |

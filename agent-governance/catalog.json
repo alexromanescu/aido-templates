@@ -41,33 +41,39 @@
       ]
     },
     {
-      "id": "frontend-component-testing",
-      "name": "Frontend component testing",
-      "description": "Render-level testing discipline for interactive user interfaces.",
+      "id": "test-design",
+      "name": "Test design",
+      "description": "Layer choice, render-boundary testing, deterministic simulation for ordering-dependent behavior, and regression-test discipline.",
       "kind": "workflow",
       "realizations": [
         {
-          "id": "frontend-component-testing.claude-skill",
+          "id": "test-design.claude-skill",
           "harness": "claude",
           "kind": "skill",
           "ownership": "custom",
-          "nativeId": "frontend-tests",
-          "allowedScopes": ["global", "project"],
+          "nativeId": "test-design",
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
           "provenance": {
             "type": "templates",
-            "path": "skills/frontend-tests"
+            "path": "skills/test-design"
           }
         },
         {
-          "id": "frontend-component-testing.codex-skill",
+          "id": "test-design.codex-skill",
           "harness": "codex",
           "kind": "skill",
           "ownership": "custom",
-          "nativeId": "frontend-tests",
-          "allowedScopes": ["global", "project"],
+          "nativeId": "test-design",
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
           "provenance": {
             "type": "templates",
-            "path": "skills/frontend-tests"
+            "path": "skills/test-design"
           }
         }
       ]
@@ -84,7 +90,10 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "residuals-review",
-          "allowedScopes": ["global", "project"],
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
           "provenance": {
             "type": "templates",
             "path": "skills/residuals-review"
@@ -96,7 +105,10 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "residuals-review",
-          "allowedScopes": ["global", "project"],
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
           "provenance": {
             "type": "templates",
             "path": "skills/residuals-review"
@@ -116,7 +128,10 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "structural-tests",
-          "allowedScopes": ["global", "project"],
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
           "provenance": {
             "type": "templates",
             "path": "skills/structural-tests"
@@ -128,74 +143,13 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "structural-tests",
-          "allowedScopes": ["global", "project"],
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
           "provenance": {
             "type": "templates",
             "path": "skills/structural-tests"
-          }
-        }
-      ]
-    },
-    {
-      "id": "test-hardening",
-      "name": "Test hardening",
-      "description": "Targeted checks for ineffective tests and critical invariants using red-checks, mutation, coverage, or render diagnostics.",
-      "kind": "workflow",
-      "realizations": [
-        {
-          "id": "test-hardening.claude-skill",
-          "harness": "claude",
-          "kind": "skill",
-          "ownership": "custom",
-          "nativeId": "test-hardening",
-          "allowedScopes": ["global", "project"],
-          "provenance": {
-            "type": "templates",
-            "path": "skills/test-hardening"
-          }
-        },
-        {
-          "id": "test-hardening.codex-skill",
-          "harness": "codex",
-          "kind": "skill",
-          "ownership": "custom",
-          "nativeId": "test-hardening",
-          "allowedScopes": ["global", "project"],
-          "provenance": {
-            "type": "templates",
-            "path": "skills/test-hardening"
-          }
-        }
-      ]
-    },
-    {
-      "id": "state-transition-simulation",
-      "name": "State-transition simulation",
-      "description": "Deterministic simulation of state transitions, races, and concurrent behavior.",
-      "kind": "workflow",
-      "realizations": [
-        {
-          "id": "state-transition-simulation.claude-skill",
-          "harness": "claude",
-          "kind": "skill",
-          "ownership": "custom",
-          "nativeId": "testing-by-simulation",
-          "allowedScopes": ["global", "project"],
-          "provenance": {
-            "type": "templates",
-            "path": "skills/testing-by-simulation"
-          }
-        },
-        {
-          "id": "state-transition-simulation.codex-skill",
-          "harness": "codex",
-          "kind": "skill",
-          "ownership": "custom",
-          "nativeId": "testing-by-simulation",
-          "allowedScopes": ["global", "project"],
-          "provenance": {
-            "type": "templates",
-            "path": "skills/testing-by-simulation"
           }
         }
       ]
@@ -212,7 +166,10 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "program-prep",
-          "allowedScopes": ["global", "project"],
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
           "provenance": {
             "type": "templates",
             "path": "skills/program-prep"
@@ -224,7 +181,10 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "program-prep",
-          "allowedScopes": ["global", "project"],
+          "allowedScopes": [
+            "global",
+            "project"
+          ],
           "provenance": {
             "type": "templates",
             "path": "skills/program-prep"
@@ -244,7 +204,9 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "verify",
-          "allowedScopes": ["project"],
+          "allowedScopes": [
+            "project"
+          ],
           "provenance": {
             "type": "templates",
             "path": "skills/verify"
@@ -256,7 +218,9 @@
           "kind": "skill",
           "ownership": "custom",
           "nativeId": "verify",
-          "allowedScopes": ["project"],
+          "allowedScopes": [
+            "project"
+          ],
           "provenance": {
             "type": "templates",
             "path": "skills/verify"
@@ -276,7 +240,9 @@
           "kind": "plugin",
           "ownership": "external",
           "nativeId": "superpowers@claude-plugins-official",
-          "allowedScopes": ["global"],
+          "allowedScopes": [
+            "global"
+          ],
           "provenance": {
             "type": "external",
             "provider": "anthropic-official-marketplace",
@@ -296,7 +262,9 @@
           "kind": "plugin",
           "ownership": "external",
           "nativeId": "superpowers@openai-curated",
-          "allowedScopes": ["global"],
+          "allowedScopes": [
+            "global"
+          ],
           "provenance": {
             "type": "external",
             "provider": "openai-curated",
@@ -324,7 +292,9 @@
           "kind": "plugin",
           "ownership": "external",
           "nativeId": "code-simplifier@claude-plugins-official",
-          "allowedScopes": ["global"],
+          "allowedScopes": [
+            "global"
+          ],
           "provenance": {
             "type": "external",
             "provider": "anthropic-official-marketplace",
@@ -352,7 +322,9 @@
           "kind": "plugin",
           "ownership": "external",
           "nativeId": "frontend-design@claude-plugins-official",
-          "allowedScopes": ["global"],
+          "allowedScopes": [
+            "global"
+          ],
           "provenance": {
             "type": "external",
             "provider": "anthropic-official-marketplace",
@@ -372,7 +344,9 @@
           "kind": "plugin",
           "ownership": "external",
           "nativeId": "build-web-apps@openai-curated",
-          "allowedScopes": ["global"],
+          "allowedScopes": [
+            "global"
+          ],
           "provenance": {
             "type": "external",
             "provider": "openai-curated",
@@ -400,7 +374,9 @@
           "kind": "mcp",
           "ownership": "external",
           "nativeId": "playwright",
-          "allowedScopes": ["project"],
+          "allowedScopes": [
+            "project"
+          ],
           "provenance": {
             "type": "external",
             "provider": "anthropic-official-marketplace",
@@ -421,7 +397,9 @@
           "kind": "mcp",
           "ownership": "external",
           "nativeId": "playwright",
-          "allowedScopes": ["project"],
+          "allowedScopes": [
+            "project"
+          ],
           "provenance": {
             "type": "external",
             "provider": "microsoft",
@@ -449,7 +427,9 @@
           "kind": "mcp",
           "ownership": "external",
           "nativeId": "context7",
-          "allowedScopes": ["project"],
+          "allowedScopes": [
+            "project"
+          ],
           "provenance": {
             "type": "external",
             "provider": "upstash",
@@ -469,7 +449,9 @@
           "kind": "mcp",
           "ownership": "external",
           "nativeId": "context7",
-          "allowedScopes": ["project"],
+          "allowedScopes": [
+            "project"
+          ],
           "provenance": {
             "type": "external",
             "provider": "upstash",
@@ -497,7 +479,9 @@
           "kind": "mcp",
           "ownership": "external",
           "nativeId": "pencil",
-          "allowedScopes": ["project"],
+          "allowedScopes": [
+            "project"
+          ],
           "provenance": {
             "type": "external",
             "provider": "pen.dev",
@@ -517,7 +501,9 @@
           "kind": "mcp",
           "ownership": "external",
           "nativeId": "pencil",
-          "allowedScopes": ["project"],
+          "allowedScopes": [
+            "project"
+          ],
           "provenance": {
             "type": "external",
             "provider": "pen.dev",
@@ -541,9 +527,9 @@
       "description": "Common governed workflows plus a neutral inventory of known external capabilities for Claude Code and Codex CLI.",
       "requirements": [
         {
-          "capabilityId": "frontend-component-testing",
+          "capabilityId": "root-cause-debugging",
           "harness": "claude",
-          "realizationId": "frontend-component-testing.claude-skill",
+          "realizationId": "root-cause-debugging.claude-skill",
           "disposition": "required",
           "scope": "global",
           "desired": {
@@ -552,9 +538,31 @@
           }
         },
         {
-          "capabilityId": "frontend-component-testing",
+          "capabilityId": "root-cause-debugging",
           "harness": "codex",
-          "realizationId": "frontend-component-testing.codex-skill",
+          "realizationId": "root-cause-debugging.codex-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "test-design",
+          "harness": "claude",
+          "realizationId": "test-design.claude-skill",
+          "disposition": "required",
+          "scope": "global",
+          "desired": {
+            "installation": "present",
+            "activation": "enabled"
+          }
+        },
+        {
+          "capabilityId": "test-design",
+          "harness": "codex",
+          "realizationId": "test-design.codex-skill",
           "disposition": "required",
           "scope": "global",
           "desired": {
@@ -577,72 +585,6 @@
           "capabilityId": "adversarial-fresh-eyes-review",
           "harness": "codex",
           "realizationId": "adversarial-fresh-eyes-review.codex-skill",
-          "disposition": "required",
-          "scope": "global",
-          "desired": {
-            "installation": "present",
-            "activation": "enabled"
-          }
-        },
-        {
-          "capabilityId": "structural-invariant-testing",
-          "harness": "claude",
-          "realizationId": "structural-invariant-testing.claude-skill",
-          "disposition": "required",
-          "scope": "global",
-          "desired": {
-            "installation": "present",
-            "activation": "enabled"
-          }
-        },
-        {
-          "capabilityId": "structural-invariant-testing",
-          "harness": "codex",
-          "realizationId": "structural-invariant-testing.codex-skill",
-          "disposition": "required",
-          "scope": "global",
-          "desired": {
-            "installation": "present",
-            "activation": "enabled"
-          }
-        },
-        {
-          "capabilityId": "test-hardening",
-          "harness": "claude",
-          "realizationId": "test-hardening.claude-skill",
-          "disposition": "required",
-          "scope": "global",
-          "desired": {
-            "installation": "present",
-            "activation": "enabled"
-          }
-        },
-        {
-          "capabilityId": "test-hardening",
-          "harness": "codex",
-          "realizationId": "test-hardening.codex-skill",
-          "disposition": "required",
-          "scope": "global",
-          "desired": {
-            "installation": "present",
-            "activation": "enabled"
-          }
-        },
-        {
-          "capabilityId": "state-transition-simulation",
-          "harness": "claude",
-          "realizationId": "state-transition-simulation.claude-skill",
-          "disposition": "required",
-          "scope": "global",
-          "desired": {
-            "installation": "present",
-            "activation": "enabled"
-          }
-        },
-        {
-          "capabilityId": "state-transition-simulation",
-          "harness": "codex",
-          "realizationId": "state-transition-simulation.codex-skill",
           "disposition": "required",
           "scope": "global",
           "desired": {

@@ -1,41 +1,15 @@
 ---
 section: tests
 stack: default
-version: 14
+version: 15
 target: docs/tests.md
 order: 10
 ---
 ## Shared Test Guidance
 
-Keep the project's runners, commands, required gates, isolation setup, and links to deeper test docs in the project-owned area below this block. List only tiers the project uses.
+Keep the project's runners, commands, required gates, isolation setup, and links to deeper test docs in the project-owned area below this block.
 
-### Choose the layer
-
-Use the lowest layer that faithfully proves the behavior:
-
-- **Unit:** pure logic and narrow contracts.
-- **Integration:** real composition across storage, service, or external-facing boundaries.
-- **Simulation:** deterministic state/event ordering against the real subject with controlled time.
-- **Render / component:** UI behavior through the nearest stable render boundary.
-- **E2E:** real browser or runtime behavior lower layers cannot faithfully prove.
-- **Structural:** mechanically expressible source invariants that need coverage of future sites.
-
-Use `frontend-tests`, `testing-by-simulation`, or `structural-tests` when available for the corresponding test design. Required commands and run frequency are project-specific, not implied by the tier names.
-
-### Browser evidence
-
-When browser proof is required, retain the exact executable script and its report output. Disclose every fake or intercepted network and data boundary; an intercepted flow is not end-to-end evidence. Exercise genuine responsive breakpoints. Forcing a desktop media query at phone viewport width cannot establish mobile acceptance.
-
-### Isolation and testability
-
-Tests must not write to live development or production data. Document separate databases, filesystem roots, fixtures, and cleanup in the project-owned area.
-
-Make inputs constructable and outputs observable at the chosen test boundary. Add the smallest useful seam, such as an injected clock or storage adapter, when needed. Do not add production APIs or redesign a feature solely to satisfy a generic checklist. Record concrete automation constraints and verify with the strongest repeatable substitute. If that cannot establish the agreed outcome, keep the work blocked rather than claiming full verification.
-
-### Assertions and fixtures
-
-- Exercise the real subject and assert observable behavior. Mock dependencies, not the behavior being tested.
-- In typed projects, type fixtures and mocks against the live schema or interface; avoid type escapes that conceal invalid fixtures.
-- Use builders when repeated fixture setup warrants them.
-- Make skipped or environment-dependent coverage explicit, with a reason and a tracked issue for unresolved gaps.
-- Remove obsolete or ineffective tests; improve suspected coverage gaps using targeted checks from `test-hardening` when available.
+- **Choose the lowest layer that faithfully proves the behavior.** Unit for pure logic; integration for real composition across storage, service, or external boundaries; simulation for deterministic event ordering against the real subject with a controlled clock; render for UI behavior through the nearest stable render boundary; end-to-end only for real browser or runtime behavior lower layers cannot prove; structural source scans only for mechanically checkable invariants that need coverage of future sites. The `test-design` skill covers layer choice and the simulation pattern.
+- **Exercise the real subject and assert observable behavior.** Mock dependencies, not the behavior under test. Expected values come from an independent source (a known-good literal, a worked example, the spec), never recomputed the way the code computes them. Type fixtures against the live schema; avoid type escapes that hide invalid fixtures. Make skipped or environment-dependent coverage explicit with a reason. Remove obsolete tests.
+- **Tests never write to live development or production data.** Document the separate databases, filesystem roots, and cleanup below. Add the smallest seam testability needs, such as an injected clock or storage adapter; do not add production APIs or redesign a feature to satisfy a checklist. If automation is impractical, record the constraint, run the strongest repeatable substitute, and keep the work blocked rather than claiming full verification.
+- **Browser evidence.** When browser proof is required, retain the exact executable script and its report output. Disclose every fake or intercepted network and data boundary; an intercepted flow is not end-to-end evidence. Exercise genuine responsive breakpoints; forcing a desktop media query at phone viewport width cannot establish mobile acceptance.

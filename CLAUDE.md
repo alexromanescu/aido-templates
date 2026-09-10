@@ -56,7 +56,11 @@ Worked example: the `conventions` section was renamed from `## Conventions` to `
 
 ### Whole-doc process sections (`process-*`)
 
-The `process-*` sections (`process-doc-sync`, `process-roadmap`, `process-bugs`, `process-help-sync`, `process-git-workflow`) each target a file under `docs/process/` and own the **entire** file: the H1 title and all content live inside the managed block, and there is no scaffold — `syncSection` creates the target file (including the directory) when it doesn't exist. They hold activity-scoped procedure reference that used to live inline in the CLAUDE.md blocks; the lean CLAUDE.md blocks point at them with trigger-shaped one-liners ("**when you fix a bug**, read `docs/process/bugs.md` before writing the test"). Keep that division when editing: per-turn invariants stay in the CLAUDE.md block; multi-step, activity-triggered procedure goes in the `process-*` doc. A project should only carry the process docs matching its managed blocks (no `process-help-sync` without the `help` block).
+The `process-*` sections (`process-roadmap`, `process-git-workflow`) each target a file under `docs/process/` and own the **entire** file: the H1 title and all content live inside the managed block, and there is no scaffold — `syncSection` creates the target file (including the directory) when it doesn't exist. They hold activity-scoped procedure the lean CLAUDE.md blocks point at with trigger-shaped one-liners ("Read `docs/process/roadmap.md` before editing it"). Keep that division: per-turn invariants stay in the CLAUDE.md block; multi-step, activity-triggered procedure goes in the `process-*` doc. Add a new process doc only for procedure that is both multi-step and app-parsed or safety-critical; everything else belongs in a skill (loaded by trigger, no pointer needed) or in one line of the block.
+
+### Budgets (enforced by `tests/managed-sections/budget.test.mjs`)
+
+Every clause in an always-loaded block costs every turn in every project. The three CLAUDE.md-targeted blocks stay under **750 body words combined**; no single managed section exceeds **700 body words**. Before adding a clause, remove one, move the material into a skill, or replace it with a mechanism (a hook, a parity check, an app-owned format). The same test checks that every `docs/process/*.md` pointer in templates, skills, and prompts resolves to an existing `process-*` section and that no removed skill is still named anywhere. When authoring here, the vendored `writing-for-agents` skill under `.claude/skills/` (from mattpocock/skills, MIT) is the reference for pointer wording and progressive disclosure.
 
 ## Scaffolds
 
@@ -130,8 +134,8 @@ For new or normalized sources, lead the `description` with "Use when …" and en
 
 The catalog is authoritative; this current-source summary is explanatory:
 
-- Standard global profile: `frontend-tests/`, `program-prep/`, `residuals-review/`, `structural-tests/`, `test-hardening/`, and `testing-by-simulation/`.
-- Catalogued but not selected by `standard`: `debugging/`, the root-cause-first debugging workflow.
+- Standard global profile: `debugging/`, `test-design/`, `residuals-review/`, and `program-prep/`.
+- Catalogued but not selected by `standard`: `structural-tests/` (select it per project where structural scans exist, such as aido).
 - Project-only: `verify/`, selected by aido's project declaration for built running-app verification.
 
 Skill directories may contain scripts, references, executables, or binary assets. Validate `SKILL.md` as text/frontmatter; hash and copy every other entry as opaque bytes.

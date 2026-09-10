@@ -62,4 +62,4 @@ investigation. If it genuinely is external: handle it explicitly
 Verify the fix with a regression test that fails for the documented
 root cause and passes with the fix. If automation is impractical,
 record the concrete constraint and run the strongest repeatable substitute.
-If your project has `docs/process/bugs.md`, follow its procedure and lifecycle.
+Reference the bug row in the test and close the row in the fix commit, following the project's roadmap process when it has one.

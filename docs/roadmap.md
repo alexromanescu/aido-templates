@@ -1,7 +1,7 @@
 # aido-templates — Roadmap
 
 <!-- roadmap-meta
-updated: 2026-09-08
+updated: 2026-09-10
 -->
 
 **Format reference:** this file is parsed by the aido app — the exact phase-heading shape, task-table columns, statuses, and section lifecycles are defined in [docs/process/roadmap.md](process/roadmap.md). Read it before editing this file by hand; the aido `/project/:name/roadmap` page follows it for you.
@@ -9,6 +9,8 @@ updated: 2026-09-08
 ## Quick Updates
 | Task | Area | Size | Status | Description |
 |------|------|------|--------|-------------|
+| Roll out lean guidance v2 to consuming projects | Templates | M | next | Per project (aido, aido-ops, mara, q1dms, q1erp, this repo): absorb drift for conventions v83, roadmap v21, testing v35, tests v15, active-work v16, process-roadmap v9, process-git-workflow v6 via aido sync; delete orphan blocks `documentation-sync`, `help`, `seeding`, `conventions-stack` (non-node) and orphan files `docs/process/{bugs,doc-sync,help-sync}.md`; run `/skills/governance` so `test-design` + `debugging` install and `frontend-tests`, `testing-by-simulation`, `test-hardening`, `structural-tests` leave the global slot; add `structural-invariant-testing` to aido's project declaration. |
+| Adopt git-guardrails PreToolUse hook on authoring machines | Templates | S | next | Harness-side mechanism replacing prose: install mattpocock/skills `git-guardrails-claude-code` (blocks push, reset --hard, clean -f, branch -D, checkout .) globally in `~/.claude/settings.json`. Harness config, not shared guidance; record in hermix5.md once done. |
 | Guard the program-prep worked example against fixture drift | Templates | S | next | Add an aido integration guard that loads the canonical skill example and verifies its launch contract through the real preflight, instead of testing only a separately copied fixture. The 2026-09-07 guidance simplification intentionally changed example prose while preserving all work-item metadata and completion gates; a direct consumer check passes. Permanent cross-repo coverage remains the existing aido-side follow-up, outside this templates-only change. |
 
 ## Bugs
@@ -20,6 +22,7 @@ updated: 2026-09-08
 ### Features
 | Task | Area | Size | Status | Description | Done |
 |------|------|------|--------|-------------|------|
+| Lean guidance v2: fewer blocks, docs, and skills | Templates | M | done | Reorganized rather than swapped for external skill sets. CLAUDE.md blocks 7→3 (conventions v83 absorbs stack defaults; roadmap v21 absorbs documentation-sync, help, seeding; testing v35 states the high-risk list and review trigger once); process docs 5→2 (bugs, doc-sync, help-sync folded into blocks and skills; roadmap v9 and git-workflow v6 compressed); tests v15 and active-work v16 compressed; skills 6→4 in `standard` (new `test-design` merges frontend-tests + testing-by-simulation + the useful part of test-hardening; `debugging` promoted; `structural-tests` catalogued but project-selected). Always-loaded default corpus ~1,225→~700 body words; on-pointer process docs ~2,350→~900. New `tests/managed-sections/budget.test.mjs` caps regrowth and checks pointer integrity. `writing-for-agents` (mattpocock, MIT) vendored under `.claude/skills/` as an authoring aid. Fleet rollout filed in Quick Updates. | 2026-09-10 |
 | Guidance drift prevention rules | Templates | S | done | process-doc-sync v7 keeps root guidance focused on durable facts, rules, and links and checks companion instructions in the existing documentation pass while preserving explicit constraints. Automated managed-block, guidance-link, and alias checks recorded as a planned aido roadmap task. Verified section metadata, repository checks, roadmap format, and one independent wording review. | 2026-09-08 |
 | Consistent worktree placement and verified cleanup | Templates | S | done | New agent-owned worktrees stay under the main project's ignored .worktrees directory; no sibling or arbitrary temporary worktree folders. Completion requires verified directory, registration, branch, and temporary-resource cleanup, with explicit handoff for retained work and launcher ownership preserved. Confirmed aido's existing placement matches; section metadata, repository checks, and one independent wording review passed. | 2026-09-07 |
 | Guidance safeguards and clarity follow-up | Templates | S | done | Preserved owner constraints and Program handoff structure; made documentation completeness, generated parity failures, critical test scenarios, review scope, and completion evidence explicit. Clarified read-only handling and agent ownership of blocked work. Verified repository checks, skill formats, section versions and links, actual aido Program preflight and focus clearing, and one independent semantic review. No prompts, rooms, installed skills, or consuming managed blocks changed. | 2026-09-07 |

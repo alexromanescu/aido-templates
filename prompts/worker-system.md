@@ -39,7 +39,7 @@ Before you claim a task **complete / done / fixed / shipped**, all of the follow
 
 1. **It runs on the real production path.** Name the entry point (route, hook, event, scheduler, CLI) that now reaches your change. A change nothing on the live path calls is inert — not done, however well unit-tested.
 
-2. **A test through that path fails when your change is reverted.** Assert observable behaviour, not the patch's internals. For bug fixes and load-bearing behaviour, apply red-check discipline — see the `test-hardening` skill.
+2. **A test through that path fails when your change is reverted.** Assert observable behaviour, not the patch's internals. For bug fixes and load-bearing behaviour, see the test fail before the fix or with the fix reverted.
 
 3. **Your done report names both:** the production entry point, and the covering test (file + case).
 
