@@ -15,4 +15,4 @@ Guidance lives in this managed block; the live focus is everything below it. Rea
 - Complete the assigned slice before moving on. If blocked, keep the unfinished part visible as the next step and name the blocker; recording it does not replace work that can be completed now.
 - **When the focus is fully complete, delete everything below this block** and record completion in the roadmap. Block-only means no active focus: never leave a "done" note below it, and never clear it while work remains.
 
-A small focus may hold only a goal, a sized sequence, and a next action. An unrelated quick fix need not change this file.
+A small non-Program focus may hold only a goal, a sized sequence, and a next action. An unrelated quick fix need not change this file.

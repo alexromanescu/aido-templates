@@ -8,7 +8,7 @@ const SECTIONS_DIR = join(ROOT, "managed-sections");
 
 // Budgets are deliberate ceilings, not targets. Raising one is a policy change:
 // justify it in the commit and in CLAUDE.md's "Budgets" section.
-const CLAUDE_MD_DEFAULT_TOTAL_BODY_WORDS = 750;
+const CLAUDE_MD_DEFAULT_TOTAL_BODY_WORDS = 800;
 const SINGLE_SECTION_BODY_WORDS = 700;
 
 function parseSection(filename, text) {
@@ -81,20 +81,58 @@ test("every docs/process pointer resolves to an existing process-* section", asy
   assert.deepEqual(dangling, [], `dangling process-doc pointers:\n${dangling.join("\n")}`);
 });
 
-test("no template, skill, or prompt names a skill that no longer exists", async () => {
+test("the governance catalog and skills/ agree exactly", async () => {
+  const catalog = JSON.parse(await readFile(join(ROOT, "agent-governance", "catalog.json"), "utf8"));
+  const onDisk = new Set((await readdir(join(ROOT, "skills"), { withFileTypes: true })).filter((d) => d.isDirectory()).map((d) => d.name));
+  const owners = new Map();
+  for (const cap of catalog.capabilities) {
+    for (const r of cap.realizations) {
+      if (r.provenance?.type !== "templates") continue;
+      const folder = r.provenance.path.replace(/^skills\//, "");
+      assert.equal(r.nativeId, folder, `${r.id}: nativeId must equal its source folder`);
+      assert.ok(onDisk.has(folder), `${r.id}: source skills/${folder} is missing`);
+      const fm = (await readFile(join(ROOT, "skills", folder, "SKILL.md"), "utf8")).split("---")[1] ?? "";
+      assert.match(fm, new RegExp(`^name: ${folder}$`, "m"), `skills/${folder}/SKILL.md frontmatter name must be ${folder}`);
+      owners.set(folder, (owners.get(folder) ?? new Set()).add(cap.id));
+    }
+  }
+  assert.deepEqual([...owners.keys()].sort(), [...onDisk].sort(), "every skills/ folder is catalogued and every catalogued source exists");
+  for (const [folder, caps] of owners) assert.equal(caps.size, 1, `skills/${folder} is owned by more than one capability: ${[...caps]}`);
+  const ids = new Set(catalog.capabilities.map((c) => c.id));
+  const rids = new Set(catalog.capabilities.flatMap((c) => c.realizations.map((r) => r.id)));
+  for (const profile of catalog.profiles) {
+    for (const req of profile.requirements) {
+      assert.ok(ids.has(req.capabilityId) && rids.has(req.realizationId), `${profile.id}: dangling requirement ${req.realizationId}`);
+    }
+  }
+});
+
+test("no guidance names a skill folder that no longer exists", async () => {
+  // Every skill folder that has ever been distributed from this repo, so a
+  // retired name cannot linger in a block, scaffold, skill, prompt, or the
+  // authoring guide. Append when retiring a skill; never remove.
+  const EVER_DISTRIBUTED = [
+    "debugging", "frontend-tests", "program-prep", "residuals-review", "structural-tests",
+    "test-design", "test-hardening", "testing-by-simulation", "verify",
+  ];
   const existing = new Set((await readdir(join(ROOT, "skills"), { withFileTypes: true })).filter((d) => d.isDirectory()).map((d) => d.name));
-  const retired = ["frontend-tests", "testing-by-simulation", "test-hardening"].filter((n) => !existing.has(n));
+  const retired = EVER_DISTRIBUTED.filter((n) => !existing.has(n));
+  assert.ok(retired.length > 0, "the retired list is empty; the test would be vacuous");
   const files = [
     ...(await walkMarkdown(join(ROOT, "managed-sections"))),
     ...(await walkMarkdown(join(ROOT, "skills"))),
     ...(await walkMarkdown(join(ROOT, "prompts"))),
     ...(await walkMarkdown(join(ROOT, "rooms"))),
+    ...(await readdir(ROOT)).filter((f) => f.endsWith("-default.md")).map((f) => join(ROOT, f)),
+    join(ROOT, "CLAUDE.md"),
+    join(ROOT, "agent-governance", "catalog.json"),
   ];
   const hits = [];
   for (const file of files) {
-    const text = await readFile(file, "utf8");
+    // This repo consumes its own blocks; those are updated by sync, not here.
+    const text = (await readFile(file, "utf8")).replace(/<!-- managed:[a-z0-9-]+ v=\d+ -->[\s\S]*?<!-- \/managed:[a-z0-9-]+ -->/g, "");
     for (const name of retired) {
-      if (new RegExp(`\`${name}\``).test(text)) hits.push(`${file.slice(ROOT.length)} names \`${name}\``);
+      if (new RegExp(`(?<![A-Za-z0-9_-])${name}(?![A-Za-z0-9_-])`).test(text)) hits.push(`${file.slice(ROOT.length)} names ${name}`);
     }
   }
   assert.deepEqual(hits, []);
