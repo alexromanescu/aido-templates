@@ -1,15 +1,15 @@
-<!-- managed:active-work v=15 -->
+<!-- managed:active-work v=16 -->
 # Active Work
 
-The permanent guidance is inside this managed block; the live focus is everything below it. Read the focus when resuming work. Keep it within approximately 80 lines, rewriting rather than appending.
+Guidance lives in this managed block; the live focus is everything below it. Read the focus when resuming work. Keep it under about 80 lines and rewrite rather than append.
 
-- Record the **goal**, **constraints**, **ordered sequence**, **next action**, and **essential references**. Preserve owner constraints across every rewrite unless the owner changes them. Include the commands needed to run and verify this focus, or a direct reference to where they are documented. Link to roadmap rows and detailed briefs instead of copying them.
-- Each sequence item is one session-sized slice: related work that can be implemented, verified, reviewed when required, and merged together. Keep each `(S)/(M)/(L)` size marker. For aido Program execution, retain exactly one `## Goal` and one `## Guardrails` heading, the sequence, and every `<!-- aido:work-item … -->` identity, brief reference, dependency, and completion gate. Follow the program's ownership rules for cursor updates, including completion clearing.
-- Keep only the latest outcome needed to resume. Put history, technical evidence, and lessons in the roadmap, decision log, or relevant subsystem doc. A completed item needs at most one short outcome and a pointer.
-- Complete the assigned slice before moving on. If blocked, keep the unfinished part visible as the next step and state the blocker; recording it is not a substitute for work that can be completed now.
-- **When the focus is fully complete, delete everything below this block** and record completion in the roadmap. Block-only means no active focus; never leave a "done" note below it or clear it while work remains.
+- Record the **goal**, **constraints**, an **ordered sequence** of session-sized slices each marked `(S)`, `(M)`, or `(L)`, the **next action**, and the commands to run and verify the focus. Link to roadmap rows and briefs instead of copying them. Preserve owner constraints across every rewrite unless the owner changes them.
+- For aido Program execution, keep exactly one `## Goal` and one `## Guardrails` heading, the sequence, and every `<!-- aido:work-item … -->` identity, brief reference, dependency, and completion gate. Follow the program's ownership rules for cursor updates, including completion clearing.
+- Keep only the latest outcome needed to resume. History, technical evidence, and lessons go to the roadmap, decision log, or subsystem doc.
+- Complete the assigned slice before moving on. If blocked, keep the unfinished part visible as the next step and name the blocker; recording it does not replace work that can be completed now.
+- **When the focus is fully complete, delete everything below this block** and record completion in the roadmap. Block-only means no active focus: never leave a "done" note below it, and never clear it while work remains.
 
-A small non-Program focus may contain only a goal, sized sequence, and next action when there are no additional constraints or execution details to carry. An unrelated quick fix need not change this file.
+A small non-Program focus may hold only a goal, a sized sequence, and a next action. An unrelated quick fix need not change this file.
 <!-- /managed:active-work -->
 ## Goal
 Roll out lean guidance v2 (merged to `main` on 2026-09-10) to every aido-managed project so each carries the 3 CLAUDE.md blocks, 2 process docs, and 4 standard skills, with no orphan blocks or files left behind. Roadmap row: Quick Updates → "Roll out lean guidance v2 to consuming projects".
