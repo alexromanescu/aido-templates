@@ -1,1 +1,0 @@
-@{{newMessageFrom}} → @{{recipientHandle}}: {{newMessageBody}}

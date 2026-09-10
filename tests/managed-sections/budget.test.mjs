@@ -67,8 +67,6 @@ test("every docs/process pointer resolves to an existing process-* section", asy
   const files = [
     ...(await walkMarkdown(join(ROOT, "managed-sections"))),
     ...(await walkMarkdown(join(ROOT, "skills"))),
-    ...(await walkMarkdown(join(ROOT, "prompts"))),
-    ...(await walkMarkdown(join(ROOT, "rooms"))),
     ...(await readdir(ROOT)).filter((f) => f.endsWith("-default.md")).map((f) => join(ROOT, f)),
   ];
   const dangling = [];
@@ -121,8 +119,6 @@ test("no guidance names a skill folder that no longer exists", async () => {
   const files = [
     ...(await walkMarkdown(join(ROOT, "managed-sections"))),
     ...(await walkMarkdown(join(ROOT, "skills"))),
-    ...(await walkMarkdown(join(ROOT, "prompts"))),
-    ...(await walkMarkdown(join(ROOT, "rooms"))),
     ...(await readdir(ROOT)).filter((f) => f.endsWith("-default.md")).map((f) => join(ROOT, f)),
     join(ROOT, "CLAUDE.md"),
     join(ROOT, "agent-governance", "catalog.json"),

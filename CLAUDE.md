@@ -1,6 +1,6 @@
 # aido-templates — Template Content & Authoring Guide
 
-This repo contains the template content distributed by the aido app: managed sections, project scaffolds, prompts, room-protocol templates, and stack-detection rules. The aido app reads from this folder at runtime and edits it via its `/templates` page UI. It is an **external repo, independent of the aido source tree** — aido locates it per-instance via `AIDO_TEMPLATES_ROOT` env var, the `templatesFolder` SQLite setting (set in `/settings → General`), or the default `~/Work/Projects/aido-templates`. The intent is to keep logical agent guidance and its referenced docs in sync across applications and propagate learnings between them, supporting structured agent-driven development across multiple apps.
+This repo contains the template content distributed by the aido app: managed sections, project scaffolds, governed skill sources, and stack-detection rules. The aido app reads from this folder at runtime and edits it via its `/templates` page UI. It is an **external repo, independent of the aido source tree** — aido locates it per-instance via `AIDO_TEMPLATES_ROOT` env var, the `templatesFolder` SQLite setting (set in `/settings → General`), or the default `~/Work/Projects/aido-templates`. The intent is to keep logical agent guidance and its referenced docs in sync across applications and propagate learnings between them, supporting structured agent-driven development across multiple apps.
 
 Logical agent guidance has one physical `CLAUDE.md` authority and a portable `AGENTS.md -> CLAUDE.md` compatibility alias. That shared guidance is distinct from harness-specific runtime prompts, room protocols, provider/CLI behavior, and session material; preserve those native distinctions instead of generalizing them through the alias.
 
@@ -8,8 +8,6 @@ Logical agent guidance has one physical `CLAUDE.md` authority and a portable `AG
 
 - `managed-sections/` — Sectioned Markdown blocks injected into projects' `CLAUDE.md` (or other target files via frontmatter `target:`). One file per section + per stack variant.
 - `*-default.md` (repo root) — Project scaffolds (`claudemd`, `roadmap`, `deploy`, `active-work`, `agent-card`, `tests`). Written into a project at creation/init time.
-- `prompts/` — Prompt templates rendered with `{{var}}` substitution by the aido AI router and the team-lead launch path.
-- `rooms/` — Agent-facing prose loaded into multi-agent room JOIN payloads and message envelopes. Special escape rules — see below.
 - `skills/` — Canonical governed custom-skill sources. Every immediate skill folder is registered in `agent-governance/catalog.json`; one source may back one or more explicitly selected harness realizations.
 - `agent-governance/catalog.json` — Portable desired-policy catalog for semantic capabilities, harness realizations, and profiles. It contains no live host observations and does not itself install or enable anything.
 - `stacks.json` — Stack-detection rules and metadata; gates which managed-section variants are offered to each project.
@@ -60,7 +58,7 @@ The `process-*` sections (`process-roadmap`, `process-git-workflow`) each target
 
 ### Budgets (enforced by `tests/managed-sections/budget.test.mjs`)
 
-Every clause in an always-loaded block costs every turn in every project. The three CLAUDE.md-targeted default blocks stay under **800 body words combined** (they landed at ~770 after the 2026-09-10 review restored five dropped rules; the ceiling is not headroom to fill); no single managed section exceeds **700 body words**. Before adding a clause, remove one, move the material into a skill, or replace it with a mechanism (a hook, a parity check, an app-owned format). The same test file checks that every `docs/process/*.md` pointer in templates, scaffolds, skills, prompts, and rooms resolves to an existing `process-*` section, that `agent-governance/catalog.json` and `skills/` agree exactly, and that no retired skill name survives outside this repo's own consumed blocks. When authoring here, the vendored `writing-for-agents` skill under `.claude/skills/` (from mattpocock/skills, MIT) is the reference for pointer wording and progressive disclosure.
+Every clause in an always-loaded block costs every turn in every project. The three CLAUDE.md-targeted default blocks stay under **800 body words combined** (they landed at ~770 after the 2026-09-10 review restored five dropped rules; the ceiling is not headroom to fill); no single managed section exceeds **700 body words**. Before adding a clause, remove one, move the material into a skill, or replace it with a mechanism (a hook, a parity check, an app-owned format). The same test file checks that every `docs/process/*.md` pointer in templates, scaffolds, and skills resolves to an existing `process-*` section, that `agent-governance/catalog.json` and `skills/` agree exactly, and that no retired skill name survives outside this repo's own consumed blocks. When authoring here, the vendored `writing-for-agents` skill under `.claude/skills/` (from mattpocock/skills, MIT) is the reference for pointer wording and progressive disclosure.
 
 ## Scaffolds
 
@@ -84,7 +82,7 @@ init: true
 
 ### Variable substitution
 
-Scaffold and prompt bodies support `{{name}}`, `{{today}}`, `{{description}}` — substituted at render time by the same engine. Values are inserted verbatim; the renderer does no escaping, so never compose protocol markers, command-line flags, or shell quoting from `{{var}}` content. Treat any externally-supplied value as crossing a security boundary. (Room templates use a different renderer that DOES escape — see below.)
+Scaffold bodies support `{{name}}`, `{{today}}`, `{{description}}` — substituted at render time. Values are inserted verbatim; the renderer does no escaping, so never compose protocol markers, command-line flags, or shell quoting from `{{var}}` content. Treat any externally-supplied value as crossing a security boundary.
 
 ### Referencing managed sections in scaffolds
 
@@ -97,30 +95,23 @@ At project init aido writes the scaffold, then runs sync, which fills every empt
 - The empty pair also pins *where* the section lands (e.g. between the intro and a project-specific tail). `tests-default.md` is the working example: frontmatter + title + intro + an empty `<!-- managed:tests -->` pair + a project-owned tail (runners, commands, isolation, test-doc links).
 - **When the host doc's *emptiness* is a runtime signal, put everything permanent (title, intro, guidance) *inside* the block and keep the scaffold a bare marker pair** — otherwise the title/intro left outside the block read as content and defeat the signal. `active-work-default.md` is the working example: aido treats `docs/active-work.md` as "no active focus" when nothing remains after stripping managed blocks (`roadmap.getActiveWork` isEmpty + the `composeActiveWorkFromTasks` guard), so the title + guidance live in the `active-work` managed section and the scaffold is just the empty `<!-- managed:active-work -->` pair. The live focus is the text written *below* the block; it's wiped on completion (`completePass` cleared), leaving the block.
 
-## Prompts
+## Engine prompts and room templates live in aido, not here
 
-Prompt templates under `prompts/` are loaded by the aido AI router (advice, generate-prompt, bug-hunt) and the team-lead launch path. They use the same `{{var}}` engine as scaffolds — the no-escape caveat from Variable substitution above applies.
+The `prompts/` and `rooms/` folders moved into the aido repo (2026-09-10) as
+`engine/prompts/` and `engine/rooms/`. They are engine contracts — the system
+prompts the teamlead and workers receive, and the room-protocol prose in JOIN
+payloads and message envelopes — consumed by nothing but aido, so they are
+versioned, tested, and deployed with the code that reads them. A save in a UI
+can no longer change a deployed engine without a test run and a deploy.
 
-## Room templates
+Edit them in `~/Work/Projects/aido` under `engine/`; their contract tests live
+there too (`tests/structural/engine-prompt-contract.test.ts`,
+`tracked-review-contract.test.ts`, `rooms-templates-loader.test.ts`). aido's
+`/prompts` page still shows them, read-only.
 
-Files under `rooms/` are loaded into multi-agent room JOIN payloads and per-turn message envelopes. They are loaded by `loadRoomTemplate(name)` and rendered with `renderRoomTemplate(template, vars)` — never via the prompt-template renderer.
-
-The current set:
-
-- `protocol-rules.md` — top-level PROTOCOL block (how to read ROOM-MESSAGE, how to emit ROOM-REPLY).
-- `decision-rules.md` — when to emit a ROOM-DECISION block instead of a plain reply.
-- `decision-rules-teamlead.md` / `decision-rules-worker.md` — role-specific decision-rule variants.
-- `approval-rules.md` — the ROOM-PROPOSAL → ROOM-APPROVAL cycle for irreversible actions.
-- `join-header.md` — preamble at the top of every JOIN payload.
-- `participant-joined.md` — system notice broadcast when an agent joins.
-- `message-envelope-head.md` / `message-envelope-tail.md` — the wrapper around each ROOM-MESSAGE delivered to an agent.
-- `user-directory-fallback.md` — line used when the user's `~/.aido/user-card.md` is missing.
-
-### Critical: every interpolated value is auto-escaped
-
-The room-template renderer passes every interpolated value through `escapeForInject`, rewriting any `<<<` inside a substituted value to a visually-identical zero-width-space variant that no parser matches. So protocol markers like `<<<ROOM-REPLY>>>` written directly in the body survive verbatim (documenting the protocol), but the same characters arriving via `{{var}}` (handle names, message bodies, user-card fields) are neutralized — user-controlled content cannot inject protocol markers.
-
-When you add a new room template file, name it under `rooms/` and load it via the safe loader/renderer pair. A structural test in the aido repo (`tests/structural/rooms-templates-loader.test.ts`) blocks raw `fs.readFile` of `templates/rooms/*` and blocks routing a rooms template through the prompt-template renderer — both fail loudly in CI.
+This repo keeps what propagates across applications: managed sections,
+scaffolds (including `deploy-default.md`), governed skill sources with the
+catalog, and `stacks.json`.
 
 ## Skills
 
@@ -154,7 +145,7 @@ The aido projects module reads this file to decide which managed-section variant
 
 The deployed aido app at `~/Apps/aido/` is the primary editor:
 
-- `/templates` page in the aido UI: per-file editor for managed sections (Single + Compare modes), scaffolds, room prompts. Saves run through `safeWriteAndCommit` — autocommits land in this repo's `.git` (because git resolves `.git` from the edited file's directory).
+- `/templates` page in the aido UI: per-file editor for managed sections (Single + Compare modes) and scaffolds. Saves run through `safeWriteAndCommit` — autocommits land in this repo's `.git` (because git resolves `.git` from the edited file's directory).
 - For deeper authoring sessions, open `~/Work/Projects/aido-templates`, then launch the intended harness (`claude` or `codex`).
 
 Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Projects/aido/`) resolves this repo live like any instance (`AIDO_TEMPLATES_ROOT` env → `templatesFolder` setting → the default path) — there is no sync step; edits here reach dev runs and deployed spawns immediately.
