@@ -1,23 +1,19 @@
-<!-- managed:process-roadmap v=8 -->
+<!-- managed:process-roadmap v=9 -->
 # Roadmap Process
 
-How aido-managed projects track work in `docs/roadmap.md`. The file is parsed by the aido app — the format below is strict; follow it exactly when editing by hand (the aido `/project/:name/roadmap` page does it for you). Phases or rows that don't match the expected shape are silently dropped from the parsed roadmap.
+`docs/roadmap.md` is parsed by the aido app. The format below is strict: phases or rows that do not match are silently dropped. The aido `/project/:name/roadmap` page follows it for you; follow it exactly when editing by hand.
 
-## File format reference
+## Format
 
-Phases use a level-2 heading with this exact shape:
+Phase heading, level 2, exact shape:
 
 ```
 ## Phase <N>: <Name> — <STATE>
 ```
 
-`<STATE>` is one of `COMPLETE`, `IN PROGRESS`, `PLANNED` — uppercase, em-dash `—` (not a hyphen `-`), and **the state token is the last thing on the line**. No trailing dates, parentheticals, or notes — the closeout date belongs in `roadmap-meta:` at the top of the file, not in the heading. Other words (`DONE`, `SHIPPED`, `WIP`, `TODO`) are not recognized.
+`<STATE>` is `COMPLETE`, `IN PROGRESS`, or `PLANNED`: uppercase, em-dash `—`, and the last thing on the line. No dates or notes in the heading; closeout dates go in `roadmap-meta`. For a phase with rows the app derives the state from the rows and corrects a stale token on save; you must still write a valid one. Free-form text and level-3 subsections may sit between the heading and the task table while the phase is open.
 
-For a phase **with rows**, `<STATE>` is **derived from those rows by the app** (all `done` → COMPLETE, none started → PLANNED, otherwise IN PROGRESS); a task-less phase keeps the token you write. You must still write a valid `COMPLETE | IN PROGRESS | PLANNED` token — an invalid one drops the phase — but for a phase with rows the app corrects a stale token on the next save, so don't fight it.
-
-Free-form explanatory text (paragraphs, lists, level-3 subsections like `### Outcome` or `### Background`) is permitted between a phase heading and its `### Features` table while the phase is `PLANNED` or `IN PROGRESS`. Once a phase reaches `COMPLETE`, the **whole phase** leaves this file — see **Phase archival** under Lifecycles.
-
-Sections inside a phase use a level-3 heading and contain one task table:
+Each phase holds one or more level-3 sections, each with one task table:
 
 ```
 ### Features
@@ -26,49 +22,20 @@ Sections inside a phase use a level-3 heading and contain one task table:
 | Short task name | Backend | M | next | One-line description | Other task name |
 ```
 
-**Column rules:**
+- `Task` (required): short, human-readable, and the identity key, so renaming creates a new task. Escape pipes as `\|`.
+- `Area` (required): free-form tag; keep a small vocabulary per project.
+- `Size` (required): `S`, `M`, or `L`.
+- `Status` (required): `done`, `doing`, `next`, `blocked`, `planned`, or `postponed`. There is no `open`.
+- `Description` (required): one line; newlines are stripped.
+- `Dependencies` (optional): comma-separated task names. Omit the column when no row uses it.
+- `Done` (optional): ISO date `YYYY-MM-DD` set when a row reaches `done`; the UI stamps it, agents may backdate inline. Omit the column when no row has a date.
 
-- `Task` (required) — short, human-readable; also the identity key, so renaming is treated as a new task. Don't use pipes; escape as `\|` if you must.
-- `Area` (required) — free-form tag (e.g. `Backend`, `UI`, `Infra`, `UI + Backend`). Pick a small vocabulary per project and reuse it.
-- `Size` (required) — one of `S`, `M`, `L` (uppercase).
-- `Status` (required) — one of `done`, `doing`, `next`, `blocked`, `planned`, `postponed` (lowercase). There is no `open` status.
-- `Description` (required) — one-line summary; newlines are stripped on write.
-- `Dependencies` (optional) — comma-separated task names this task depends on. Omit the column entirely from a table that has no dependencies.
-- `Done` (optional) — ISO date `YYYY-MM-DD` recording when the task reached `done`. The aido UI auto-stamps this on the `*→done` transition; agents can backdate inline. Omit the column from tables where no row has a date.
-
-**Special top-level sections** (outside any phase, level-2 headings, exact names):
-
-- `## Quick Updates` — small ad-hoc improvements that don't belong in a phase. Same task-table shape. Lives **above** the first phase.
-- `## Bugs` — open bugs, a normal task-table section, living **above** the first phase. Row name: `BUG-NNN: <title>`. See Bug lifecycle below.
-- `## Distant Roadmap` — same task-table shape; long-horizon items not yet scheduled into a phase.
-- `## Potential Improvements` — speculative parking lot; see lifecycle below. Lives **below** `## Distant Roadmap`.
-- `## Completed Work` — a two-column summary table with headers `Phase / Feature | Summary`, one row per shipped feature (not per task).
-
-**Continuous Improvements phase** — `## Phase 99: Continuous Improvements — COMPLETE` is a permanent always-`COMPLETE` phase at the end of the phase block, just above `## Distant Roadmap`. It is the permanent home for completed off-phase tasks; the high number keeps it pinned to the bottom of the phase list.
-
-**`roadmap-meta` block** — an optional HTML comment at the top of the file (`<!-- roadmap-meta ... -->`) holding free-form `key: value` lines (e.g. `updated:`, closeout dates, links to master specs). Values must stay on a single line.
+Top-level sections outside any phase, level 2, exact names, in this order: `## Quick Updates` and `## Bugs` above the first phase (task tables; bug rows are named `BUG-NNN: <title>`); `## Phase 99: Continuous Improvements — COMPLETE` as the permanent last phase; then `## Distant Roadmap` (task table, unscheduled intended work); `## Potential Improvements` (task table, speculative parking lot); `## Completed Work` (two columns, `Phase / Feature | Summary`, one row per shipped feature). An optional `<!-- roadmap-meta ... -->` comment at the top holds single-line `key: value` entries such as `updated:`.
 
 ## Lifecycles
 
-### Phase archival
-
-The active roadmap holds open work only. **When a phase reaches `COMPLETE` (its last row flips `done`), move the entire phase — heading, narrative, and tables — to `docs/roadmap-completed.md` in the same commit** (create the file if missing), and leave one row in `## Completed Work` (`Phase N: <name>` + a one-line summary) so the phase number stays registered. Phase 99 is permanent and never archived. If you find `COMPLETE` phases sitting inline — e.g. flipped from the aido UI, which does not archive — archive them as part of your roadmap edit. **Never reuse an archived phase's number**: `## Completed Work` and `roadmap-completed.md` are the registry of used numbers; new phases continue from the highest number ever used. A `Dependencies` reference to a task in an archived phase counts as satisfied (the phase was COMPLETE).
-
-### Bugs
-
-A newly-filed bug is `next`, `doing` while being fixed, `blocked` if waiting on something. When fixed, mark it `done` and **move the row (with its `Done` date) into `## Phase 99: Continuous Improvements` in the same commit that lands the fix** — the `## Bugs` section holds open bugs only. Ship every fix with a regression test where practical (see `docs/process/bugs.md` for the full bug-fix procedure).
-
-### Deferred work
-
-Complete work needed for the agreed outcome when it can be done now. Do not replace execution with a deferred row or resume prompt. If a real dependency or missing authorization blocks it, record the blocker and next action in the roadmap and keep the unfinished work visible in the active focus. Record unrelated findings separately without expanding the assignment.
-
-### Potential improvements
-
-Required work stays in the active focus until complete or explicitly removed from scope by the owner; do not reclassify it as a Potential Improvement.
-
-`## Potential Improvements` holds speculative ideas deliberately **not** acted on now — distinct from deferred work (needed, with a resume prompt) and from `## Distant Roadmap` (intended, just later). Rows default to `Status: postponed`. Each row's `Description` must let a future reader prioritize without re-deriving the analysis: the benefit, the honest impact (who's affected, how often, correctness vs polish — say plainly when it's small, latent, or cosmetic), the cost (`Size`), and why it wasn't done then. Promote an idea by moving its row to `## Distant Roadmap` or a phase with an active status.
-
-### Completed work
-
-When a feature ships, move its full details to `docs/roadmap-completed.md` (create it if missing) and leave a one-line summary in `## Completed Work`. When a task in `## Quick Updates`, `## Bugs`, or `## Distant Roadmap` reaches `done`, move the row (with its `Done` date) into `## Phase 99: Continuous Improvements` so the active off-phase sections stay focused on pending work.
+- **Open work only.** When a phase reaches `COMPLETE`, move the whole phase (heading, narrative, tables) to `docs/roadmap-completed.md` in the same commit, creating the file if missing, and leave one `Phase N: <name>` row with a one-line summary in `## Completed Work`. Archive any `COMPLETE` phase you find inline. Never reuse an archived phase number; `## Completed Work` and `roadmap-completed.md` are the registry. A feature that ships before its phase completes gets the same treatment: details to `roadmap-completed.md`, one summary row in `## Completed Work`. A dependency on a task in an archived phase counts as satisfied. Phase 99 is never archived.
+- **Off-phase completions.** When a row in `## Quick Updates`, `## Bugs`, or `## Distant Roadmap` reaches `done`, move it with its `Done` date into Phase 99 in the same commit as the work. A bug is `next` when filed, `doing` while fixed, `blocked` while waiting; it ships with a regression test.
+- **Deferring is not finishing.** Work needed for the agreed outcome is done now when it can be; if a real dependency or missing authorization blocks it, record the blocker and next action here and keep it visible in the active focus. Record unrelated findings as separate rows without expanding the assignment.
+- **Potential Improvements** holds ideas deliberately not acted on now, default `Status: postponed`, never required work. Each `Description` states the benefit, the honest impact (who, how often, correctness versus polish), the cost, and why it waited. Promote by moving the row to `## Distant Roadmap` or a phase.
 <!-- /managed:process-roadmap -->
