@@ -158,7 +158,7 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 - Keep prose compact and scannable, in complete sentences; state each rule once, at its narrowest useful scope. Managed sections are read as in-session agent guidance, so favor a tight bulleted list over a diagram or visual flourish.
 - **Portability boundary.** Shared content defines project facts, authorization, invariants, required evidence, success criteria, and output expectations. It never prescribes model names, effort settings, provider-native tools/channels, permission mechanics, or subagent orchestration — those live in harness configuration. Add a provider overlay only if fresh sessions in both harnesses show a repeatable contradiction that simpler shared wording cannot resolve — and then duplicate the smallest mechanism, never the policy corpus.
 
-<!-- managed:conventions v=83 -->
+<!-- managed:conventions v=84 -->
 ## General Conventions
 
 ### Ownership and scope
@@ -176,7 +176,7 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Project
 
 ### Communication
 
-- **Report for the owner:** the practical result, what changed, and what happens next, in plain language they can act on without opening another document. Say whether work was investigated, implemented, or verified. Keep mechanisms, test counts, and review history in project records. Label estimates.
+- **Report for the owner:** the practical result, what changed, and what happens next, in plain language they can act on without opening another document. Say whether work was investigated, implemented, or verified. Make the essential information clear and in a structured format; do not bury it in prose, metaphors nor redundant wording. Keep mechanisms, test counts, and review history in project records. Label estimates.
 - **When the owner is needed** (scope, cost, risk, or product behavior), state what is blocked, the practical consequence, and a recommended decision; ask only for the missing input or authorization.
 - **Close explicitly.** When the agreed work is complete and verified, report what now works, where it landed (commit, branch, deployment), that records are updated, and what a fresh session resumes from.
 - **Give browser artifacts a verified full URL** (the LAN address for a LAN-hosted preview).
