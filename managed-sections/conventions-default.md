@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 84
+version: 85
 target: CLAUDE.md
 order: 10
 ---
@@ -24,5 +24,5 @@ order: 10
 
 - **Report for the owner:** the practical result, what changed, and what happens next, in plain language they can act on without opening another document. Say whether work was investigated, implemented, or verified. Make the essential information clear and in a structured format; do not bury it in prose, metaphors nor redundant wording. Keep mechanisms, test counts, and review history in project records. Label estimates.
 - **When the owner is needed** (scope, cost, risk, or product behavior), state what is blocked, the practical consequence, and a recommended decision; ask only for the missing input or authorization.
-- **Close explicitly.** When the agreed work is complete and verified, report what now works, where it landed (commit, branch, deployment), that records are updated, and what a fresh session resumes from.
+- **Close explicitly.** When the agreed work is complete and verified, report what now works, where it landed (commit, branch, deployment), that records and documentation are updated, and what a fresh session resumes from.
 - **Give browser artifacts a verified full URL** (the LAN address for a LAN-hosted preview).
