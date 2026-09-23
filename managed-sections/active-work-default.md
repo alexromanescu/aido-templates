@@ -1,13 +1,13 @@
 ---
 section: active-work
 stack: default
-version: 16
+version: 17
 target: docs/active-work.md
 order: 10
 ---
 # Active Work
 
-Guidance lives in this managed block; the live focus is everything below it. Read the focus when resuming work. Keep it under about 80 lines and rewrite rather than append.
+Guidance lives in this managed block; the live focus is everything below it. Read the focus when resuming work. Keep it under about 100 lines and rewrite rather than append.
 
 - Record the **goal**, **constraints**, an **ordered sequence** of session-sized slices each marked `(S)`, `(M)`, or `(L)`, the **next action**, and the commands to run and verify the focus. Link to roadmap rows and briefs instead of copying them. Preserve owner constraints across every rewrite unless the owner changes them.
 - For aido Program execution, keep exactly one `## Goal` and one `## Guardrails` heading, the sequence, and every `<!-- aido:work-item … -->` identity, brief reference, dependency, and completion gate. Follow the program's ownership rules for cursor updates, including completion clearing.
