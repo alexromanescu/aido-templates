@@ -1,6 +1,6 @@
 # aido-templates — Template Content & Authoring Guide
 
-This repo contains the template content distributed by the aido app: managed sections, project scaffolds, governed skill sources, and stack-detection rules. The aido app reads from this folder at runtime and edits it via its `/templates` page UI. It is an **external repo, independent of the aido source tree** — aido locates it per-instance via `AIDO_TEMPLATES_ROOT` env var, the `templatesFolder` SQLite setting (set in `/settings → General`), or the default `~/Work/Projects/aido-templates`. The intent is to keep logical agent guidance and its referenced docs in sync across applications and propagate learnings between them, supporting structured agent-driven development across multiple apps.
+This repo contains the template content distributed by the aido app: managed sections, project scaffolds, governed skill sources, and stack-detection rules. The aido app reads from this folder at runtime and edits it via its `/templates` page UI. It is an **external repo, independent of the aido source tree** — aido locates it per-instance via `AIDO_TEMPLATES_ROOT` env var, the `templatesFolder` SQLite setting (set in `/settings → General`), or the default `<projects folder>/aido-templates` (`~/Projects/aido-templates` unless configured). The intent is to keep logical agent guidance and its referenced docs in sync across applications and propagate learnings between them, supporting structured agent-driven development across multiple apps.
 
 Logical agent guidance has one physical `CLAUDE.md` authority and a portable `AGENTS.md -> CLAUDE.md` compatibility alias. That shared guidance is distinct from harness-specific runtime prompts, room protocols, provider/CLI behavior, and session material; preserve those native distinctions instead of generalizing them through the alias.
 
@@ -104,7 +104,7 @@ payloads and message envelopes — consumed by nothing but aido, so they are
 versioned, tested, and deployed with the code that reads them. A save in a UI
 can no longer change a deployed engine without a test run and a deploy.
 
-Edit them in `~/Work/Projects/aido` under `engine/`; their contract tests live
+Edit them in the aido repo (`<projects folder>/aido`) under `engine/`; their contract tests live
 there too (`tests/structural/engine-prompt-contract.test.ts`,
 `tracked-review-contract.test.ts`, `rooms-templates-loader.test.ts`). aido's
 `/prompts` page still shows them, read-only.
@@ -146,9 +146,9 @@ The aido projects module reads this file to decide which managed-section variant
 The deployed aido app at `~/Apps/aido/` is the primary editor:
 
 - `/templates` page in the aido UI: per-file editor for managed sections (Single + Compare modes) and scaffolds. Saves run through `safeWriteAndCommit` — autocommits land in this repo's `.git` (because git resolves `.git` from the edited file's directory).
-- For deeper authoring sessions, open `~/Work/Projects/aido-templates`, then launch the intended harness (`claude` or `codex`).
+- For deeper authoring sessions, open this repo (`<projects folder>/aido-templates`), then launch the intended harness (`claude` or `codex`).
 
-Pushes to `origin/main` are user-initiated. The aido dev folder (`~/Work/Projects/aido/`) resolves this repo live like any instance (`AIDO_TEMPLATES_ROOT` env → `templatesFolder` setting → the default path) — there is no sync step; edits here reach dev runs and deployed spawns immediately.
+Pushes to `origin/main` are user-initiated. The aido dev folder (`<projects folder>/aido/`) resolves this repo live like any instance (`AIDO_TEMPLATES_ROOT` env → `templatesFolder` setting → the default path) — there is no sync step; edits here reach dev runs and deployed spawns immediately.
 
 ## Style conventions for managed-section content
 
