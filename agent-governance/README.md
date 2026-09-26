@@ -167,7 +167,7 @@ review-then-apply flow (Agent tools → Setup → Global → **User-level guidan
 and settings**). This directory holds the portable desired state:
 
 - `user-guidance/<key>.md` — one global guidance section per file. The
-  frontmatter is exactly `section` (equal to the file name, and starting with
+  frontmatter is exactly `section` (the file name, which starts with
   `user-`), `version` (bump on every content change), and `targets`
   (`[claude]`, `[codex]`, or `[claude, codex]`). The body is inserted into
   `~/.claude/CLAUDE.md` and/or `~/.codex/AGENTS.md` between
