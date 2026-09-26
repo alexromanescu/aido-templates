@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "settings": [
+    {
+      "id": "claude.auto-mode-soft-deny",
+      "state": "set",
+      "value": [
+        "$defaults",
+        "Raw SQL DELETE, TRUNCATE, or UPDATE statements run directly against the q1dms dev databases (for example through psql or a database client): data changes there go through the application or its migrations unless the owner explicitly asks for that exact statement."
+      ]
+    }
+  ]
+}

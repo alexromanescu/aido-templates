@@ -159,3 +159,35 @@ and unknown artifacts, and review destructive cleanup path by path. Do not add
 a fallback cache registry, a second configuration writer, or SQLite capability
 state. Editing policy or reviewing a plan never authorizes a live Claude or
 Codex change.
+
+## User-level guidance and settings
+
+aido also governs each host's user-level harness files through the same
+review-then-apply flow (Agent tools → Setup → Global → **User-level guidance
+and settings**). This directory holds the portable desired state:
+
+- `user-guidance/<key>.md` — one global guidance section per file. The
+  frontmatter is exactly `section` (equal to the file name, and starting with
+  `user-`), `version` (bump on every content change), and `targets`
+  (`[claude]`, `[codex]`, or `[claude, codex]`). The body is inserted into
+  `~/.claude/CLAUDE.md` and/or `~/.codex/AGENTS.md` between
+  `<!-- managed:<key> v=<N> -->` markers. aido owns only blocks in the `user-`
+  namespace: owner text and any other managed block in those files are left
+  byte-for-byte alone, and deleting a source here plans removal of its block.
+- `user-level.json` — `{ "schemaVersion": 1, "settings": [...] }`. Each entry
+  names one setting from aido's closed registry by `id` and is either
+  `{ "state": "set", "value": ... }` or `{ "state": "absent" }`. A registry
+  setting with no entry is unmanaged: aido never changes it. Registry ids:
+  `claude.model` (`model`), `claude.effort` (`effortLevel`),
+  `claude.permission-mode` (`permissions.defaultMode`),
+  `claude.auto-mode-soft-deny` (`autoMode.soft_deny`), `claude.status-line`
+  (`statusLine`), `codex.model` (`model`), `codex.reasoning-effort`
+  (`model_reasoning_effort`), and `codex.status-line` (`tui.status_line`).
+
+Keep `"$defaults"` in `autoMode.soft_deny` unless the built-in auto-mode
+soft-deny rules are deliberately replaced; entries are prose rules read by
+Claude's auto-mode classifier. Keep these sources host-neutral apart from
+deliberate owner facts (such as the LAN address). Model, effort, auto mode,
+and status-line values are the owner's decision; set them from aido rather
+than by hand. Like the catalog, editing these files only changes the next
+reviewed plan; it never edits a live harness file.
