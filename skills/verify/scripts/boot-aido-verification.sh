@@ -43,7 +43,11 @@ trap 'exit 143' TERM
 
 # Capture the committed source before replacing HOME, then allocate the exact
 # immutable cleanup root. The EXIT trap is already active if mktemp fails.
-AIDO_VERIFY_TEMPLATE_SOURCE="${AIDO_TEMPLATES_ROOT:-${HOME:?}/Work/Projects/aido-templates}"
+# Default: <projects folder>/aido-templates, where the projects folder is
+# AIDO_PROJECTS_DIR or else the folder holding this aido checkout (resolved
+# through the shared git dir, so it also works from a .worktrees/ checkout).
+aido_verify_projects_dir="${AIDO_PROJECTS_DIR:-$(dirname "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")")}"
+AIDO_VERIFY_TEMPLATE_SOURCE="${AIDO_TEMPLATES_ROOT:-$aido_verify_projects_dir/aido-templates}"
 readonly AIDO_VERIFY_TEMPLATE_SOURCE
 AIDO_VERIFY_ROOT="$(mktemp -d /tmp/aido-verify.XXXXXXXXXX)"
 case "$AIDO_VERIFY_ROOT" in
