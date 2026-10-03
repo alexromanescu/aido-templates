@@ -203,13 +203,13 @@
           "harness": "claude",
           "kind": "skill",
           "ownership": "custom",
-          "nativeId": "verify",
+          "nativeId": "aido-app-verify",
           "allowedScopes": [
             "project"
           ],
           "provenance": {
             "type": "templates",
-            "path": "skills/verify"
+            "path": "skills/aido-app-verify"
           }
         },
         {
@@ -217,13 +217,13 @@
           "harness": "codex",
           "kind": "skill",
           "ownership": "custom",
-          "nativeId": "verify",
+          "nativeId": "aido-app-verify",
           "allowedScopes": [
             "project"
           ],
           "provenance": {
             "type": "templates",
-            "path": "skills/verify"
+            "path": "skills/aido-app-verify"
           }
         }
       ]

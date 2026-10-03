@@ -46,7 +46,7 @@ Every requirement is a complete record: `capabilityId`, `harness`,
 implicit peer harnesses, inherited desired state, or an external path. Profiles
 may contain both global and project-scoped requirements; only global
 requirements form the estate baseline, while profile project requirements
-apply to each selecting project. The current `verify` realizations stay out of
+apply to each selecting project. The current `aido-app-verify` realizations stay out of
 `standard` and are selected explicitly by aido's project declaration.
 
 ## Project declarations

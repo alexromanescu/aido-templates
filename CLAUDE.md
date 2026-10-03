@@ -129,7 +129,7 @@ The catalog is authoritative; this current-source summary is explanatory:
 
 - Standard global profile: `debugging/`, `test-design/`, `residuals-review/`, and `program-prep/`.
 - Catalogued but not selected by `standard`: `structural-tests/` (select it per project where structural scans exist, such as aido).
-- Project-only: `verify/`, selected by aido's project declaration for built running-app verification.
+- Project-only: `aido-app-verify/`, selected by aido's project declaration for built running-app verification.
 
 Skill directories may contain scripts, references, executables, or binary assets. Validate `SKILL.md` as text/frontmatter; hash and copy every other entry as opaque bytes.
 

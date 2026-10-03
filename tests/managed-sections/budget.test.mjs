@@ -111,8 +111,14 @@ test("no guidance names a skill folder that no longer exists", async () => {
   // authoring guide. Append when retiring a skill; never remove.
   const EVER_DISTRIBUTED = [
     "debugging", "frontend-tests", "program-prep", "residuals-review", "structural-tests",
-    "test-design", "test-hardening", "testing-by-simulation", "verify",
+    "test-design", "test-hardening", "testing-by-simulation", "verify", "aido-app-verify",
   ];
+  // Retired names that are also ordinary English words match only in the forms
+  // that name a skill: `name`, "name", skills/name, name/, or /name.
+  const REFERENCE_FORMS_ONLY = new Set(["verify"]);
+  const namePattern = (name) => REFERENCE_FORMS_ONLY.has(name)
+    ? new RegExp(`\`${name}\`|"${name}"|skills/${name}(?![A-Za-z0-9_-])|(?<![A-Za-z0-9_-])${name}/|(?<![A-Za-z0-9_./-])/${name}(?![A-Za-z0-9_-])`)
+    : new RegExp(`(?<![A-Za-z0-9_-])${name}(?![A-Za-z0-9_-])`);
   const existing = new Set((await readdir(join(ROOT, "skills"), { withFileTypes: true })).filter((d) => d.isDirectory()).map((d) => d.name));
   const retired = EVER_DISTRIBUTED.filter((n) => !existing.has(n));
   assert.ok(retired.length > 0, "the retired list is empty; the test would be vacuous");
@@ -126,9 +132,10 @@ test("no guidance names a skill folder that no longer exists", async () => {
   const hits = [];
   for (const file of files) {
     // This repo consumes its own blocks; those are updated by sync, not here.
-    const text = (await readFile(file, "utf8")).replace(/<!-- managed:[a-z0-9-]+ v=\d+ -->[\s\S]*?<!-- \/managed:[a-z0-9-]+ -->/g, "");
+    // Real markers sit alone on their line; inline examples in prose must not start a strip.
+    const text = (await readFile(file, "utf8")).replace(/^<!-- managed:[a-z0-9-]+ v=\d+ -->$[\s\S]*?^<!-- \/managed:[a-z0-9-]+ -->$/gm, "");
     for (const name of retired) {
-      if (new RegExp(`(?<![A-Za-z0-9_-])${name}(?![A-Za-z0-9_-])`).test(text)) hits.push(`${file.slice(ROOT.length)} names ${name}`);
+      if (namePattern(name).test(text)) hits.push(`${file.slice(ROOT.length)} names ${name}`);
     }
   }
   assert.deepEqual(hits, []);

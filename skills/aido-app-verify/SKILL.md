@@ -1,5 +1,5 @@
 ---
-name: verify
+name: aido-app-verify
 description: Use when confirming an aido UI or server change at the real running-app surface by building the app, booting it with fake spawners and a temporary database, and driving desktop/mobile flows or tRPC diagnostics.
 ---
 
