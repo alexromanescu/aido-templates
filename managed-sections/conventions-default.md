@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 86
+version: 87
 target: CLAUDE.md
 order: 10
 ---
@@ -17,7 +17,7 @@ order: 10
 
 - **Use current evidence.** After resumption or compaction, check the directory, branch, and Git status; check prerequisites separately from the consequential command they guard.
 - **Prefer the simplest durable solution.** Follow established patterns, avoid speculative abstractions, handle failures explicitly, validate untrusted data at system boundaries, and remove code your change makes unused. Before production users exist, delete superseded code once its replacement works and spend nothing keeping it working (no parallel paths, shims, fallbacks, or baselines for it); git history is the fallback.
-- **Stop patch loops.** After two fixes to fixes in one mechanism, stop patching: redesign or delete it, and record why.
+- **Stop patch loops.** After three repairs to the same code, redesign or delete it rather than patch again; record why.
 - **Follow `docs/process/git-workflow.md`** for isolation, checkpoints, merging, pushing, and cleanup. Pushes require an owner request.
 - **Preserve guidance ownership.** Edit root guidance (`CLAUDE.md`, aliased by `AGENTS.md`) only on explicit request, and managed content only in its canonical templates; session learnings go to project docs.
 
