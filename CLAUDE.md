@@ -4,6 +4,8 @@ This repo contains the template content distributed by the aido app: managed sec
 
 Logical agent guidance has one physical `CLAUDE.md` authority and a portable `AGENTS.md -> CLAUDE.md` compatibility alias. That shared guidance is distinct from harness-specific runtime prompts, room protocols, provider/CLI behavior, and session material; preserve those native distinctions instead of generalizing them through the alias.
 
+**Production status:** pre-production — no live users or data yet, so the pre-production rule in General Conventions applies. Only the owner changes this status.
+
 ## Layout
 
 - `managed-sections/` — Sectioned Markdown blocks injected into projects' `CLAUDE.md` (or other target files via frontmatter `target:`). One file per section + per stack variant.

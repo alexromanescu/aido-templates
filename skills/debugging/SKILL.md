@@ -1,6 +1,6 @@
 ---
 name: debugging
-description: Use when a fix didn't work, a test fails for an unclear reason, behavior contradicts your mental model, or an error surfaces deep in a multi-component system — before proposing or applying the next fix.
+description: Use when a fix didn't work, a test fails for an unclear reason, behavior contradicts your mental model, or an error surfaces deep in a multi-component system — before proposing or applying the next fix. Guides root-cause debugging: reproduce, test one hypothesis at a time, instrument boundaries, and rethink after three failed fixes.
 ---
 
 # Debugging

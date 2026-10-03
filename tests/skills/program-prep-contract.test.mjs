@@ -2,10 +2,15 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const skill = await readFile(
-  new URL("../../skills/program-prep/SKILL.md", import.meta.url),
-  "utf8",
-);
+// The launch contract spans the entrypoint and the reference it links for aido
+// cursors; assert against both so moving text between them stays safe.
+const skill = (
+  await Promise.all(
+    ["SKILL.md", "references/aido-cursor.md"].map((file) =>
+      readFile(new URL(`../../skills/program-prep/${file}`, import.meta.url), "utf8"),
+    ),
+  )
+).join("\n");
 const compactSkill = skill.replace(/\s+/g, " ");
 
 test("program prep keeps the minimum launch contract explicit", () => {

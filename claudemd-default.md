@@ -8,6 +8,8 @@ init: true
 
 {{description}}
 
+**Production status:** pre-production — no live users or data yet, so the pre-production rule in General Conventions applies. Only the owner changes this status.
+
 ## Project Structure
 
 _Describe your project layout here._

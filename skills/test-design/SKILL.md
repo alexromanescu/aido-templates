@@ -1,6 +1,6 @@
 ---
 name: test-design
-description: Use when choosing which layer a test belongs to, adding tests for interactive UI behavior, setting up a component-render harness, or writing a test for state transitions, race conditions, concurrent mutation, cache lifecycles, or any behavior where event ordering matters and end-to-end tests cannot control timing. Also use when graduating a bug fix into a permanent regression test. Not for prose-only changes or for structural source scans (use `structural-tests`).
+description: Use when choosing a test's layer, testing interactive UI behavior or setting up a render harness, testing ordering-dependent behavior (state machines, races, concurrent mutation, cache lifecycles) that end-to-end tests cannot time, or turning a bug fix into a regression test. Picks the lowest faithful layer and gives the deterministic simulation pattern. Not for prose-only changes or structural source scans (use `structural-tests`).
 ---
 
 # Test Design

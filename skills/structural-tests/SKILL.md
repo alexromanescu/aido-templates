@@ -1,6 +1,6 @@
 ---
 name: structural-tests
-description: Use when adding a new structural test (regex or AST scan over source), extending an existing allow-list, auditing structural-test scaffolding for decay, or deciding whether an invariant of the form "every X must also Y" deserves a structural test versus code review alone.
+description: Use when adding a structural test (regex or AST scan over source), extending its allow-list, auditing that scaffolding for decay, or deciding whether an "every X must also Y" invariant deserves a structural test or code review alone. Gives the admission bar, the test anatomy, and decay checks.
 ---
 
 # Structural tests

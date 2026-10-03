@@ -1,6 +1,6 @@
 ---
 name: residuals-review
-description: Use when asked for a residuals review or invariant-decay audit, or when a substantial change risks breaking source invariants, allow-lists, or structural-test coverage. General code review alone does not require this specialized audit. Read-only unless fixes are authorized.
+description: Use when asked for a residuals review or invariant-decay audit, or when a substantial change risks breaking source invariants, allow-lists, or structural-test coverage. Audits whether checks still enforce their claimed invariants: violations they miss and valid cases they reject. General code review alone does not require it. Read-only unless fixes are authorized.
 ---
 
 # Residuals Review
