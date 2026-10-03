@@ -1,4 +1,4 @@
-<!-- managed:process-roadmap v=9 -->
+<!-- managed:process-roadmap v=10 -->
 # Roadmap Process
 
 `docs/roadmap.md` is parsed by the aido app. The format below is strict: phases or rows that do not match are silently dropped. The aido `/project/:name/roadmap` page follows it for you; follow it exactly when editing by hand.
@@ -36,6 +36,6 @@ Top-level sections outside any phase, level 2, exact names, in this order: `## Q
 
 - **Open work only.** When a phase reaches `COMPLETE`, move the whole phase (heading, narrative, tables) to `docs/roadmap-completed.md` in the same commit, creating the file if missing, and leave one `Phase N: <name>` row with a one-line summary in `## Completed Work`. Archive any `COMPLETE` phase you find inline. Never reuse an archived phase number; `## Completed Work` and `roadmap-completed.md` are the registry. A feature that ships before its phase completes gets the same treatment: details to `roadmap-completed.md`, one summary row in `## Completed Work`. A dependency on a task in an archived phase counts as satisfied. Phase 99 is never archived.
 - **Off-phase completions.** When a row in `## Quick Updates`, `## Bugs`, or `## Distant Roadmap` reaches `done`, move it with its `Done` date into Phase 99 in the same commit as the work. A bug is `next` when filed, `doing` while fixed, `blocked` while waiting; it ships with a regression test.
-- **Deferring is not finishing.** Work needed for the agreed outcome is done now when it can be; if a real dependency or missing authorization blocks it, record the blocker and next action here and keep it visible in the active focus. Record unrelated findings as separate rows without expanding the assignment.
+- **Deferring is not finishing.** Work needed for the agreed outcome is done now when it can be; if a real dependency or missing authorization blocks it, record the blocker and next action here and keep it visible in the active focus. Fix unrelated findings that are quick and safe to fix; record the rest as separate rows without expanding the assignment.
 - **Potential Improvements** holds ideas deliberately not acted on now, default `Status: postponed`, never required work. Each `Description` states the benefit, the honest impact (who, how often, correctness versus polish), the cost, and why it waited. Promote by moving the row to `## Distant Roadmap` or a phase.
 <!-- /managed:process-roadmap -->
