@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 88
+version: 89
 target: CLAUDE.md
 order: 10
 ---
@@ -16,7 +16,7 @@ order: 10
 ### Repository safety
 
 - **Use current evidence.** After resumption or compaction, check the directory, branch, and Git status; check prerequisites separately from the consequential command they guard.
-- **Prefer the simplest durable solution.** Follow established patterns, avoid speculative abstractions, handle failures explicitly, validate untrusted data at system boundaries, and remove code your change makes unused. A pre-production project has no users to protect: delete superseded code once its replacement works, and skip shims, parallel paths, fallbacks, baselines, feature flags, staged rollouts, and backward-compatible migrations; git history is the fallback.
+- **Prefer the simplest durable solution.** Follow established patterns, avoid speculative abstractions, handle failures explicitly, validate untrusted data at system boundaries, and remove code your change makes unused. A pre-production project has no users to protect: delete superseded code once its replacement works, and skip shims, parallel paths, compatibility fallbacks, baselines, feature flags, staged rollouts, and backward-compatible migrations; git history is the fallback.
 - **Stop patch loops.** After three repairs to the same code, redesign or delete it rather than patch again; record why.
 - **Follow `docs/process/git-workflow.md`** for isolation and cleanup; commit and merge locally as it describes; pushes need an owner request.
 - **Preserve guidance ownership.** Edit root guidance (`CLAUDE.md`, aliased by `AGENTS.md`) only on explicit request, and managed content only in its canonical templates; session learnings go to project docs.

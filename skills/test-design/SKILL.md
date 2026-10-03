@@ -46,4 +46,4 @@ Translate the pattern to the project's language and runner. When a bug fix lands
 
 ## Regression tests
 
-Two checks beyond the project's regression rule: the pre-fix failure must come from the defect, not from an import, fixture, or syntax error; and if the only reachable boundary is too shallow to reproduce the real pattern, say so rather than writing a test that passes by construction. If verification exposes an unrelated coverage gap, record it without turning the change into a test-wide campaign.
+Two checks beyond the project's regression rule: the pre-fix failure must come from the defect, not from an import, fixture, or syntax error; and if the only reachable boundary is too shallow to reproduce the real pattern, say so rather than writing a test that passes by construction. If verification exposes an unrelated coverage gap, close it when that is quick; otherwise record it rather than turning the change into a test-wide campaign.
