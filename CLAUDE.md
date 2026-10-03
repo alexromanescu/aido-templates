@@ -183,12 +183,12 @@ Pushes to `origin/main` are user-initiated. The aido dev folder (`<projects fold
 - **Close explicitly.** When agreed work is verified complete, report what now works, where it landed (commit, branch, deployment), that records and documentation are updated, and where a fresh session resumes.
 - **Give browser artifacts a verified full URL.**
 <!-- /managed:conventions -->
-<!-- managed:roadmap v=21 -->
+<!-- managed:roadmap v=23 -->
 ## Shared Work Tracking
 
 - `docs/roadmap.md` is the durable backlog and completion record. Read `docs/process/roadmap.md` before editing it; the app parses its format.
-- `docs/active-work.md`, when present, records the current focus and next action. Read it at session start and refresh it when advancing that work, following its guidance block. The assignment determines scope; the cursor does not authorize unrelated work.
-- **Keep documentation true in the same commit**, in-app help and seed data included: correct whatever your change makes inaccurate or incomplete (new behavior, requirements, limitations) in the docs the project has, following `docs/help.md` or `docs/seeding.md` when present, and verify a fresh seed still supports required scenarios. A refactor that changes no documented behavior needs no prose edit. Regenerate `<!-- generated:NAME -->` regions with their documented command, guarded by a committed parity check that fails on drift; never hand-edit them. Create a new doc only when durable instructions have no existing home.
+- `docs/active-work.md`, when present, records the current focus and next action. Read it at session start and refresh it when advancing that work. The assignment determines scope; the cursor does not authorize unrelated work.
+- **Keep documentation true in the same commit**, in-app help and seed data included: correct whatever your change makes inaccurate or incomplete (including limitations) in the docs the project has, following `docs/help.md` or `docs/seeding.md` when present, and, if seeding could be affected, verify a fresh seed still supports required scenarios. A refactor that changes no documented behavior needs no prose edit. Regenerate `<!-- generated:NAME -->` regions with their documented command, guarded by a committed parity check that fails on drift; never hand-edit them. Create a new doc only when durable instructions have no existing home.
 <!-- /managed:roadmap -->
 <!-- managed:testing v=35 -->
 ## Testing & Verification
