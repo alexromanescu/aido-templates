@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 85
+version: 86
 target: CLAUDE.md
 order: 10
 ---
@@ -9,20 +9,20 @@ order: 10
 
 ### Ownership and scope
 
-- **Own the work through completion.** The owner is not a developer or tester. Decide, build, resolve problems, and verify the result yourself. An assignment is the whole agreed batch; never replace work you can finish with recommendations or follow-up tasks.
-- **Respect the requested mode.** Review, explanation, and planning requests get inspection and a report; implement only when asked. For implementation, proceed without routine permission checks. Ask only for missing essentials, a material scope decision, or authorization for an irreversible or costly action; given authorization holds for its agreed scope.
-- **Keep unfinished work visible.** Record a blocked item and what it needs in `docs/active-work.md` when present, with durable work in the roadmap, and continue independent in-scope work. For a read-only request, report the blocker without editing records. Never mark incomplete work done or defer required work to close an assignment.
+- **Own the work through completion.** The owner is not a developer or tester; decide, build, fix, and verify yourself. An assignment is the whole agreed batch; never replace finishable work with recommendations or follow-up tasks.
+- **Respect the requested mode.** Review, explanation, and planning requests get inspection and a report; implement only when asked, then without routine permission checks. Ask only for missing essentials or a material decision on scope, cost, risk, or product behavior (including authorizing an irreversible action), stating what is blocked, the practical consequence, and a recommended decision; given authorization holds for its agreed scope.
+- **Keep unfinished work visible.** Record a blocked item and its needs in `docs/active-work.md` when present (durable work in the roadmap) and continue independent in-scope work; for a read-only request, report it without editing records. Never mark incomplete work done or defer required work to close an assignment.
 
 ### Repository safety
 
-- **Use current evidence.** After resumption or context compaction, check the working directory, branch, and Git status. Run a prerequisite check separately from the consequential command it guards.
-- **Prefer the simplest durable solution.** Follow established project patterns, avoid speculative abstractions, remove code your change makes unused, handle failures explicitly, and validate untrusted data at system boundaries.
+- **Use current evidence.** After resumption or compaction, check the directory, branch, and Git status; check prerequisites separately from the consequential command they guard.
+- **Prefer the simplest durable solution.** Follow established patterns, avoid speculative abstractions, handle failures explicitly, validate untrusted data at system boundaries, and remove code your change makes unused. Before production users exist, delete superseded code once its replacement works and spend nothing keeping it working (no parallel paths, shims, fallbacks, or baselines for it); git history is the fallback.
+- **Stop patch loops.** After two fixes to fixes in one mechanism, stop patching: redesign or delete it, and record why.
 - **Follow `docs/process/git-workflow.md`** for isolation, checkpoints, merging, pushing, and cleanup. Pushes require an owner request.
-- **Preserve guidance ownership.** Edit root guidance (`CLAUDE.md`, aliased by `AGENTS.md`) only when explicitly requested. Edit managed content in its canonical templates, never in consuming files; session learnings go to project docs.
+- **Preserve guidance ownership.** Edit root guidance (`CLAUDE.md`, aliased by `AGENTS.md`) only on explicit request, and managed content only in its canonical templates; session learnings go to project docs.
 
 ### Communication
 
-- **Report for the owner:** the practical result, what changed, and what happens next, in plain language they can act on without opening another document. Say whether work was investigated, implemented, or verified. Make the essential information clear and in a structured format; do not bury it in prose, metaphors nor redundant wording. Keep mechanisms, test counts, and review history in project records. Label estimates.
-- **When the owner is needed** (scope, cost, risk, or product behavior), state what is blocked, the practical consequence, and a recommended decision; ask only for the missing input or authorization.
-- **Close explicitly.** When the agreed work is complete and verified, report what now works, where it landed (commit, branch, deployment), that records and documentation are updated, and what a fresh session resumes from.
+- **Report for the owner:** the practical result, what changed, and what happens next, in plain, self-contained language they can act on. Say whether work was investigated, implemented, or verified. Structure the essentials; never bury them in prose, metaphor, or redundancy. Keep mechanisms, test counts, and review history in project records. Label estimates.
+- **Close explicitly.** When agreed work is verified complete, report what now works, where it landed (commit, branch, deployment), that records and documentation are updated, and where a fresh session resumes.
 - **Give browser artifacts a verified full URL** (the LAN address for a LAN-hosted preview).
