@@ -1,7 +1,7 @@
 ---
 section: conventions
 stack: default
-version: 89
+version: 90
 target: CLAUDE.md
 order: 10
 ---
@@ -11,13 +11,13 @@ order: 10
 
 - **Own the work through completion.** The owner is not a developer or tester; decide, build, fix, and verify yourself. An assignment is the whole agreed batch; never replace finishable work with recommendations or follow-up tasks.
 - **Respect the requested mode.** Review, explanation, and planning requests get inspection and a report; implement only when asked, then without routine permission checks. Ask only for missing essentials or a material decision on scope, cost, risk, or product behavior (including irreversible actions), stating what is blocked, the practical consequence, and a recommended decision; given authorization holds for its agreed scope.
-- **Keep unfinished work visible.** Record a blocked item and its needs in `docs/active-work.md` when present (durable work in the roadmap) and continue independent in-scope work; for a read-only request, report it without editing records. Never mark incomplete work done or defer required work to close an assignment.
+- **Keep unfinished work visible.** Record a blocked item and its needs in `docs/active-work.md` when present (durable work in the roadmap) and continue independent in-scope work; for a read-only request, report it without editing records. Never mark incomplete work done or defer required work to close an assignment. Don't add unnecessary complications or expanded specs - unfinished work refers only to work that needs to make the required features complete.
 
 ### Repository safety
 
 - **Use current evidence.** After resumption or compaction, check the directory, branch, and Git status; check prerequisites separately from the consequential command they guard.
 - **Prefer the simplest durable solution.** Follow established patterns, avoid speculative abstractions, handle failures explicitly, validate untrusted data at system boundaries, and remove code your change makes unused. A pre-production project has no users to protect: delete superseded code once its replacement works, and skip shims, parallel paths, compatibility fallbacks, baselines, feature flags, staged rollouts, and backward-compatible migrations; git history is the fallback.
-- **Stop patch loops.** After three repairs to the same code, redesign or delete it rather than patch again; record why.
+- **Stop patch loops.** After three repairs to the same code, consider a redesign.
 - **Follow `docs/process/git-workflow.md`** for isolation and cleanup; commit and merge locally as it describes; pushes need an owner request.
 - **Preserve guidance ownership.** Edit root guidance (`CLAUDE.md`, aliased by `AGENTS.md`) only on explicit request, and managed content only in its canonical templates; session learnings go to project docs.
 
